@@ -1,0 +1,104 @@
+@import 'reset';
+@import 'font';
+@import 'variables';
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+}
+.container {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  &_center{
+    justify-content: center;
+  }
+}
+h1 {
+  font-size: 48px;
+  font-weight: 400;
+}
+input {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  width: 100%;
+  padding: 15px 35px;
+
+  // color:$black;
+  // &::placeholder{
+  //   color:$gray;
+  // }
+}
+img{
+  max-width: 100%;
+}
+.btn{
+  padding: 15px 40px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: $white;
+  background-color: $green;
+}
+.header{
+  padding: 20px 0;
+  box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.01);
+  &__logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__logo-name{
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-left: 10px;
+    color:$darkBlue;
+  }
+  &__menu{
+    flex: 1 1 auto;
+  }
+}
+.main{
+  padding:80px 0;
+}
+.header-profile{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &__name{
+    font-size: 18px;
+    margin-right: 34px;
+  }
+  &__img{
+    width:65px;
+    height: 65px;
+    border-radius: 50%;  
+  }
+}
+.auth{
+  height: 100%;
+  background-color: #013243;
+  // background: url('../../images/auth-bg.jpg') center/cover no-repeat;
+}
+.auth-header{
+  height: 160px;
+  padding: 40px 0;
+  &__logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__name{
+    font-size: 48px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-left: 30px;
+    color:$white;
+  }
+}
+
+
