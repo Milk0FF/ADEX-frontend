@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import RegisterPage from "../views/RegisterPage.vue";
 import LoginPage from "../views/LoginPage.vue";
 import TasksPage from "../views/TasksPage.vue";
-import UserProfilePage from "../views/UserProfilePage.vue";
+import ProfilePage from "../views/ProfilePage.vue";
+import ChatsPage from "../views/ChatsPage.vue";
+import PersonalProfilePage from "../views/PersonalProfilePage.vue";
 
 const routes = [
   {
@@ -23,7 +25,17 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-    component: UserProfilePage,
+    component: ProfilePage,
+  },
+  {
+    path: "/chats",
+    name: "chats",
+    component: ChatsPage,
+  },
+  {
+    path: "/personal-profile",
+    name: "personal-profile",
+    component: PersonalProfilePage,
   },
 ];
 

@@ -145,25 +145,7 @@ textarea{
     flex: 1 1 auto;
   }
   &__category{
-    text-transform: uppercase;
-    color:$white;
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 10px;
-    border-radius: 6px;
     margin-right: 24px;
-    &:last-child{
-      margin:0;
-    }
-    &_green{
-      background-color: $green;
-    }
-    &_red{
-      background-color: $red;
-    }
-    &_blue{
-      background-color: $blue;
-    }
   }
   &__price{
     color:$green;
@@ -190,6 +172,29 @@ textarea{
   &__response-field{
      flex: 0 1 1100px;
 
+  }
+}
+.task-category{
+  text-transform: uppercase;
+  color:$white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  &:last-child{
+    margin:0;
+  }
+  &_green{
+    background-color: $green;
+  }
+  &_red{
+    background-color: $red;
+  }
+  &_blue{
+    background-color: $blue;
+  }
+  &_purple{
+    background-color: $purple;
   }
 }
 .price-slider{

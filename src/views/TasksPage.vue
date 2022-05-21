@@ -69,9 +69,9 @@
            <div class="main-task__header">
              <div class="main-task__name">Make YouTube Video</div>
              <div class="main-task__categories">
-               <div class="main-task__category main-task__category_red">Youtube</div>
-               <div class="main-task__category main-task__category_blue">VK</div>
-               <div class="main-task__category main-task__category_green">VK</div>
+               <div class="main-task__category task-category task-category_red">Youtube</div>
+               <div class="main-task__category task-category task-category_blue">VK</div>
+               <div class="main-task__category  task-category task-category_green">VK</div>
              </div>
              <div class="main-task__price">10 000 ₽</div>
            </div>
@@ -84,9 +84,9 @@
            <div class="main-task__header">
              <div class="main-task__name">Make YouTube Video</div>
              <div class="main-task__categories">
-               <div class="main-task__category main-task__category_red">Youtube</div>
-               <div class="main-task__category main-task__category_blue">VK</div>
-               <div class="main-task__category main-task__category_green">VK</div>
+               <div class="main-task__category task-category task-category_red">Youtube</div>
+               <div class="main-task__category task-category task-category_blue">VK</div>
+               <div class="main-task__category  task-category task-category_green">VK</div>
              </div>
              <div class="main-task__price">10 000 ₽</div>
            </div>
@@ -99,14 +99,14 @@
            <div class="main-task__header">
              <div class="main-task__name">Make YouTube Video</div>
              <div class="main-task__categories">
-               <div class="main-task__category main-task__category_red">Youtube</div>
-               <div class="main-task__category main-task__category_blue">VK</div>
-               <div class="main-task__category main-task__category_green">VK</div>
+               <div class="main-task__category task-category task-category_red">Youtube</div>
+               <div class="main-task__category task-category task-category_blue">VK</div>
+               <div class="main-task__category  task-category task-category_green">VK</div>
              </div>
              <div class="main-task__price">10 000 ₽</div>
            </div>
            <div class="main-task__content">
-             <div class="main-task__description">Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem ...</div>
+             <div class="main-task__description">Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.</div>
              <div class="main-task__time">11 дней</div>
            </div>
            <div class="main-task__response">
