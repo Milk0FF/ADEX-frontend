@@ -16,6 +16,10 @@ body {
   &_center{
     justify-content: center;
   }
+  &_column{
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 h1 {
   font-size: 48px;
@@ -36,39 +40,190 @@ img{
   max-width: 100%;
 }
 .btn{
-  padding: 15px 40px;
+  padding: 20px 40px;
   border-radius: 20px;
   font-size: 18px;
   font-weight: 700;
   color: $white;
   background-color: $green;
 }
+textarea{
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid #CCCCCC;
+  font-size: 14px;
+  height: 66px;
+  background-color: $gray2;
+  color:$black;
+  resize: none;
+  &::placeholder{
+    color:$black;
+  }
+}
 .header{
   padding: 20px 0;
   box-shadow: 0px 10px 20px 10px rgba(0, 0, 0, 0.01);
-  &__logo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  &__menu{
+    flex: 1 1 auto;
   }
-  &__logo-name{
+}
+.logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__name{
     font-size: 40px;
     font-weight: 700;
     font-family: 'Inter', sans-serif;
     margin-left: 10px;
     color:$darkBlue;
   }
-  &__menu{
+}
+.footer{
+  padding: 25px 0;
+  height: 90px;
+  &__container{
+    position: relative;
+  }
+  &__developers{
+    position: absolute;
+    top:0;
+    left:0;
+    display: flex;
+    align-items: center;
+  }
+  &__name{
+    font-size: 18px;
+    margin-right: 20px;
+  }
+  &__site-name{
     flex: 1 1 auto;
+    text-align: center;
+  }
+  .logo{
+    &__name{
+      font-size: 32px;
+    }
   }
 }
 .main{
-  padding:80px 0;
+  padding:50px 0;
+  background-color: $gray;
+  &__filters{
+    display: flex;  
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+  &__price-slider{
+
+  }
+  &__tasks{
+
+  }
+}
+.main-task{
+  cursor: pointer;
+  padding: 20px 40px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background-color: $white;
+  &:last-child{
+    margin:0;
+  }
+  &__header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  &__name{
+    font-size: 20px;
+    margin-right: 40px;
+  }
+  &__categories{
+    display: flex;
+    flex: 1 1 auto;
+  }
+  &__category{
+    text-transform: uppercase;
+    color:$white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-right: 24px;
+    &:last-child{
+      margin:0;
+    }
+    &_green{
+      background-color: $green;
+    }
+    &_red{
+      background-color: $red;
+    }
+    &_blue{
+      background-color: $blue;
+    }
+  }
+  &__price{
+    color:$green;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 24px;
+  }
+  &__content{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  &__description{
+    flex: 0 1 1100px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+  &__response{
+    margin-top: 25px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  &__response-field{
+     flex: 0 1 1100px;
+
+  }
+}
+.price-slider{
+  &__price{
+    margin-right: 24px;
+  }
+}
+.main-categories{
+  display: flex;
+  align-items: center;
+  &__category{
+    cursor: pointer;
+    font-size:18px;
+    padding: 20px;
+    border-radius: 20px;
+    transition: 0.3s ease all;
+    color:$black;
+    margin-right: 40px;
+    background-color: $white;
+    &_active{
+      background-color:$green;
+      color:$white;
+    }
+    &:hover{
+      background-color:$green;
+      color:$white;
+    }
+  }
 }
 .header-profile{
   display: flex;
   align-items: center;
   cursor: pointer;
+  position: relative;
   &__name{
     font-size: 18px;
     margin-right: 34px;
@@ -77,6 +232,51 @@ img{
     width:65px;
     height: 65px;
     border-radius: 50%;  
+  }
+}
+.header-dropmenu{
+  width: 230px;
+  background-color: $white;
+  box-shadow: 0px 5px 10px 4px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top:120%;
+  right: 0;
+  z-index: 2;
+  padding: 18px 0 11px 0;
+  &__usertypes{
+    padding: 0 15px;
+    margin-bottom: 20px;
+    display: flex;
+  }
+  &__usertype{
+    display: flex;
+    justify-content: center;
+    flex: 1 1 50%;
+    align-items: center;
+    padding: 10px 0;
+    border: 1px solid $green;
+    color:$green;
+    font-size: 12px;
+    font-weight: 700;
+    transition: 0.3s ease all;
+    &_active, &:hover{
+      background-color: $green;
+      color:$white;
+    }
+  }
+  &__list{
+    li{
+      padding: 10px 16px;
+      &:hover{
+        background-color:$gray;
+      }
+    }
+
+  }
+  &__link{
+    color:$black;
+    font-size: 12px;
+
   }
 }
 .auth{
