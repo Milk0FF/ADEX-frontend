@@ -20,9 +20,36 @@
     </div>
   </div>
   <div class="chats">
-    <div class="chats__container container container_column">
+    <div class="chats__container container">
         <div class="chats__sidebar chats-sidebar">
-
+          <div class="chats-sidebar__chat chats-sidebar__chat_active">
+            <div class="chats-sidebar__user-info chat-user-info">
+              <div class="chat-user-info__avatar">
+                  <img src="../assets/images/user-logo.png">
+              </div>
+              <div class="chat-user-info__info">
+                  <div class="chat-user-info__name">Иванов Иван</div>
+                  <div class="chat-user-info__task-name">Название задачи</div>
+              </div>
+            </div>
+            <div class="chats-sidebar__date">
+              10.02.2020 г.
+            </div>
+          </div>
+          <div class="chats-sidebar__chat">
+            <div class="chats-sidebar__user-info chat-user-info">
+              <div class="chat-user-info__avatar">
+                  <img src="../assets/images/user-logo.png">
+              </div>
+              <div class="chat-user-info__info">
+                  <div class="chat-user-info__name">Иванов Иван</div>
+                  <div class="chat-user-info__task-name">Название задачи</div>
+              </div>
+            </div>
+            <div class="chats-sidebar__date">
+              10.02.2020 г.
+            </div>
+          </div>
         </div>
         <div class="chats__chat chat">
             <div class="chat__header">
@@ -39,19 +66,19 @@
                     <span></span>
                     <span></span>
                     <span></span>
-                </div>
-                <div class="chat__dropmenu chat-dropmenu">
-                    <ul class="chat-dropmenu__list">
-                        <li>
-                            <div class="chat-dropmenu__link">Назначить исполнителем</div>
-                        </li>
-                        <li>
-                            <div class="chat-dropmenu__link">Завершить задачу</div>
-                        </li>
-                        <li>
-                            <div class="chat-dropmenu__link">Выход</div>
-                        </li>
-                    </ul>
+                    <div class="chat__dropmenu chat-dropmenu">
+                        <ul class="chat-dropmenu__list">
+                            <li>
+                                <a class="chat-dropmenu__link">Назначить исполнителем</a>
+                            </li>
+                            <li>
+                                <a class="chat-dropmenu__link">Завершить задачу</a>
+                            </li>
+                            <li>
+                                <a class="chat-dropmenu__link">Выход</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="chat__content">

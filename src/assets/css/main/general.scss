@@ -25,6 +25,9 @@ h1 {
   font-size: 48px;
   font-weight: 400;
 }
+h3{
+  font-size: 18px;
+}
 input {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
@@ -67,6 +70,66 @@ textarea{
     flex: 1 1 auto;
   }
 }
+.header-profile{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  &__name{
+    font-size: 18px;
+    margin-right: 34px;
+  }
+  &__img{
+    width:65px;
+    height: 65px;
+    border-radius: 50%;  
+  }
+}
+.header-dropmenu{
+  width: 230px;
+  background-color: $white;
+  box-shadow: 0px 5px 10px 4px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  top:120%;
+  right: 0;
+  z-index: 2;
+  padding: 18px 0 11px 0;
+  &__usertypes{
+    padding: 0 15px;
+    margin-bottom: 20px;
+    display: flex;
+  }
+  &__usertype{
+    display: flex;
+    justify-content: center;
+    flex: 1 1 50%;
+    align-items: center;
+    padding: 10px 0;
+    border: 1px solid $green;
+    color:$green;
+    font-size: 12px;
+    font-weight: 700;
+    transition: 0.3s ease all;
+    &_active, &:hover{
+      background-color: $green;
+      color:$white;
+    }
+  }
+  &__list{
+    li{
+      padding: 10px 16px;
+      &:hover{
+        background-color:$gray;
+      }
+    }
+
+  }
+  &__link{
+    color:$black;
+    font-size: 12px;
+
+  }
+}
 .logo{
   display: flex;
   justify-content: center;
@@ -79,33 +142,31 @@ textarea{
     color:$darkBlue;
   }
 }
-.footer{
-  padding: 25px 0;
-  height: 90px;
-  &__container{
-    position: relative;
-  }
-  &__developers{
-    position: absolute;
-    top:0;
-    left:0;
+
+.auth{
+  height: 100%;
+  background-color: #013243;
+  // background: url('../../images/auth-bg.jpg') center/cover no-repeat;
+}
+.auth-header{
+  height: 160px;
+  padding: 40px 0;
+  &__logo{
     display: flex;
+    justify-content: center;
     align-items: center;
   }
   &__name{
-    font-size: 18px;
-    margin-right: 20px;
-  }
-  &__site-name{
-    flex: 1 1 auto;
-    text-align: center;
-  }
-  .logo{
-    &__name{
-      font-size: 32px;
-    }
+    font-size: 48px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-left: 30px;
+    color:$white;
   }
 }
+
+// Tasks
+
 .main{
   padding:50px 0;
   background-color: $gray;
@@ -224,85 +285,453 @@ textarea{
     }
   }
 }
-.header-profile{
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
-  &__name{
-    font-size: 18px;
-    margin-right: 34px;
+
+// Profile
+.profile{
+  padding: 50px 0;
+  background-color: $gray;
+  &__container{
+    align-items: flex-start;
   }
-  &__img{
-    width:65px;
-    height: 65px;
-    border-radius: 50%;  
+  &__sidebar{
+    margin-right: 25px;
   }
-}
-.header-dropmenu{
-  width: 230px;
-  background-color: $white;
-  box-shadow: 0px 5px 10px 4px rgba(0, 0, 0, 0.05);
-  position: absolute;
-  top:120%;
-  right: 0;
-  z-index: 2;
-  padding: 18px 0 11px 0;
-  &__usertypes{
-    padding: 0 15px;
-    margin-bottom: 20px;
+  &__content{
+  }
+  &__cards{
     display: flex;
-  }
-  &__usertype{
-    display: flex;
-    justify-content: center;
-    flex: 1 1 50%;
     align-items: center;
-    padding: 10px 0;
-    border: 1px solid $green;
-    color:$green;
-    font-size: 12px;
-    font-weight: 700;
-    transition: 0.3s ease all;
-    &_active, &:hover{
-      background-color: $green;
-      color:$white;
+    margin-bottom: 35px;
+  }
+  &__card{
+    margin-right: 25px;
+    &:last-child{
+      margin:0;
     }
   }
-  &__list{
-    li{
-      padding: 10px 16px;
-      &:hover{
-        background-color:$gray;
+  &__reviews{
+
+  }
+}
+.profile-sidebar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  padding: 50px 50px 40px 50px;
+  &__avatar{
+    width:150px;
+    height: 150px;
+    position: relative;
+    margin-bottom: 23px;
+    border-radius: 50%;
+  }
+  &__status{
+    position: absolute;
+    top:0px;
+    right: 0px;
+  }
+  &__name{
+    font-size: 28px;
+    margin-bottom: 23px;
+  }
+  &__line{
+    align-self: stretch;
+  }
+  &__categories{
+    display: flex;
+    align-items: center;
+  }
+  &__category{
+    margin-right: 25px;
+  }
+}
+.status{
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  width: 80px;
+  padding: 5px;
+  border-radius: 6px;
+  &_red{
+    background-color: $red;
+  }
+  &_green{
+    background-color: $green;
+  }
+}
+.profile-line{
+  padding: 15px 30px;
+  background-color: $gray2;
+  border: 1px solid $gray3;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  &:last-child{
+    margin-bottom: 30px;
+  }
+  &__title{
+    font-size: 12px;
+    color: $gray4;
+    margin-bottom: 9px;
+  }
+  &__name{
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+.profile-card{
+  padding: 25px 50px 35px 45px;
+  display: flex;
+  background-color: $white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  align-items: flex-end;
+  &__info{
+    margin-right: 48px;
+  }
+  &__number{
+    font-size: 36px;
+    line-height: 1.2;
+    margin-bottom: 11px;
+    color:$green;
+  }
+  &__name{
+    font-size: 20px;
+    color:$gray4;
+  }
+  &__statics{
+    display: flex;
+    align-items: flex-end;
+  }
+  &__column{
+    width: 17px;
+    height: 65px;
+    background-color: $whiteGreen;
+    &_start{
+      height: 35px;
+    }
+    &_middle{
+      margin: 0 13px;
+    }
+    &_end{
+      height: 43px;
+      background-color: $green;
+    }
+  }
+  &_purple{
+    .profile-card__number{
+      color:$purple;
+    }
+    .profile-card__column{
+      background-color: $whitePurple;
+      &_end{
+        background-color: $purple;
       }
     }
-
   }
-  &__link{
-    color:$black;
+  &_red{
+    .profile-card__number{
+      color:$red;
+    }
+    .profile-card__column{
+      background-color: $whiteRed;
+      &_end{
+        background-color: $red;
+      }
+    }
+  }
+}
+.profile-reviews{
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  padding: 40px 45px;
+  &__title{
+    margin-bottom: 32px;
+  }
+  &__user-types{
     font-size: 12px;
-
+    color:$gray4;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid  $gray5;
+  }
+  &__user-type{
+    margin-right: 30px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    &:last-child{
+      margin:0;
+    }
+    &_active{
+      color:$black;
+      position: relative;
+      &::after{
+        position: absolute;
+        content: '';
+        top:16px;
+        left:0;
+        height: 3px;
+        width: 120%;
+        background-color: $green;
+        border-radius: 12px;
+      }
+    }
+  }
+  &__review{
+    &:last-of-type{
+      margin-bottom: 40px;
+    }
+  }
+  &__btn{
+    padding: 12px 25px;
+    align-self: center;
   }
 }
-.auth{
-  height: 100%;
-  background-color: #013243;
-  // background: url('../../images/auth-bg.jpg') center/cover no-repeat;
+.review{
+  padding: 15px 0;
+  border-bottom: 1px solid  $gray5;
+  display: flex;
+  &__score{
+    flex: 0 0 40px;
+    margin-right: 30px;
+    width: 40px;
+    height: 40px;
+    padding: 7px;
+    display: flex;
+    border-radius: 12px;
+    background-color: $green;
+    &_negative{
+      background-color: $red;
+      img{
+        transform: rotate(-180deg);
+      }
+    }
+  }
+  &__content{
+    flex: 1 1 auto;
+  }
+  &__header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  &__user-info{
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+  }
+  &__avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    margin-right: 15px;
+  }
+  &__name{
+    font-size: 16px;
+    font-weight: 700;
+  }
+  &__date{
+    font-size: 12px;
+  }
+  &__text{
+    width: 630px;
+    font-size: 12px;
+    line-height: 14px;
+  }
 }
-.auth-header{
-  height: 160px;
-  padding: 40px 0;
-  &__logo{
+.chats{
+  background-color: $gray;
+  padding: 50px 0;
+  &__container{
+    align-items: flex-start;
+  }
+  &__sidebar{
+    margin-right: 20px;
+    flex: 0 1 350px;
+
+  }
+  &__chat{
+    flex: 1 1 auto;
+  }
+}
+.chats-sidebar{
+  padding-bottom: 50px;
+  background-color: $white;
+  border-radius: 20px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  overflow: hidden;
+  &__chat{
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid $gray5;
+    transition: 0.3s ease all;
+    cursor: pointer;
+    &:hover, &_active{
+      background-color: rgba(4, 224, 121, 0.5);
+    }
+  }
+  &__user-info{
+    flex: 1 1 auto;
+  }
+  &__date{
+    font-size: 12px;
+  }
+
+}
+.chat-user-info{
+  display: flex;
+  align-items: center;
+  &__avatar{
+    overflow: hidden;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+  }
+  &__info{
+
+  }
+  &__name{
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  &__task-name{
+    font-size: 12px;
+    color:$gray6;
+  }
+}
+.chat{
+  background-color: $white;
+  border-radius: 20px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  &__header{
+    padding: 25px 50px 15px 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $gray5;
+  }
+  &__user-info{
+    flex: 1 1 auto;
+  }
+  &__settings{
+    position: relative;
+    border-radius: 50%;
+    border: 1px solid $black;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    span{
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: $black;
+      display: block;
+      &:nth-child(2){
+        margin: 0 4px;
+      }
+    }
+  }
+  &__dropmenu{
+    position: absolute;
+    top:45px;
+    right:0;
+    width: 230px;
+    z-index: 2;
+  }
+  &__content{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+
+  }
+  &__message{
+    margin-bottom: 15px;
+
+    &_another{
+      align-self:flex-start;
+      .chat__text{
+        background-color: $gray7;
+      }
+    }
+    &_owner{
+      align-self:flex-end;
+      .chat__text{
+        background-color: rgba(4, 224, 121, 0.5);
+      }
+      .chat__date{
+        text-align: right;
+      }
+    }
+  }
+  &__text{
+    padding: 15px 20px;
+    font-size: 14px;
+    line-height: 1.2;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  &__footer{
+    border-top: 1px solid $gray5;
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+  }
+  &__field{
+    margin-right: 65px;
+  }
+}
+.chat-dropmenu{
+  background-color: $white;
+  border: 1px solid $gray5;
+  padding-bottom: 10px;
+  &__list{
+    li{
+      cursor: pointer;
+      padding:10px 15px; 
+      &:hover{
+        background-color: $gray;
+      }
+    }
+  }
+}
+
+.footer{
+  padding: 25px 0;
+  height: 90px;
+  &__container{
+    position: relative;
+  }
+  &__developers{
+    position: absolute;
+    top:0;
+    left:0;
+    display: flex;
+    align-items: center;
   }
   &__name{
-    font-size: 48px;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
-    margin-left: 30px;
-    color:$white;
+    font-size: 18px;
+    margin-right: 20px;
+  }
+  &__site-name{
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  .logo{
+    &__name{
+      font-size: 32px;
+    }
   }
 }
 

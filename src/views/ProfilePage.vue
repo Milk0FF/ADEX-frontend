@@ -20,11 +20,11 @@
     </div>
   </div>
   <div class="profile">
-    <div class="profile__container container container_column">
+    <div class="profile__container container">
       <div class="profile__sidebar profile-sidebar">
         <div class="profile-sidebar__avatar">
           <img src="../assets/images/user-logo.png"/>
-          <div class="profile-sidebar__status status">Занят</div>
+          <div class="profile-sidebar__status status status_red">Занят</div>
         </div>
         <div class="profile-sidebar__name">
           Иванов Иван
@@ -55,20 +55,20 @@
               <div class="profile-card__name">Рейтинг</div>
             </div>
             <div class="profile-card__statics">
-              <div class="profile-card__column"></div>
-              <div class="profile-card__column"></div>
-              <div class="profile-card__column"></div>
+              <div class="profile-card__column profile-card__column_start"></div>
+              <div class="profile-card__column profile-card__column_middle"></div>
+              <div class="profile-card__column profile-card__column_end"></div>
             </div>
           </div>
           <div class="profile__card profile-card profile-card_purple">
             <div class="profile-card__info">
               <div class="profile-card__number">0</div>
-              <div class="profile-card__name">Рейтинг</div>
+              <div class="profile-card__name">Одобрен</div>
             </div>
             <div class="profile-card__statics">
-              <div class="profile-card__column"></div>
-              <div class="profile-card__column"></div>
-              <div class="profile-card__column"></div>
+              <div class="profile-card__column profile-card__column_start"></div>
+              <div class="profile-card__column profile-card__column_middle"></div>
+              <div class="profile-card__column profile-card__column_end"></div>
             </div>
           </div>
           
@@ -78,15 +78,14 @@
               <div class="profile-card__name">Отклонён</div>
             </div>
             <div class="profile-card__statics">
-              <div class="profile-card__column"></div>
-              <div class="profile-card__column"></div>
-              <div class="profile-card__column"></div>
+              <div class="profile-card__column profile-card__column_start"></div>
+              <div class="profile-card__column profile-card__column_middle"></div>
+              <div class="profile-card__column profile-card__column_end"></div>
             </div>
           </div>
-          
         </div>
         <div class="profile__reviews profile-reviews">
-          <h3 class="profile-reviews__title"></h3>
+          <h3 class="profile-reviews__title">Отзывы</h3>
           <div class="profile-reviews__user-types">
             <div class="profile-reviews__user-type profile-reviews__user-type_active">
               Исполнитель
@@ -96,7 +95,9 @@
             </div>
           </div>
           <div class="profile-reviews__review review">
-            <div class="review__score"></div>
+            <div class="review__score">
+              <img src="../assets/images/like.svg">
+            </div>
             <div class="review__content">
               <div class="review__header">
                 <div class="review__user-info">
@@ -112,7 +113,45 @@
               </div>
             </div>
           </div>
-          <button class="profile__reviews__btn btn btn-primary">Загрузить ещё</button>
+          <div class="profile-reviews__review review">
+            <div class="review__score">
+              <img src="../assets/images/like.svg">
+            </div>
+            <div class="review__content">
+              <div class="review__header">
+                <div class="review__user-info">
+                  <div class="review__avatar">
+                    <img src="../assets/images/user-logo.png">
+                  </div>
+                  <div class="review__name">Иванов Иван</div>
+                </div>
+                <div class="review__date">10.02.2020 г.</div>
+              </div>
+              <div class="review__text">
+                Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+              </div>
+            </div>
+          </div>
+          <div class="profile-reviews__review review">
+            <div class="review__score review__score_negative">
+              <img src="../assets/images/like.svg">
+            </div>
+            <div class="review__content">
+              <div class="review__header">
+                <div class="review__user-info">
+                  <div class="review__avatar">
+                    <img src="../assets/images/user-logo.png">
+                  </div>
+                  <div class="review__name">Иванов Иван</div>
+                </div>
+                <div class="review__date">10.02.2020 г.</div>
+              </div>
+              <div class="review__text">
+                Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+              </div>
+            </div>
+          </div>
+          <button class="profile-reviews__btn btn btn-primary">Загрузить ещё</button>
         </div>
       </div>
     </div>

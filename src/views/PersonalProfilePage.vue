@@ -72,17 +72,17 @@
           <input type="text" placeholder="Категории">
         </div>
         <div class="personal-profile__categories">
-          <div class="personal-profile__category task-category__red">
+          <div class="personal-profile__category task-category task-category_red">
             YOUTUBE
             <div class="task-category__delete"></div>
           </div>
           
-          <div class="personal-profile__category task-category__blue">
+          <div class="personal-profile__category task-category task-category_blue">
             VK
             <div class="task-category__delete"></div>
           </div>
           
-          <div class="personal-profile__category task-category__purple">
+          <div class="personal-profile__category task-category task-category_purple">
             INSTAGRAM
             <div class="task-category__delete"></div>
           </div>
