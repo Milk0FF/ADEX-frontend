@@ -109,7 +109,7 @@
             </div>
             <div class="chat__footer">
                 <textarea class="chat__field" placeholder="Напишите сообщение ..."></textarea>
-                <button class="chat__btn btn btn-primary">Отправить</button>
+                <button class="chat__btn btn">Отправить</button>
             </div>
 
         </div>

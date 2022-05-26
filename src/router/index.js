@@ -5,6 +5,7 @@ import TasksPage from "../views/TasksPage.vue";
 import ProfilePage from "../views/ProfilePage.vue";
 import ChatsPage from "../views/ChatsPage.vue";
 import PersonalProfilePage from "../views/PersonalProfilePage.vue";
+import CustomerTasksPage from "../views/CustomerTasksPage.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/personal-profile",
     name: "personal-profile",
     component: PersonalProfilePage,
+  },
+  {
+    path: "/tasks",
+    name: "customer-tasks",
+    component: CustomerTasksPage,
   },
 ];
 

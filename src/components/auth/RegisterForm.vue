@@ -21,7 +21,7 @@
           <div class="form__input">
             <input type="text" placeholder="Подтверждение пароля">
           </div>
-          <button class="form__btn btn btn-primary" type="submit">Зарегистрироваться</button>
+          <button class="form__btn btn" type="submit">Зарегистрироваться</button>
         </div>
       </div>
     </div>

@@ -33,43 +33,53 @@
     </div>
   </div>
   <div class="personal-profile">
-    <div class="personal-profile__container container container_column">
+    <div class="personal-profile__container container container_sm container_column">
       <div class="personal-profile__header">
         <div class="personal-profile__avatar">
           <img src="../assets/images/user-logo.png"/>
-          <div class="personal-profile__edit"></div>
+          <div class="personal-profile__edit">
+            <img src="../assets/images/edit-pencil.svg"/>
+          </div>
         </div>
         <div class="personal-profile__name">Иванов Иван</div>
       </div>
       <div class="personal-profile__content">
-        <h3 class="personal-profile__title"></h3>
-        <div class="personal-profile__field field">
+        <h3 class="personal-profile__title">Личная информация</h3>
+        <div class="personal-profile__field field field_sm">
           <div class="field__title">Имя</div>
-          <input type="text" placeholder="Имя">
+          <input class="field__input" type="text" placeholder="Имя">
         </div>
-        <div class="personal-profile__field field">
+        <div class="personal-profile__field field field_sm">
           <div class="field__title">Фамилия</div>
-          <input type="text" placeholder="Фамилия">
+          <input class="field__input" type="text" placeholder="Фамилия">
+        </div>
+        <div class="personal-profile__field field field_sm">
+          <div class="field__title">Телефон</div>
+          <input class="field__input" type="text" placeholder="Имя">
+        </div>
+        <div class="personal-profile__field field field_sm">
+          <div class="field__title">Email</div>
+          <input class="field__input" type="text" placeholder="Фамилия">
         </div>
         <div class="personal-profile__field field">
           <div class="field__title">О себе</div>
-          <input type="text" placeholder="О себе">
+          <input class="field__input" type="text" placeholder="О себе">
         </div>
-        <div class="personal-profile__field field">
+        <div class="personal-profile__field field field_sm">
           <div class="field__title">Город</div>
-          <input type="text" placeholder="Город">
+          <input class="field__input" type="text" placeholder="Город">
         </div>
-        <div class="personal-profile__field field">
+        <div class="personal-profile__field field field_sm">
           <div class="field__title">Страна</div>
-          <input type="text" placeholder="Страна">
+          <input class="field__input" type="text" placeholder="Страна">
         </div>
         <div class="personal-profile__field field">
           <div class="field__title">Дата рождения</div>
-          <input type="text" placeholder="Дата рождения">
+          <input class="field__input" type="text" placeholder="Дата рождения">
         </div>
         <div class="personal-profile__field field">
           <div class="field__title">Категории</div>
-          <input type="text" placeholder="Категории">
+          <input class="field__input" type="text" placeholder="Категории">
         </div>
         <div class="personal-profile__categories">
           <div class="personal-profile__category task-category task-category_red">
@@ -88,6 +98,7 @@
           </div>
         </div>
       </div>
+      <button class="personal-profile__btn btn btn_primary">Сохранить</button>
     </div>
   </div>
   <div class="footer">

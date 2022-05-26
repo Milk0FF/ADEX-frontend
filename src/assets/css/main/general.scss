@@ -3,7 +3,7 @@
 @import 'variables';
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 400;
   font-style: normal;
@@ -19,6 +19,9 @@ body {
   &_column{
     flex-direction: column;
     align-items: stretch;
+  }
+  &_sm{
+    max-width: 1029px;
   }
 }
 h1 {
@@ -49,6 +52,10 @@ img{
   font-weight: 700;
   color: $white;
   background-color: $green;
+  &_primary{
+    padding: 12px 40px;
+    align-self: center;
+  }
 }
 textarea{
   width: 100%;
@@ -144,9 +151,9 @@ textarea{
 }
 
 .auth{
+  min-height: 1200px;
   height: 100%;
-  background-color: #013243;
-  // background: url('../../images/auth-bg.jpg') center/cover no-repeat;
+  background: url('@/assets/images/auth-bg.jpg') $darkBlue2 center/cover no-repeat;
 }
 .auth-header{
   height: 160px;
@@ -231,11 +238,53 @@ textarea{
     justify-content: space-between;
   }
   &__response-field{
-     flex: 0 1 1100px;
-
+    flex: 0 1 1100px;
+  }
+  &__title{
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  &__btn{
+    margin-top: 30px;
+  }
+  &__form{
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+  }
+  &__field{
+    margin-bottom: 15px;
+  }
+  &_full{
+    margin-bottom: 25px;
+    padding: 20px 25px;
+    border: 1px solid $gray3;
+    .main-task{
+      &__name{
+        margin-right: 25px;
+        font-size: 16px;
+      }
+      &__category{
+        margin-right: 20px;
+      }
+      &__status{
+        border-radius: 6px;
+        padding: 5px 7px;
+        font-weight: 700;
+        font-size: 12px;
+        color:$white;
+        background-color: $green;
+      }
+      &__description{
+        font-size: 14px;
+        line-height: 16px;
+        flex: 0 1 570px;
+      }
+    }
   }
 }
 .task-category{
+  position: relative;
   text-transform: uppercase;
   color:$white;
   font-size: 12px;
@@ -256,6 +305,33 @@ textarea{
   }
   &_purple{
     background-color: $purple;
+  }
+  &:hover{
+    .task-category__delete{
+      display: block;
+    }
+  }
+  &__delete{
+    display: none;
+    position: absolute;
+    top:-6px;
+    right: -6px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-color: $white;
+    border-radius: 50%;
+    border:1px solid $black;
+    &::after{
+      content:'';
+      position: absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      background: url('@/assets/images/delete-cross.svg') 0 0 no-repeat;
+      width: 8px;
+      height: 8px;
+    }
   }
 }
 .price-slider{
@@ -489,10 +565,10 @@ textarea{
       margin-bottom: 40px;
     }
   }
-  &__btn{
-    padding: 12px 25px;
-    align-self: center;
-  }
+  // &__btn{
+  //   padding: 12px 25px;
+  //   align-self: center;
+  // }
 }
 .review{
   padding: 15px 0;
@@ -546,6 +622,9 @@ textarea{
     line-height: 14px;
   }
 }
+
+//Chats
+
 .chats{
   background-color: $gray;
   padding: 50px 0;
@@ -706,6 +785,142 @@ textarea{
     }
   }
 }
+
+//Personal profile
+
+.personal-profile{
+  background-color: $gray;
+  padding: 50px 0;
+  &__container{
+    background-color: $white;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+    border-radius: 20px;
+    padding: 50px 50px 40px 50px;
+  }
+  &__header{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 25px;
+  }
+  &__avatar{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 25px;
+  }
+  &__edit{
+    cursor: pointer;
+    position: absolute;
+    top:0;
+    right:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: $white;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  &__name{
+    font-size: 28px;
+  }
+  &__content{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-bottom: 25px;
+  }
+  &__title{
+    margin-bottom: 16px;
+  }
+  &__field{
+    margin-bottom: 25px;
+  }
+  &__categories{
+    display: flex;
+  }
+  &__category{
+    margin-right: 16px;
+  }
+}
+.field{
+  padding: 15px 30px;
+  background-color: $gray2;
+  border: 1px solid $gray3;
+  &__title{
+    color:$gray4;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  &__input{
+    padding:0;
+    color:$black;
+    background: unset;
+    &::placeholder{
+      color:$black;
+    }
+  }
+  &_sm{
+    flex: 0 1 50%;
+  }
+}
+
+
+//Customer tasks
+
+.tasks{
+  padding: 50px 0;
+  background-color: $gray;
+  &__container{
+    align-items: flex-start;
+  }
+  &__sidebar{
+    margin-right: 25px;
+    flex: 0 0 450px;
+  }
+  &__content{
+
+  }
+}
+.tasks-sidebar{
+  padding: 40px 35px;
+  background-color: $white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  &__title{
+    margin-bottom: 16px;
+  }
+  &__form{
+    display: flex;
+    flex-direction: column;
+  }
+  &__field{
+    margin-bottom: 25px;
+  }
+  &__categories{
+    display: flex;
+
+  }
+  &__category{
+    margin-right: 16px;
+  }
+  &__btn{
+    margin-top: 40px;
+  }
+}
+.tasks-content{
+  padding: 40px 35px;
+  background-color: $white;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
+  border-radius: 20px;
+  &__title{
+    margin-bottom: 16px;
+  }
+}
+
 
 .footer{
   padding: 25px 0;

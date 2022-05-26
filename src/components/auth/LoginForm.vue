@@ -18,7 +18,7 @@
           <div class="form__input">
             <input type="text" placeholder="Пароль">
           </div>
-          <button class="form__btn btn btn-primary" type="submit">Авторизоваться</button>
+          <button class="form__btn btn" type="submit">Авторизоваться</button>
         </div>
       </div>
     </div>

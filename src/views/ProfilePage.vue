@@ -151,7 +151,7 @@
               </div>
             </div>
           </div>
-          <button class="profile-reviews__btn btn btn-primary">Загрузить ещё</button>
+          <button class="profile-reviews__btn btn btn_primary">Загрузить ещё</button>
         </div>
       </div>
     </div>
