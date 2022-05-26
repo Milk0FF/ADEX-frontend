@@ -1,15 +1,15 @@
 <template>
-  <form class="form" @submit.prevent="moveToLogin">
+  <form class="form" @submit.prevent="moveToRegister">
     <div class="container container_center">
       <div class="form__content">
         <div class="form__logo">
           <img src="../../assets/images/logo.svg">
         </div>
         <div class="form__title">
-          Регистрация
+          Авторизация
         </div>
         <div class="form__text">
-          Регистрируйтесь и начинайте обмениваться рекламой
+          Авторизуйтесь и начните обмениваться рекламой
         </div>
         <div class="form__inputs">
           <div class="form__input">
@@ -18,10 +18,7 @@
           <div class="form__input">
             <input type="text" placeholder="Пароль">
           </div>
-          <div class="form__input">
-            <input type="text" placeholder="Подтверждение пароля">
-          </div>
-          <button class="form__btn btn" type="submit">Зарегистрироваться</button>
+          <button class="form__btn btn" type="submit">Авторизоваться</button>
         </div>
       </div>
     </div>
@@ -30,14 +27,9 @@
 
 <script>
 export default {
-  name: "RegisterForm",
+  name: "CustomerTask",
   methods:{
-    moveToLogin(){
-      this.$router.push('/login')
-    }
+    
   }
 };
 </script>
-<style lang="scss" scoped>
-  @import '../../assets/css/auth.scss';
-</style>

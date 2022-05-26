@@ -24,7 +24,7 @@
       <div class="profile__sidebar profile-sidebar">
         <div class="profile-sidebar__avatar">
           <img src="../assets/images/user-logo.png"/>
-          <div class="profile-sidebar__status status status_red">Занят</div>
+          <div class="profile-sidebar__status status status_green">Свободен</div>
         </div>
         <div class="profile-sidebar__name">
           Иванов Иван

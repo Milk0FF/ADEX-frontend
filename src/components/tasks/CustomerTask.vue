@@ -27,15 +27,9 @@
 
 <script>
 export default {
-  name: "LoginForm",
-  
+  name: "CustomerTask",
   methods:{
-    moveToRegister(){
-      this.$router.push('/register')
-    }
+    
   }
 };
 </script>
-<style lang="scss" scoped>
-  @import '../../assets/css/auth.scss';
-</style>

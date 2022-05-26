@@ -1,0 +1,43 @@
+@import 'main/variables';
+.slider{
+  &-connect, &-handle{
+    background: $green;
+  }
+  &-connects, &-base{
+    border-radius: unset;
+  }
+  &-base{
+    background-color: $gray8;
+  }
+  &-handle{
+    box-shadow: unset;
+    cursor: pointer;
+    &:focus{
+      // box-shadow: 0px 5px 10px rgba(12, 224, 126, 0.25);
+      box-shadow: unset;
+    }
+  }
+  &-tooltip{
+    background: unset;
+    color:$black;
+    font-size:12px;
+    font-weight: 400;
+    border:unset;
+    border-radius: unset;
+    padding: 0;
+  }
+  &-horizontal{
+    .slider-handle{
+      height: 12px;
+      width: 12px;
+      top:-3px;
+      right: -10px;
+    }
+    .slider-tooltip-bottom{
+      top:15px;
+      &::before{
+        display: none;
+      }
+    }
+  }
+}

@@ -9,13 +9,15 @@
       </div>
       <div class="header__menu"></div>
       <div class="header__profile header-profile">
-        <div class="header-profile__name">
-          Иванов Иван
+        <div class="header-profile__content"  @click="openDropMenu">
+          <div class="header-profile__name">
+            Иванов Иван
+          </div>
+          <div class="header-profile__img">
+            <img src="../assets/images/user-logo.png">
+          </div>
         </div>
-        <div class="header-profile__img">
-          <img src="../assets/images/user-logo.png">
-        </div>
-        <div class="header-profile__dropmenu header-dropmenu">
+        <div class="header-profile__dropmenu header-dropmenu" v-if="isOpenDropMenu">
           <div class="header-dropmenu__usertypes">
             <a class="header-dropmenu__usertype header-dropmenu__usertype_active">Исполнитель</a>
             <a class="header-dropmenu__usertype">Заказчик</a>
@@ -60,8 +62,16 @@
         </div>
         <div class="main__price-slider price-slider">
           <div class="price-slider__price">Цена ( ₽ )</div>
-          <div class="price-slider__slider">
-          </div>
+            <slider v-model="priceSliderValues"
+                    :min="min"
+                    :max="max"
+                    :value="value"
+                    :tooltipPosition="'bottom'"
+                    :step="10"
+                    :format="{thousand: '.'}"
+                    class="price-slider__slider"
+                    />
+
         </div>
       </div>
       <div class="main__tasks">
@@ -140,9 +150,48 @@
 
 <script>
 
+import Slider from '@vueform/slider'
+
+
 export default {
   name: "TasksPage",
-  components: {
+  data(){
+    return{
+      isOpenDropMenu: false,
+      priceSliderValues: [2000, 10000],
+      value: 1000,
+      min: 0,
+      max: 15000,
+      bgStyle: {},
+      processStyle: {},
+      piecewiseStyle: {},
+    }
   },
+  methods:{
+    openDropMenu(){
+      if(this.isOpenDropMenu)
+        this.isOpenDropMenu = false;
+      else
+        this.isOpenDropMenu = true;
+    }
+  },
+  created(){
+    this.bgStyle = {
+     backgroundColor: 'transparent',
+    }
+    this.processStyle = {
+      backgroundColor: 'black',
+      height:'1px',
+    }
+    this.piecewiseStyle = {
+      backgroundColor: 'transparent',
+    }
+  },
+  components:{
+    Slider,
+  }
 };
 </script>
+<style src="@vueform/slider/themes/default.css"></style>
+<style src="@/assets/css/slider-styling.scss" lang="scss"></style>
+

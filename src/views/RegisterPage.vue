@@ -10,17 +10,46 @@
         </div>
       </div>
     </div>
-    <register-form />
+    <div class="auth__content auth-content">
+      <div class="auth-content__container container container_center">
+        <div class="auth-content__body">
+          <div class="auth-content__logo">
+            <img src="../assets/images/logo.svg">
+          </div>
+          <div class="auth-content__title">
+            Регистрация
+          </div>
+          <div class="auth-content__text">
+            Зарегистрируйтесь и начните обмениваться рекламой
+          </div>
+          <form class="auth-content__form auth-form" @submit.prevent="moveToLogin">
+            <div class="auth-form__inputs">
+              <div class="auth-form__input">
+                <input type="text" placeholder="Email">
+              </div>
+              <div class="auth-form__input">
+                <input type="text" placeholder="Пароль">
+              </div>
+              <div class="auth-form__input">
+                <input type="text" placeholder="Подтверждение пароля">
+              </div>
+              <router-link class="auth-form__link" :to="'/login'">Уже есть аккаунт? Авторизуйтесь</router-link>
+              <button class="auth-form__btn btn" type="submit">Зарегистрироваться</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import RegisterForm from "@/components/auth/RegisterForm.vue";
-
 export default {
   name: "RegisterPage",
-  components: {
-    RegisterForm,
-  },
+  methods:{
+    moveToLogin(){
+      this.$router.push('/login');
+    }
+  }
 };
 </script>

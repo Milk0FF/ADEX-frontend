@@ -1,48 +1,127 @@
-@import 'main/variables';
-.form{
-    padding: 50px 0;
-    width: 100%;
-    text-align: center;
-    font-weight: 400;
+@import "main/variables";
+
+.auth{
+  min-height: 1200px;
+  height: 100%;
+  background: url('@/assets/images/auth-bg.jpg') $darkBlue2 center/cover no-repeat;
+}
+.auth-header{
+  height: 160px;
+  padding: 40px 0;
+  &__logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__name{
+    font-size: 48px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    margin-left: 30px;
     color:$white;
-    &__content{
-        display: flex;
-        flex-direction:column;
-        align-items: center;
+  }
+}
+.auth-content{
+  padding: 50px 0;
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  color: $white;
+  &__body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__logo {
+    margin-bottom: 30px;
+  }
+  &__title {
+    font-size: 48px;
+    margin-bottom: 17px;
+  }
+  &__text {
+    font-size: 24px;
+    margin-bottom: 53px;
+  }
+  &__form{
+    max-width: 400px;
+    width: 100%;
+  }
+}
+.auth-form{
+  &__input {
+    margin-bottom: 20px;
+    input {
+      width: 100%;
+      padding: 20px 30px;
+      font-size: 20px;
+      color: $white;
+      border-radius: 20px;
+      background-color: $darkBlue;
+      &::placeholder {
+        color: $white;
+      }
+      &:focus{
+        border:2px solid $green;
+      }
     }
-    &__inputs{
-        max-width: 400px;
-        width: 100%;
+  }
+  &__link{
+    font-size: 14px;
+    color:$green;
+    transition: 0.3s ease all;
+    &:hover{
+      border-bottom:1px solid $green;
+      opacity:.8;
+    }
+  }
+  &__btn {
+    width: 100%;
+    margin-top: 50px;
+    transition: 0.5s ease all;
+    &:hover{
+      background-color: $white;
+      color:$green;
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .auth-header{
+    &__container{
+      justify-content: center;
     }
     &__logo{
-        margin-bottom: 30px;
+      img{
+        width: 60px;
+      }
+    }
+    &__name{
+      font-size: 36px;
+    }
+  }
+  .auth-content{
+    &__logo{
+      width: 60px;
+      margin-bottom: 20px;
     }
     &__title{
-        font-size: 48px;
-        margin-bottom: 17px;
+      font-size: 36px;
     }
     &__text{
-        font-size: 24px;
-        margin-bottom: 53px;
+      font-size: 18px;
+      margin-bottom: 30px;
     }
+  }
+  .auth-form{
     &__input{
-        margin-bottom: 20px;
-        input{
-            width: 100%;
-            padding: 20px 30px;
-            font-size: 20px;
-            color:$white;
-            border-radius: 20px;
-            background-color: $darkBlue;
-            &::placeholder{
-                color:$white;
-            }
-        }
-        &:last-child{
-            margin-bottom: 50px;
-        }
+      input{
+        font-size: 18px;
+      }
     }
     &__btn{
-        width: 100%;
+      margin-top: 30px;
     }
+  }
 }
+

@@ -1,6 +1,7 @@
 @import 'reset';
 @import 'font';
 @import 'variables';
+@import '../auth.scss';
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -9,8 +10,9 @@ body {
   font-style: normal;
 }
 .container {
-  max-width: 1360px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   &_center{
@@ -78,10 +80,12 @@ textarea{
   }
 }
 .header-profile{
-  display: flex;
-  align-items: center;
   cursor: pointer;
   position: relative;
+  &__content{
+    display: flex;
+    align-items: center;
+  }
   &__name{
     font-size: 18px;
     margin-right: 34px;
@@ -147,28 +151,6 @@ textarea{
     font-family: 'Inter', sans-serif;
     margin-left: 10px;
     color:$darkBlue;
-  }
-}
-
-.auth{
-  min-height: 1200px;
-  height: 100%;
-  background: url('@/assets/images/auth-bg.jpg') $darkBlue2 center/cover no-repeat;
-}
-.auth-header{
-  height: 160px;
-  padding: 40px 0;
-  &__logo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  &__name{
-    font-size: 48px;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
-    margin-left: 30px;
-    color:$white;
   }
 }
 
@@ -244,9 +226,6 @@ textarea{
     font-size: 16px;
     margin-bottom: 20px;
   }
-  &__btn{
-    margin-top: 30px;
-  }
   &__form{
     display: flex;
     flex-direction: column;
@@ -279,6 +258,9 @@ textarea{
         font-size: 14px;
         line-height: 16px;
         flex: 0 1 570px;
+      }
+      &__btn{
+        margin-top:30px;
       }
     }
   }
@@ -335,8 +317,13 @@ textarea{
   }
 }
 .price-slider{
+  display: flex;
+  align-items: center;
   &__price{
     margin-right: 24px;
+  }
+  &__slider{
+    width: 250px;
   }
 }
 .main-categories{
@@ -371,6 +358,7 @@ textarea{
   }
   &__sidebar{
     margin-right: 25px;
+    flex: 0 0 450px;
   }
   &__content{
   }
@@ -380,6 +368,7 @@ textarea{
     margin-bottom: 35px;
   }
   &__card{
+    flex: 0 1 33.3%;
     margin-right: 25px;
     &:last-child{
       margin:0;
@@ -397,6 +386,7 @@ textarea{
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
   border-radius: 20px;
   padding: 50px 50px 40px 50px;
+  padding: 40px 35px;
   &__avatar{
     width:150px;
     height: 150px;
@@ -406,8 +396,9 @@ textarea{
   }
   &__status{
     position: absolute;
-    top:0px;
-    right: 0px;
+    top:20px;
+    right: -40px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.05);
   }
   &__name{
     font-size: 28px;
@@ -460,7 +451,7 @@ textarea{
   }
 }
 .profile-card{
-  padding: 25px 50px 35px 45px;
+  padding: 30px 35px;
   display: flex;
   background-color: $white;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
@@ -468,6 +459,7 @@ textarea{
   align-items: flex-end;
   &__info{
     margin-right: 48px;
+    flex: 1 1 auto;
   }
   &__number{
     font-size: 36px;
@@ -902,7 +894,6 @@ textarea{
   }
   &__categories{
     display: flex;
-
   }
   &__category{
     margin-right: 16px;
@@ -921,6 +912,9 @@ textarea{
   }
 }
 
+@media screen and (min-width: 1400px) {
+  
+}
 
 .footer{
   padding: 25px 0;
