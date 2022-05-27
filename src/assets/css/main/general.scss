@@ -64,10 +64,11 @@ textarea{
   padding: 15px 20px;
   border: 1px solid #CCCCCC;
   font-size: 14px;
+  min-height: 66px;
   height: 66px;
   background-color: $gray2;
   color:$black;
-  resize: none;
+  resize: vertical;
   &::placeholder{
     color:$black;
   }
@@ -141,6 +142,8 @@ textarea{
 
   }
 }
+
+
 .logo{
   display: flex;
   justify-content: center;
@@ -153,7 +156,55 @@ textarea{
     color:$darkBlue;
   }
 }
-
+@media screen and (max-width: 920px) {
+  .header-profile{
+    &__name{
+      font-size: 16px;
+      margin-right: 20px;
+    }
+    &__img{
+      display: flex;
+      align-items: center;
+      width: 40px;
+    }
+  }
+  .logo{
+    img{
+      width: 40px;
+    }
+    &__name{
+      font-size: 32px;
+    }
+  }
+}
+@media screen and (max-width: 920px) {
+  .header-profile{
+    &__name{
+      font-size: 16px;
+      margin-right: 20px;
+    }
+    &__img{
+      display: flex;
+      align-items: center;
+      width: 40px;
+    }
+  }
+  .logo{
+    img{
+      width: 40px;
+    }
+    &__name{
+      font-size: 32px;
+    }
+  }
+}
+@media screen and (max-width: 420px) {
+  .header{
+    &__container{
+      flex-direction: column;
+    }
+  }
+}
 // Tasks
 
 .main{
@@ -166,7 +217,7 @@ textarea{
     margin-bottom: 60px;
   }
   &__price-slider{
-
+    margin-right: 20px;
   }
   &__tasks{
 
@@ -212,6 +263,10 @@ textarea{
     flex: 0 1 1100px;
     font-size: 16px;
     line-height: 19px;
+    margin-right: 25px;
+  }
+  &__time{
+    white-space: nowrap;
   }
   &__response{
     margin-top: 25px;
@@ -220,7 +275,8 @@ textarea{
     justify-content: space-between;
   }
   &__response-field{
-    flex: 0 1 1100px;
+    flex: 1 1 auto;
+    margin-right: 50px;
   }
   &__title{
     font-size: 16px;
@@ -349,7 +405,114 @@ textarea{
   }
 }
 
+@media screen and (max-width: 1320px) {
+  .main{
+    &__filters{
+      flex-wrap: wrap;
+    }
+    &__categories{
+      flex: 1 1 100%;
+      margin-bottom: 25px;
+    }
+    &__price-slider{
+      flex: 1 1 100%;
+    }
+  }
+  .price-slider{
+    &__slider{
+      flex: 1 1 auto;
+    }
+  }
+}
+@media screen and (max-width: 920px) {
+  .main-categories{
+    &__category{
+      padding:10px 15px;
+      border-radius: 10px;
+      margin-right: 25px;
+    }
+  }
+  .main-task__header{
+    flex-direction: column;
+  }
+  .main-task{
+    &__header{
+
+    }
+    &__name{
+      margin: 0 0 25px 0;
+    }
+    &__categories{
+      margin: 0 0 25px 0;
+    }
+    &__response{
+      flex-direction: column;
+    }
+    &__response-field{
+      margin: 0 0 25px 0;
+      height: unset;
+    }
+    &__btn{
+      width: 100%;
+    }
+    &__content{
+      flex-direction: column;
+    }
+    &__description{
+      flex:unset;
+      margin: 0 0 25px 0;
+    }
+    &__time{
+      align-self: center;
+    }
+  }
+  .price-slider{
+    &__slider{
+      flex: 1 1 auto;
+    }
+  }
+}
+@media screen and (max-width: 560px) {
+  .main-categories{
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    &__category{
+      padding:10px 15px;
+      border-radius: 10px;
+      margin:0 0 15px 0;
+      &:last-child{
+        margin:0;
+      }
+    }
+  }
+  .price-slider{
+    flex-direction: column;
+    &__price{
+      margin: 0 0 15px 0;
+    }
+    &__slider{
+      width: 100%;
+      padding-left: 10px;
+    }
+  }
+  .main-task{
+    padding:20px 30px;
+    &__categories{
+      flex-wrap:wrap;
+    }
+    &__description{
+      font-size: 14px;
+      line-height: 19px;
+    }
+    &__response-field{
+      font-size:12px;
+      min-height: 100px;
+    }
+  }
+}
 // Profile
+
 .profile{
   padding: 50px 0;
   background-color: $gray;
@@ -358,7 +521,7 @@ textarea{
   }
   &__sidebar{
     margin-right: 25px;
-    flex: 0 0 450px;
+    flex: 0 1 450px;
   }
   &__content{
   }
@@ -584,16 +747,22 @@ textarea{
   }
   &__content{
     flex: 1 1 auto;
+    display: flex;
   }
-  &__header{
+  // &__header{
+  //   display: flex;
+  //   align-items: center;
+  //   margin-bottom: 10px;
+  // }
+  &__info{
+    flex: 1 1 auto;
+    margin-right: 20px;
+  }
+
+  &__user-info{
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-  }
-  &__user-info{
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
   }
   &__avatar{
     width: 30px;
@@ -607,14 +776,68 @@ textarea{
   }
   &__date{
     font-size: 12px;
+    white-space: nowrap;
   }
   &__text{
-    width: 630px;
+    // width: 630px;
     font-size: 12px;
     line-height: 14px;
   }
 }
 
+@media screen and (max-width: 1320px) {
+  .profile{
+    &__container{
+      flex-direction: column;
+    }
+    &__content{
+      align-self: stretch;
+    }
+    &__sidebar{
+      margin: 0 0 50px 0;
+    }
+  }
+}
+@media screen and (max-width: 920px) {
+  .profile{
+    &__cards{
+      flex-direction: column;
+    }
+    &__card{
+      align-self: stretch;
+      margin: 0 0 25px 0;
+    }
+  }
+  // .review{
+  //   &__text{
+  //     width: unset;
+  //     max-width: 450px;
+  //   }
+  // }
+}
+@media screen and (max-width: 560px) {
+  .review{
+    &__score{
+      margin-right: 20px;
+    }
+    &__content{
+      flex-direction: column;
+
+    }
+    &__info{
+      margin: 0 0 10px 0;
+    }
+  }
+  .profile-reviews{
+    padding: 40px 30px;
+  }
+  // .review{
+  //   &__text{
+  //     width: unset;
+  //     max-width: 450px;
+  //   }
+  // }
+}
 //Chats
 
 .chats{
@@ -925,7 +1148,7 @@ textarea{
   &__developers{
     position: absolute;
     top:0;
-    left:0;
+    left:20px;
     display: flex;
     align-items: center;
   }
@@ -943,5 +1166,31 @@ textarea{
     }
   }
 }
-
+@media screen and (max-width: 920px) {
+  .footer{
+    height: unset;
+    &__container{
+      flex-direction: column;
+      align-items: center;
+    }
+    &__developers{
+      position: static;
+      margin-bottom: 25px;
+    }
+    &__site-name{
+      text-align: center;
+    }
+    &__name{
+      font-size: 16px;
+    }
+    .logo{
+      img{
+        width: 32px;
+      }
+      &__name{
+        font-size: 24px;
+      }
+    }
+  }
+}
 

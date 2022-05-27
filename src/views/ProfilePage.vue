@@ -9,13 +9,28 @@
       </div>
       <div class="header__menu"></div>
       <div class="header__profile header-profile">
-        <div class="header-profile__name">
-          Иванов Иван
+        <div class="header-profile__content"  @click="openDropMenu">
+          <div class="header-profile__name">
+            Иванов Иван
+          </div>
+          <div class="header-profile__img">
+            <img src="../assets/images/user-logo.png">
+          </div>
         </div>
-        <div class="header-profile__img">
-          <img src="../assets/images/user-logo.png">
+        <div class="header-profile__dropmenu header-dropmenu" v-if="isOpenDropMenu">
+          <div class="header-dropmenu__usertypes">
+            <a class="header-dropmenu__usertype header-dropmenu__usertype_active">Исполнитель</a>
+            <a class="header-dropmenu__usertype">Заказчик</a>
+          </div>
+          <ul class="header-dropmenu__list">
+            <li>
+              <a class="header-dropmenu__link">Профиль</a>
+            </li>
+            <li>
+              <a class="header-dropmenu__link">Выход</a>
+            </li>
+          </ul>
         </div>
-       
       </div>
     </div>
   </div>
@@ -99,58 +114,62 @@
               <img src="../assets/images/like.svg">
             </div>
             <div class="review__content">
-              <div class="review__header">
+              <div class="review__info">
                 <div class="review__user-info">
                   <div class="review__avatar">
                     <img src="../assets/images/user-logo.png">
                   </div>
                   <div class="review__name">Иванов Иван</div>
                 </div>
-                <div class="review__date">10.02.2020 г.</div>
+                <div class="review__text">
+                  Хороший адекватный заказчик. Всё норм!
+                </div>
               </div>
-              <div class="review__text">
-                Хороший адекватный заказчик. Всё норм!
-              </div>
+              <div class="review__date">10.02.2020 г</div>
             </div>
           </div>
+          
           <div class="profile-reviews__review review">
             <div class="review__score">
               <img src="../assets/images/like.svg">
             </div>
             <div class="review__content">
-              <div class="review__header">
+              <div class="review__info">
                 <div class="review__user-info">
                   <div class="review__avatar">
                     <img src="../assets/images/user-logo.png">
                   </div>
                   <div class="review__name">Иванов Иван</div>
                 </div>
-                <div class="review__date">10.02.2020 г.</div>
+                <div class="review__text">
+                  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+                </div>
               </div>
-              <div class="review__text">
-                Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-              </div>
+              <div class="review__date">10.02.2020 г</div>
             </div>
           </div>
+
           <div class="profile-reviews__review review">
             <div class="review__score review__score_negative">
               <img src="../assets/images/like.svg">
             </div>
             <div class="review__content">
-              <div class="review__header">
+              <div class="review__info">
                 <div class="review__user-info">
                   <div class="review__avatar">
                     <img src="../assets/images/user-logo.png">
                   </div>
                   <div class="review__name">Иванов Иван</div>
                 </div>
-                <div class="review__date">10.02.2020 г.</div>
+                <div class="review__text">
+                  Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
+                </div>
               </div>
-              <div class="review__text">
-                Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.
-              </div>
+              <div class="review__date">10.02.2020 г</div>
             </div>
           </div>
+          
+                
           <button class="profile-reviews__btn btn btn_primary">Загрузить ещё</button>
         </div>
       </div>
@@ -179,8 +198,19 @@
 <script>
 
 export default {
-  name: "UserProfilePage",
-  components: {
+  name: "ProfilePage",
+  data(){
+    return{
+      isOpenDropMenu: false,
+    }
+  },
+  methods:{
+    openDropMenu(){
+      if(this.isOpenDropMenu)
+        this.isOpenDropMenu = false;
+      else
+        this.isOpenDropMenu = true;
+    }
   },
 };
 </script>
