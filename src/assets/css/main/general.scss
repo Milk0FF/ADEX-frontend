@@ -23,7 +23,7 @@ body {
     align-items: stretch;
   }
   &_sm{
-    max-width: 1029px;
+    max-width: 1060px;
   }
 }
 h1 {
@@ -104,7 +104,7 @@ textarea{
   position: absolute;
   top:120%;
   right: 0;
-  z-index: 2;
+  z-index: 5;
   padding: 18px 0 11px 0;
   &__usertypes{
     padding: 0 15px;
@@ -548,7 +548,7 @@ textarea{
   background-color: $white;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
   border-radius: 20px;
-  padding: 50px 50px 40px 50px;
+  flex: 0 1 450px;
   padding: 40px 35px;
   &__avatar{
     width:150px;
@@ -779,7 +779,7 @@ textarea{
     white-space: nowrap;
   }
   &__text{
-    // width: 630px;
+    width: 630px;
     font-size: 12px;
     line-height: 14px;
   }
@@ -795,6 +795,9 @@ textarea{
     }
     &__sidebar{
       margin: 0 0 50px 0;
+    }
+    .review__text{
+      width: unset;
     }
   }
 }
@@ -838,6 +841,7 @@ textarea{
   //   }
   // }
 }
+
 //Chats
 
 .chats{
@@ -849,7 +853,7 @@ textarea{
   &__sidebar{
     margin-right: 20px;
     flex: 0 1 350px;
-
+    align-self: stretch;
   }
   &__chat{
     flex: 1 1 auto;
@@ -897,6 +901,8 @@ textarea{
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 8px;
+    display: inline-block;
+    color:$black;
   }
   &__task-name{
     font-size: 12px;
@@ -918,6 +924,8 @@ textarea{
   }
   &__settings{
     position: relative;
+  }
+  &__settings-content{
     border-radius: 50%;
     border: 1px solid $black;
     width: 40px;
@@ -1001,16 +1009,22 @@ textarea{
   }
 }
 
+@media screen and (max-width: 920px) {
+}
+
 //Personal profile
 
 .personal-profile{
   background-color: $gray;
   padding: 50px 0;
-  &__container{
+  &__body{
     background-color: $white;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
     border-radius: 20px;
     padding: 50px 50px 40px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   &__header{
     display: flex;
@@ -1024,6 +1038,11 @@ textarea{
     border-radius: 50%;
     position: relative;
     margin-bottom: 25px;
+  }
+  &__fields{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
   &__edit{
     cursor: pointer;
@@ -1056,6 +1075,7 @@ textarea{
   }
   &__categories{
     display: flex;
+    flex-wrap: wrap;
   }
   &__category{
     margin-right: 16px;
@@ -1065,6 +1085,7 @@ textarea{
   padding: 15px 30px;
   background-color: $gray2;
   border: 1px solid $gray3;
+  flex: 0 1 100%;
   &__title{
     color:$gray4;
     font-size: 12px;
@@ -1079,7 +1100,26 @@ textarea{
     }
   }
   &_sm{
-    flex: 0 1 50%;
+    flex: 0 1 49%;
+  }
+}
+@media screen and (max-width: 920px) {
+  .field{
+    &_sm{
+      flex: 0 1 100%;
+    }
+  }
+  .personal-profile{
+    &__header{
+      margin-bottom: 40px;
+    }
+  }
+}
+@media screen and (max-width: 560px) {
+  .personal-profile{
+    &__body{
+      padding: 40px 25px;
+    }
   }
 }
 

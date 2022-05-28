@@ -9,13 +9,28 @@
       </div>
       <div class="header__menu"></div>
       <div class="header__profile header-profile">
-        <div class="header-profile__name">
-          Иванов Иван
+        <div class="header-profile__content"  @click="openDropMenu">
+          <div class="header-profile__name">
+            Иванов Иван
+          </div>
+          <div class="header-profile__img">
+            <img src="../assets/images/user-logo.png">
+          </div>
         </div>
-        <div class="header-profile__img">
-          <img src="../assets/images/user-logo.png">
+        <div class="header-profile__dropmenu header-dropmenu" v-if="isOpenDropMenu">
+          <div class="header-dropmenu__usertypes">
+            <a class="header-dropmenu__usertype header-dropmenu__usertype_active">Исполнитель</a>
+            <a class="header-dropmenu__usertype">Заказчик</a>
+          </div>
+          <ul class="header-dropmenu__list">
+            <li>
+              <a class="header-dropmenu__link">Профиль</a>
+            </li>
+            <li>
+              <a class="header-dropmenu__link">Выход</a>
+            </li>
+          </ul>
         </div>
-       
       </div>
     </div>
   </div>
@@ -25,11 +40,11 @@
           <div class="chats-sidebar__chat chats-sidebar__chat_active">
             <div class="chats-sidebar__user-info chat-user-info">
               <div class="chat-user-info__avatar">
-                  <img src="../assets/images/user-logo.png">
+                <img src="../assets/images/user-logo.png">
               </div>
               <div class="chat-user-info__info">
-                  <div class="chat-user-info__name">Иванов Иван</div>
-                  <div class="chat-user-info__task-name">Название задачи</div>
+                <div class="chat-user-info__name">Иванов Иван</div>
+                <div class="chat-user-info__task-name">Название задачи</div>
               </div>
             </div>
             <div class="chats-sidebar__date">
@@ -39,11 +54,11 @@
           <div class="chats-sidebar__chat">
             <div class="chats-sidebar__user-info chat-user-info">
               <div class="chat-user-info__avatar">
-                  <img src="../assets/images/user-logo.png">
+                <img src="../assets/images/user-logo.png">
               </div>
               <div class="chat-user-info__info">
-                  <div class="chat-user-info__name">Иванов Иван</div>
-                  <div class="chat-user-info__task-name">Название задачи</div>
+                <div class="chat-user-info__name">Иванов Иван</div>
+                <div class="chat-user-info__task-name">Название задачи</div>
               </div>
             </div>
             <div class="chats-sidebar__date">
@@ -54,19 +69,21 @@
         <div class="chats__chat chat">
             <div class="chat__header">
                 <div class="chat__user-info chat-user-info">
-                    <div class="chat-user-info__avatar">
-                        <img src="../assets/images/user-logo.png">
-                    </div>
+                    <a href="#" class="chat-user-info__avatar">
+                      <img src="../assets/images/user-logo.png">
+                    </a>
                     <div class="chat-user-info__info">
-                        <div class="chat-user-info__name">Иванов Иван</div>
-                        <div class="chat-user-info__task-name">Название задачи</div>
+                      <a href="#" class="chat-user-info__name">Иванов Иван</a>
+                      <div class="chat-user-info__task-name">Название задачи</div>
                     </div>
                 </div>
                 <div class="chat__settings">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <div class="chat__dropmenu chat-dropmenu">
+                    <div class="chat__settings-content" @click="openChatDropMenu">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
                         <ul class="chat-dropmenu__list">
                             <li>
                                 <a class="chat-dropmenu__link">Назначить исполнителем</a>
@@ -139,7 +156,26 @@
 
 export default {
   name: "ChatsPage",
-  components: {
+  data(){
+    return{
+      isOpenDropMenu: false,
+      isOpenChatDropMenu: false,
+    }
+  },
+  methods:{
+    openDropMenu(){
+      if(this.isOpenDropMenu)
+        this.isOpenDropMenu = false;
+      else
+        this.isOpenDropMenu = true;
+    },
+    openChatDropMenu(){
+      if(this.isOpenChatDropMenu)
+        this.isOpenChatDropMenu = false;
+      else
+        this.isOpenChatDropMenu = true;
+
+    }
   },
 };
 </script>

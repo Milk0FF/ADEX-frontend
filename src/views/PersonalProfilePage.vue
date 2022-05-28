@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+   <div class="header">
     <div class="header__container container">
       <div class="header__logo logo">
         <img src="../assets/images/logo-sm.svg"/>
@@ -9,13 +9,15 @@
       </div>
       <div class="header__menu"></div>
       <div class="header__profile header-profile">
-        <div class="header-profile__name">
-          Иванов Иван
+        <div class="header-profile__content"  @click="openDropMenu">
+          <div class="header-profile__name">
+            Иванов Иван
+          </div>
+          <div class="header-profile__img">
+            <img src="../assets/images/user-logo.png">
+          </div>
         </div>
-        <div class="header-profile__img">
-          <img src="../assets/images/user-logo.png">
-        </div>
-        <div class="header-profile__dropmenu header-dropmenu">
+        <div class="header-profile__dropmenu header-dropmenu" v-if="isOpenDropMenu">
           <div class="header-dropmenu__usertypes">
             <a class="header-dropmenu__usertype header-dropmenu__usertype_active">Исполнитель</a>
             <a class="header-dropmenu__usertype">Заказчик</a>
@@ -33,72 +35,80 @@
     </div>
   </div>
   <div class="personal-profile">
-    <div class="personal-profile__container container container_sm container_column">
-      <div class="personal-profile__header">
-        <div class="personal-profile__avatar">
-          <img src="../assets/images/user-logo.png"/>
-          <div class="personal-profile__edit">
-            <img src="../assets/images/edit-pencil.svg"/>
+    <div class="personal-profile__container container container_sm ">
+      <div class="personal-profile__body">
+        <div class="personal-profile__header">
+          <div class="personal-profile__avatar">
+            <img src="../assets/images/user-logo.png"/>
+            <div class="personal-profile__edit">
+              <img src="../assets/images/edit-pencil.svg"/>
+            </div>
+          </div>
+          <div class="personal-profile__name">Иванов Иван</div>
+        </div>
+        <div class="personal-profile__content">
+          <h3 class="personal-profile__title">Личная информация</h3>
+          <div class="personal-profile__fields">
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Имя</div>
+              <input class="field__input" type="text" placeholder="Имя">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Фамилия</div>
+              <input class="field__input" type="text" placeholder="Фамилия">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Телефон</div>
+              <input class="field__input" type="text" placeholder="Имя">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Email</div>
+              <input class="field__input" type="text" placeholder="Фамилия">
+            </div>
+            <div class="personal-profile__field field">
+              <div class="field__title">О себе</div>
+              <input class="field__input" type="text" placeholder="О себе">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Город</div>
+              <input class="field__input" type="text" placeholder="Город">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Страна</div>
+              <input class="field__input" type="text" placeholder="Страна">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Дата рождения</div>
+              <input class="field__input" type="text" placeholder="Дата рождения">
+            </div>
+            <div class="personal-profile__field field field_sm">
+              <div class="field__title">Статус</div>
+              <input class="field__input" type="text" placeholder="Статус">
+            </div>
+            <div class="personal-profile__field field">
+              <div class="field__title">Категории</div>
+              <input class="field__input" type="text" placeholder="Категории">
+            </div>
+            <div class="personal-profile__categories">
+              <div class="personal-profile__category task-category task-category_red">
+                YOUTUBE
+                <div class="task-category__delete"></div>
+              </div>
+              
+              <div class="personal-profile__category task-category task-category_blue">
+                VK
+                <div class="task-category__delete"></div>
+              </div>
+              
+              <div class="personal-profile__category task-category task-category_purple">
+                INSTAGRAM
+                <div class="task-category__delete"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="personal-profile__name">Иванов Иван</div>
+        <button class="personal-profile__btn btn btn_primary">Сохранить</button>
       </div>
-      <div class="personal-profile__content">
-        <h3 class="personal-profile__title">Личная информация</h3>
-        <div class="personal-profile__field field field_sm">
-          <div class="field__title">Имя</div>
-          <input class="field__input" type="text" placeholder="Имя">
-        </div>
-        <div class="personal-profile__field field field_sm">
-          <div class="field__title">Фамилия</div>
-          <input class="field__input" type="text" placeholder="Фамилия">
-        </div>
-        <div class="personal-profile__field field field_sm">
-          <div class="field__title">Телефон</div>
-          <input class="field__input" type="text" placeholder="Имя">
-        </div>
-        <div class="personal-profile__field field field_sm">
-          <div class="field__title">Email</div>
-          <input class="field__input" type="text" placeholder="Фамилия">
-        </div>
-        <div class="personal-profile__field field">
-          <div class="field__title">О себе</div>
-          <input class="field__input" type="text" placeholder="О себе">
-        </div>
-        <div class="personal-profile__field field field_sm">
-          <div class="field__title">Город</div>
-          <input class="field__input" type="text" placeholder="Город">
-        </div>
-        <div class="personal-profile__field field field_sm">
-          <div class="field__title">Страна</div>
-          <input class="field__input" type="text" placeholder="Страна">
-        </div>
-        <div class="personal-profile__field field">
-          <div class="field__title">Дата рождения</div>
-          <input class="field__input" type="text" placeholder="Дата рождения">
-        </div>
-        <div class="personal-profile__field field">
-          <div class="field__title">Категории</div>
-          <input class="field__input" type="text" placeholder="Категории">
-        </div>
-        <div class="personal-profile__categories">
-          <div class="personal-profile__category task-category task-category_red">
-            YOUTUBE
-            <div class="task-category__delete"></div>
-          </div>
-          
-          <div class="personal-profile__category task-category task-category_blue">
-            VK
-            <div class="task-category__delete"></div>
-          </div>
-          
-          <div class="personal-profile__category task-category task-category_purple">
-            INSTAGRAM
-            <div class="task-category__delete"></div>
-          </div>
-        </div>
-      </div>
-      <button class="personal-profile__btn btn btn_primary">Сохранить</button>
     </div>
   </div>
   <div class="footer">
@@ -125,7 +135,18 @@
 
 export default {
   name: "PersonalUserProfilePage",
-  components: {
+  data(){
+    return{
+      isOpenDropMenu: false,
+    }
+  },
+  methods:{
+    openDropMenu(){
+      if(this.isOpenDropMenu)
+        this.isOpenDropMenu = false;
+      else
+        this.isOpenDropMenu = true;
+    }
   },
 };
 </script>
