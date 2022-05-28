@@ -77,7 +77,7 @@
       <div class="main__tasks">
          <div class="main__task main-task">
            <div class="main-task__header">
-             <div class="main-task__name">Make YouTube Video</div>
+             <div class="main-task__name">Make YouTube Video </div>
              <div class="main-task__categories">
                <div class="main-task__category task-category task-category_red">Youtube</div>
                <div class="main-task__category task-category task-category_blue">VK</div>

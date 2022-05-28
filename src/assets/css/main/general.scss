@@ -72,6 +72,9 @@ textarea{
   &::placeholder{
     color:$black;
   }
+  &:focus{
+    border:1px solid $green;
+  }
 }
 .header{
   padding: 20px 0;
@@ -90,6 +93,8 @@ textarea{
   &__name{
     font-size: 18px;
     margin-right: 34px;
+    max-width: 300px;
+    text-align: right;
   }
   &__img{
     width:65px;
@@ -177,32 +182,15 @@ textarea{
     }
   }
 }
-@media screen and (max-width: 920px) {
-  .header-profile{
-    &__name{
-      font-size: 16px;
-      margin-right: 20px;
-    }
-    &__img{
-      display: flex;
-      align-items: center;
-      width: 40px;
-    }
-  }
-  .logo{
-    img{
-      width: 40px;
-    }
-    &__name{
-      font-size: 32px;
-    }
-  }
-}
 @media screen and (max-width: 420px) {
   .header{
     &__container{
       flex-direction: column;
     }
+  }
+  .header-dropmenu{
+    right: 50%;
+    transform: translateX(50%);
   }
 }
 // Tasks
@@ -234,25 +222,30 @@ textarea{
   }
   &__header{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
   }
   &__name{
     font-size: 20px;
     margin-right: 40px;
+    max-width: 250px;
   }
   &__categories{
     display: flex;
     flex: 1 1 auto;
+    flex-wrap: wrap;
+    margin-right: 20px;
   }
   &__category{
     margin-right: 24px;
+    margin-bottom: 15px;
   }
   &__price{
     color:$green;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 24px;
+    white-space: nowrap;
   }
   &__content{
     display: flex;
@@ -287,8 +280,14 @@ textarea{
     flex-direction: column;
     margin-top: 35px;
   }
+  &__fields{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   &__field{
     margin-bottom: 15px;
+
   }
   &_full{
     margin-bottom: 25px;
@@ -309,14 +308,15 @@ textarea{
         font-size: 12px;
         color:$white;
         background-color: $green;
+        white-space: nowrap;
       }
       &__description{
         font-size: 14px;
         line-height: 16px;
-        flex: 0 1 570px;
+        flex: 0 1 75%;
       }
       &__btn{
-        margin-top:30px;
+        margin-top:10px;
       }
     }
   }
@@ -330,7 +330,7 @@ textarea{
   padding: 5px 10px;
   border-radius: 6px;
   &:last-child{
-    margin:0;
+    margin-right: 0;
   }
   &_green{
     background-color: $green;
@@ -437,13 +437,15 @@ textarea{
   }
   .main-task{
     &__header{
-
+      align-items: center;
     }
     &__name{
       margin: 0 0 25px 0;
+      max-width: unset;
     }
     &__categories{
-      margin: 0 0 25px 0;
+      margin: 0 0 10px 0;
+      justify-content: center;
     }
     &__response{
       flex-direction: column;
@@ -549,7 +551,7 @@ textarea{
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.01);
   border-radius: 20px;
   flex: 0 1 450px;
-  padding: 40px 35px;
+  padding: 40px 35px 20px 35px;
   &__avatar{
     width:150px;
     height: 150px;
@@ -573,9 +575,12 @@ textarea{
   &__categories{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   &__category{
     margin-right: 25px;
+    margin-bottom: 15px;
   }
 }
 .status{
@@ -831,6 +836,12 @@ textarea{
       margin: 0 0 10px 0;
     }
   }
+  .profile-sidebar{
+    &__category{
+      margin-right: 15px;
+    }
+    
+  }
   .profile-reviews{
     padding: 40px 30px;
   }
@@ -852,7 +863,7 @@ textarea{
   }
   &__sidebar{
     margin-right: 20px;
-    flex: 0 1 350px;
+    flex: 0 0 350px;
     align-self: stretch;
   }
   &__chat{
@@ -960,7 +971,7 @@ textarea{
   }
   &__message{
     margin-bottom: 15px;
-
+    max-width: 70%;
     &_another{
       align-self:flex-start;
       .chat__text{
@@ -1007,9 +1018,74 @@ textarea{
       }
     }
   }
+  &__link{
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 1320px) {
+  .chats{
+    &__sidebar{
+      flex: 0 0 300px;
+    }
+  }
+  .chat{
+    &__field{
+      margin-right: 40px;
+    }
+  }
+}
+@media screen and (max-width: 920px) {
+  .chats{
+    &__container{
+      flex-direction: column;
+
+    }
+    &__sidebar{
+      margin:0 0 50px 0;
+      flex: unset;
+    }
+  }
+  .chat{
+    &__footer{
+      flex-direction: column;
+      align-items: stretch;
+      padding: 20px 30px;
+    }
+    &__field{
+      margin: 0 0 25px 0;
+    }
+    &__message{
+      margin-bottom: 25px;
+      max-width: 80%;
+    }
+    
+    &__header{
+      padding: 25px 30px 15px 30px;
+    }
+    &__content{
+      padding: 30px;
+    }
+  }
 }
 
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 560px) {
+  .chat{
+    &__message{
+      max-width: 90%;
+    }
+    &__field{
+      font-size: 12px;
+      line-height: 14px;
+    }
+    &__text, &__date{
+      font-size: 12px;
+    }
+  }
+  .chat-dropmenu{
+    &__link{
+      font-size: 12px;
+    }
+  }
 }
 
 //Personal profile
@@ -1064,8 +1140,6 @@ textarea{
   &__content{
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    margin-bottom: 25px;
   }
   &__title{
     margin-bottom: 16px;
@@ -1079,6 +1153,10 @@ textarea{
   }
   &__category{
     margin-right: 16px;
+    margin-bottom: 15px;
+  }
+  &__btn{
+    margin-top: 15px;
   }
 }
 .field{
@@ -1157,12 +1235,14 @@ textarea{
   }
   &__categories{
     display: flex;
+    flex-wrap: wrap;
   }
   &__category{
     margin-right: 16px;
+    margin-bottom: 15px;
   }
   &__btn{
-    margin-top: 40px;
+    margin-top: 25px;
   }
 }
 .tasks-content{
@@ -1175,8 +1255,35 @@ textarea{
   }
 }
 
-@media screen and (min-width: 1400px) {
-  
+@media screen and (max-width: 1320px) {
+  .tasks{
+    &__container{
+      flex-direction: column;
+      align-items: stretch;
+    }
+    &__sidebar{
+      margin: 0 0 50px 0;
+    }
+  }
+  .tasks-sidebar__category{
+
+  }
+}
+@media screen and (max-width: 920px) {
+  .main-task{
+    &_full{
+      .main-task{
+        &__status{
+          align-self: stretch; 
+          text-align: center; 
+          padding: 10px 0;  
+        }
+        &__name{
+          margin-right: 0;
+        }
+      }
+    }
+  }
 }
 
 .footer{

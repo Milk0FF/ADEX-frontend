@@ -168,8 +168,6 @@
               <div class="review__date">10.02.2020 г</div>
             </div>
           </div>
-          
-                
           <button class="profile-reviews__btn btn btn_primary">Загрузить ещё</button>
         </div>
       </div>

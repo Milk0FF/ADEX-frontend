@@ -9,13 +9,28 @@
       </div>
       <div class="header__menu"></div>
       <div class="header__profile header-profile">
-        <div class="header-profile__name">
-          Иванов Иван
+        <div class="header-profile__content"  @click="openDropMenu">
+          <div class="header-profile__name">
+            Иванов Иван
+          </div>
+          <div class="header-profile__img">
+            <img src="../assets/images/user-logo.png">
+          </div>
         </div>
-        <div class="header-profile__img">
-          <img src="../assets/images/user-logo.png">
+        <div class="header-profile__dropmenu header-dropmenu" v-if="isOpenDropMenu">
+          <div class="header-dropmenu__usertypes">
+            <a class="header-dropmenu__usertype header-dropmenu__usertype_active">Исполнитель</a>
+            <a class="header-dropmenu__usertype">Заказчик</a>
+          </div>
+          <ul class="header-dropmenu__list">
+            <li>
+              <a class="header-dropmenu__link">Профиль</a>
+            </li>
+            <li>
+              <a class="header-dropmenu__link">Выход</a>
+            </li>
+          </ul>
         </div>
-       
       </div>
     </div>
   </div>
@@ -110,33 +125,31 @@
            </div>
            <form class="main-task__form">
               <h3 class="main-task__title">Редактирование задачи</h3>
-              <div class="main-task__field field">
-                <div class="field__title">Название</div>
-                <input class="field__input" type="text" placeholder="Название">
-              </div>
-              <div class="main-task__field field">
-                <div class="field__title">Цена (можно не указывать)</div>
-                <input class="field__input" type="text" placeholder="Цена">
-              </div>
-              <div class="main-task__field field">
-                <div class="field__title">Описание</div>
-                <input class="field__input" type="text" placeholder="Описание">
-              </div>
-              <div class="main-task__field field">
-                <div class="field__title">Дата окончания</div>
-                <input class="field__input" type="text" placeholder="Дата окончания">
-              </div>
-              <div class="main-task__field field">
-                <div class="field__title">Статус задачи</div>
-                <input class="field__input" type="text" placeholder="Статус задачи">
-              </div>
-              <div class="main-task__field field">
-                <div class="field__title">Категории</div>
-                <input class="field__input" type="text" placeholder="Выбрать категорию">
-              </div>
-              <div class="main-task__field field">
-                <div class="field__title">Категории</div>
-                <input class="field__input" type="text" placeholder="Выбрать категорию">
+              <div class="main-task__fields">
+                <div class="main-task__field field field_sm">
+                  <div class="field__title">Название</div>
+                  <input class="field__input" type="text" placeholder="Название">
+                </div>
+                <div class="main-task__field field field_sm">
+                  <div class="field__title">Цена (можно не указывать)</div>
+                  <input class="field__input" type="text" placeholder="Цена">
+                </div>
+                <div class="main-task__field field">
+                  <div class="field__title">Описание</div>
+                  <input class="field__input" type="text" placeholder="Описание">
+                </div>
+                <div class="main-task__field field field_sm">
+                  <div class="field__title">Дата окончания</div>
+                  <input class="field__input" type="text" placeholder="Дата окончания">
+                </div>
+                <div class="main-task__field field field_sm">
+                  <div class="field__title">Статус задачи</div>
+                  <input class="field__input" type="text" placeholder="Выбрать статус">
+                </div>
+                <div class="main-task__field field">
+                  <div class="field__title">Категории</div>
+                  <input class="field__input" type="text" placeholder="Выбрать категорию">
+                </div>
               </div>
               <div class="main-task__categories">
                 <div class="main-task__category task-category task-category_red">
@@ -183,7 +196,18 @@
 
 export default {
   name: "CustomerTasksPage",
-  components: {
+  data(){
+    return{
+      isOpenDropMenu: false,
+    }
+  },
+  methods:{
+    openDropMenu(){
+      if(this.isOpenDropMenu)
+        this.isOpenDropMenu = false;
+      else
+        this.isOpenDropMenu = true;
+    }
   },
 };
 </script>

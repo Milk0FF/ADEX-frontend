@@ -30,6 +30,7 @@
               <div class="auth-form__input">
                 <input type="text" placeholder="Пароль">
               </div>
+              <router-link class="auth-form__link" :to="'/register'">Уже есть аккаунт? Зарегистрируйтесь</router-link>
               <button class="auth-form__btn btn" type="submit">Авторизоваться</button>
             </div>
           </form>
