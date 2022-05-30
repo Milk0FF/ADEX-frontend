@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: "CustomerTask",
+  name: "CustomerTaskComponent",
   methods:{
     
   }

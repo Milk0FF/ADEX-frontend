@@ -100,6 +100,7 @@ textarea{
     width:65px;
     height: 65px;
     border-radius: 50%;  
+    overflow: hidden;
   }
 }
 .header-dropmenu{
@@ -557,7 +558,9 @@ textarea{
     height: 150px;
     position: relative;
     margin-bottom: 23px;
-    border-radius: 50%;
+    img{
+      border-radius: 50%;
+    }
   }
   &__status{
     position: absolute;
@@ -720,6 +723,10 @@ textarea{
       }
     }
   }
+  &__error{
+    padding-top:15px;
+    font-size: 16px;
+  }
   &__review{
     &:last-of-type{
       margin-bottom: 40px;
@@ -749,6 +756,9 @@ textarea{
         transform: rotate(-180deg);
       }
     }
+  }
+  &__name{
+    color: $black;
   }
   &__content{
     flex: 1 1 auto;
@@ -800,6 +810,7 @@ textarea{
     }
     &__sidebar{
       margin: 0 0 50px 0;
+      align-self: stretch;
     }
     .review__text{
       width: unset;
