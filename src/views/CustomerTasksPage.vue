@@ -42,147 +42,61 @@
           <div class="tasks-sidebar__field field">
             <div class="field__content">
               <div class="field__title">Название</div>
-              <input class="field__input" type="text" placeholder="Название">
+              <input class="field__input" type="text" placeholder="Название" v-model="name">
             </div>
-            <div class="field__error">Поле должно быть заполнено</div>
+            <div class="field__error" v-if="v$.name.$error">{{ v$.name.$errors[0].$message }}</div>
           </div>
           <div class="tasks-sidebar__field field">
             <div class="field__content">
               <div class="field__title">Цена (можно не указывать)</div>
-              <input class="field__input" type="text" placeholder="Цена">
+              <input class="field__input" type="text" placeholder="Цена" v-model="price">
             </div>
-            <div class="field__error">Поле должно быть заполнено</div>
+            <div class="field__error" v-if="v$.price.$error">{{ v$.price.$errors[0].$message }}</div>
           </div>
           <div class="tasks-sidebar__field field">
             <div class="field__content">
               <div class="field__title">Описание</div>
-              <input class="field__input" type="text" placeholder="Описание">
+              <input class="field__input" type="text" placeholder="Описание" v-model="description">
             </div>
-            <div class="field__error">Поле должно быть заполнено</div>
+            <div class="field__error" v-if="v$.description.$error">{{ v$.description.$errors[0].$message }}</div>
           </div>
           <div class="tasks-sidebar__field field">
             <div class="field__content">
               <div class="field__title">Дата окончания</div>
-              <input class="field__input" type="text" placeholder="Название">
+              <input class="field__input" type="date" placeholder="Дата окончания" v-model="dateEnd">
             </div>
-            <div class="field__error">Поле должно быть заполнено</div>
+            <div class="field__error" v-if="v$.dateEnd.$error">{{ v$.dateEnd.$errors[0].$message }}</div>
           </div>
           <div class="tasks-sidebar__field field">
             <div class="field__content">
               <div class="field__title">Категории</div>
-              <input class="field__input" type="text" placeholder="Выбрать категории">
+                <multiselect v-model="selectCategoriesValue"
+                              :mode="'tags'"
+                              @select="getSelectedItems"
+                              :options="selectCategoriesOptions"
+                              :label="'name'"
+                              :valueProp="'id'"
+                              :placeholder="'Укажите категории рекламы'"/>
             </div>
-            <div class="field__error">Поле должно быть заполнено</div>
           </div>
-          <!-- <div class="tasks-sidebar__categories">
-            <div class="tasks-sidebar__category task-category task-category_red">
-              YOUTUBE
-              <div class="task-category__delete"></div>
-            </div>
-            <div class="tasks-sidebar__category task-category task-category_blue">
-              VK
-              <div class="task-category__delete"></div>
-            </div>
-            <div class="tasks-sidebar__category task-category task-category_purple">
-              INSTAGRAM
-              <div class="task-category__delete"></div>
-            </div>
-          </div> -->
-          <button class="tasks-sidebar__btn btn btn_primary">Создать</button>
+          <button class="tasks-sidebar__btn btn btn_primary" @click.prevent="validateCreateTaskFields">Создать</button>
         </form>
         
       </div>
       <div class="tasks__content tasks-content">
         <h3 class="tasks-content__title">Текущие задачи</h3>
         <div class="tasks-content__tasks">
-          <div class="tasks-content__task main-task main-task_full">
-           <div class="main-task__header">
-             <div class="main-task__name">Make YouTube Video</div>
-             <div class="main-task__categories">
-               <div class="main-task__category task-category task-category_red">Youtube</div>
-               <div class="main-task__category task-category task-category_blue">VK</div>
-               <div class="main-task__category task-category task-category_green">VK</div>
-             </div>
-             <div class="main-task__price">10 000 ₽</div>
-           </div>
-           <div class="main-task__content">
-             <div class="main-task__description">Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem ...</div>
-             <div class="main-task__status">Исполнитель выбран</div>
-           </div>
-          </div>
-          <div class="tasks-content__task main-task main-task_full">
-           <div class="main-task__header">
-             <div class="main-task__name">Make YouTube Video</div>
-             <div class="main-task__categories">
-               <div class="main-task__category task-category task-category_red">Youtube</div>
-               <div class="main-task__category task-category task-category_blue">VK</div>
-               <div class="main-task__category  task-category task-category_green">VK</div>
-             </div>
-             <div class="main-task__price">10 000 ₽</div>
-           </div>
-           <div class="main-task__content">
-             <div class="main-task__description">Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem ...</div>
-           </div>
-          </div>
-         <div class="tasks-content__task main-task main-task_full">
-           <div class="main-task__header">
-             <div class="main-task__name">Make YouTube Video</div>
-             <div class="main-task__categories">
-               <div class="main-task__category task-category task-category_red">Youtube</div>
-               <div class="main-task__category task-category task-category_blue">VK</div>
-               <div class="main-task__category  task-category task-category_green">VK</div>
-             </div>
-             <div class="main-task__price">10 000 ₽</div>
-           </div>
-           <div class="main-task__content">
-             <div class="main-task__description">Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов. Lorem Ipsum не только успешно пережил без заметных изменений пять веков, но и перешагнул в электронный дизайн. Его популяризации в новое время послужили публикация листов Letraset с образцами Lorem Ipsum в 60-х годах и, в более недавнее время, программы электронной вёрстки типа Aldus PageMaker, в шаблонах которых используется Lorem Ipsum.</div>
-             <div class="main-task__status">Исполнитель выбран</div>
-           </div>
-           <form class="main-task__form">
-              <h3 class="main-task__title">Редактирование задачи</h3>
-              <div class="main-task__fields">
-                <div class="main-task__field field field_sm">
-                  <div class="field__title">Название</div>
-                  <input class="field__input" type="text" placeholder="Название">
-                </div>
-                <div class="main-task__field field field_sm">
-                  <div class="field__title">Цена (можно не указывать)</div>
-                  <input class="field__input" type="text" placeholder="Цена">
-                </div>
-                <div class="main-task__field field">
-                  <div class="field__title">Описание</div>
-                  <input class="field__input" type="text" placeholder="Описание">
-                </div>
-                <div class="main-task__field field field_sm">
-                  <div class="field__title">Дата окончания</div>
-                  <input class="field__input" type="text" placeholder="Дата окончания">
-                </div>
-                <div class="main-task__field field field_sm">
-                  <div class="field__title">Статус задачи</div>
-                  <input class="field__input" type="text" placeholder="Выбрать статус">
-                </div>
-                <div class="main-task__field field">
-                  <div class="field__title">Категории</div>
-                  <input class="field__input" type="text" placeholder="Выбрать категорию">
-                </div>
-              </div>
-              <div class="main-task__categories">
-                <div class="main-task__category task-category task-category_red">
-                  YOUTUBE
-                  <div class="task-category__delete"></div>
-                </div>
-                <div class="main-task__category task-category task-category_blue">
-                  VK
-                  <div class="task-category__delete"></div>
-                </div>
-                <div class="main-task__category task-category task-category_purple">
-                  INSTAGRAM
-                  <div class="task-category__delete"></div>
-                </div>
-              </div>
-             <button class="main-task__btn btn btn_primary">Изменить</button>
-           </form>
-         </div>
+          <customer-task-component v-for="task in tasks" 
+                                    :key="task.id" 
+                                    :price="task.price" 
+                                    :id="task.id"
+                                    :name="task.name"  
+                                    :dateEnd="task.date_end"
+                                    :description="task.description" 
+                                    :taskStatus="task.status"
+                                    :taskCategories="task.categories" 
+                                    :categoryWorks="categoryWorks" 
+                                    :statuses="taskStatuses"/>
         </div>
       </div>
     </div>
@@ -209,12 +123,44 @@
 
 <script>
 
+import axios from 'axios';
+import Multiselect from '@vueform/multiselect';
+import CustomerTaskComponent from '@/components/tasks/CustomerTaskComponent.vue';
+import useVuelidate from '@vuelidate/core';
+import {required, helpers, numeric } from '@vuelidate/validators';
+
 export default {
   name: "CustomerTasksPage",
+  setup(){
+    return {v$: useVuelidate()}
+  },
+  mounted(){
+    this.getCategoryWorks();
+    this.getTaskStatuses();
+    this.getCustomerTasks();
+  },
   data(){
     return{
+      BASE_URL: "http://127.0.0.1:8000/api",
+      token: "1|4vepAHf3tvM9hqRGQCOinrrV9urGB5tWusKWdCHi",
       isOpenDropMenu: false,
+
+      name: null,
+      price: null,
+      description: null,
+      dateEnd: null,
+      tasks: [],
+      taskStatuses: [],
+
+      categoryWorks: [],
+
+      selectCategoriesValue: null,
+      selectCategoriesOptions: [],
     }
+  },
+  components:{
+    Multiselect,
+    CustomerTaskComponent,
   },
   methods:{
     openDropMenu(){
@@ -222,6 +168,103 @@ export default {
         this.isOpenDropMenu = false;
       else
         this.isOpenDropMenu = true;
+    },
+
+    getSelectedItems(){
+      console.log('Categories', this.selectCategoriesValue);
+    },
+
+    validateCreateTaskFields(){
+      this.v$.name.$touch();
+      this.v$.price.$touch();
+      this.v$.description.$touch();
+      this.v$.dateEnd.$touch();
+      if (this.v$.name.$error || this.v$.price.$error || this.v$.description.$error || this.v$.dateEnd.$error){
+        console.log('Проверку не прошли!');
+        return;
+      }
+      console.log('Проверку прошли!');
+      this.createTask();
+
+    },
+
+    async getCategoryWorks(){
+      const res = await axios.get(this.BASE_URL + '/category-works',
+        {
+          headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${this.token}`,
+          }
+      });
+      this.categoryWorks = res.data; 
+      res.data.forEach(category => {
+        this.selectCategoriesOptions.push(category)
+      });
+      console.log(res.data);
+    },
+
+    async getCustomerTasks(){
+      const res = await axios.get(this.BASE_URL + '/customer-tasks', {
+            headers:{
+              'Accept': 'application/json',
+              "Authorization": `Bearer ${this.token}`
+            }
+          },
+        );
+      this.tasks = res.data;
+      console.log(this.tasks);
+    },
+
+    async createTask(){
+      try{
+          const res = await axios.post(this.BASE_URL + "/task", {
+              name: this.name,
+              price: this.price,
+              description: this.description,
+              date_end: this.dateEnd,
+              categories: this.selectCategoriesValue,
+            },
+            {
+              headers:{
+                'Accept': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+              }
+          });
+          console.log(res);
+      } catch(error){
+          console.log(error.response.data);
+          // const status = error.response.status;
+          // if(status === 400){
+          //   this.error = 'Пользователя с таким email не существует';
+          //   return;
+          // }
+          // if(status === 422){
+          //   this.error = 'Пароль введён неверно'
+          //   return;
+          // }
+          // if(status === 500){
+          //   this.error = 'Ошибка сервера';
+          //   return;
+          // }
+      }
+    },
+    async getTaskStatuses(){
+      const res = await axios.get(this.BASE_URL + '/tasks/statuses',
+        {
+          headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${this.token}`,
+          }
+      });
+      this.taskStatuses = res.data;
+    },
+  },
+  validations () {
+    return {
+      name: { required: helpers.withMessage("Поле Название обязательно для заполнения", required),},
+      price: { numeric: helpers.withMessage("Поле Цена заполнено неверно", numeric)  },
+      description: { required: helpers.withMessage("Поле Описание обязательно для заполнения", required)},
+      dateEnd: { required: helpers.withMessage("Поле Дата окончания обязательно для заполнения", required)  },
     }
   },
 };

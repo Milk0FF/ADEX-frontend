@@ -187,15 +187,15 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
-    this.getUserInfo();
     this.getCategoryWorks();
     this.getUserEmploymentTypes();
+    this.getUserInfo();
   },
   data(){
     return{
       isOpenDropMenu: false,
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "1|yZwLvytMTyry2fCisN7xAFNkFOzSqcxviQUdUnte",
+      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
       userInfo: {},
       name: null,
       surname: null,
@@ -207,14 +207,12 @@ export default {
       dateBirth: null,
       avatar: null,
 
-      // userCategoryWorks: [],
-      // userEmploymentType: {},
-      categoryWorks: [],
-      employmentTypes: [],
+      userCategoryWorks: [],
+      userEmploymentType: {},
 
       selectEmploymentTypesValue: 0,
       selectEmploymentTypesOptions: [],
-      selectCategoriesValue: null,
+      selectCategoriesValue: [],
       selectCategoriesOptions: [],
     }
   },
@@ -222,15 +220,15 @@ export default {
     Multiselect,
   },
   methods:{
-    getSelectedItems(){
-      console.log('Categories', this.selectCategoriesValue);
-      console.log('Employment Types', this.selectEmploymentTypesValue);
-    },
     openDropMenu(){
       if(this.isOpenDropMenu)
         this.isOpenDropMenu = false;
       else
         this.isOpenDropMenu = true;
+    },
+    getSelectedItems(){
+      console.log('Categories', this.selectCategoriesValue);
+      console.log('Employment Types', this.selectEmploymentTypesValue);
     },
     openChooseImageModal(){
       const imageModal = document.getElementById("image");
@@ -272,14 +270,16 @@ export default {
         this.userEmploymentType = this.userInfo.employment_type;
 
         if(this.userCategoryWorks !== null)
-          this.userCategoryWorks.array.forEach(category => {
+          this.userCategoryWorks.forEach(category => {
             this.selectCategoriesValue.push(category.id);
           });
+        
         if(this.userEmploymentType !== null)
           this.selectEmploymentTypesValue = this.userEmploymentType.id;
 
       } catch(error){
-        console.log(error.response.data);
+        console.log(error);
+        // console.log(error.response.data);
       }
     },
     async changeAvatar(formData){
@@ -361,14 +361,7 @@ export default {
             'Authorization': `Bearer ${this.token}`,
           }
       });
-      this.categoryWorks = res.data;
-      res.data.forEach(category => {
-        this.selectCategoriesOptions.push(category)
-      });
-      // this.selectOptions.push(res.data[0].name);
-      // this.selectOptions.push(res.data[1].name);
-      // this.selectOptions.push(res.data[2].name);
-      console.log(res.data);
+      this.selectCategoriesOptions = res.data;
     },
     async getUserEmploymentTypes(){
       const res = await axios.get(this.BASE_URL + '/user/employment-types',
@@ -378,26 +371,9 @@ export default {
             'Authorization': `Bearer ${this.token}`,
           }
       });
-      this.employmentTypes = res.data;
-      res.data.forEach(employmentType => {
-        this.selectEmploymentTypesOptions.push(employmentType)
-      });
-
+      this.selectEmploymentTypesOptions = res.data;
     },
-    // async getTaskStatuses(){
-    //   const res = await axios.get(this.BASE_URL + '/tasks/statuses',
-    //     {
-    //       headers:{
-    //         'Accept': 'application/json',
-    //         'Authorization': `Bearer ${this.token}`,
-    //       }
-    //   });
-    //   this.taskStatuses = res.data;
-    //   // this.selectOptions.push(res.data[0].name);
-    //   // this.selectOptions.push(res.data[1].name);
-    //   // this.selectOptions.push(res.data[2].name);
-    // },
-    
+       
   },
   validations () {
     return {

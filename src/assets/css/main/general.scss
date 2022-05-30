@@ -180,6 +180,7 @@ textarea{
       display: flex;
       align-items: center;
       width: 40px;
+      height: 40px;
     }
   }
   .logo{
@@ -221,13 +222,15 @@ textarea{
   }
 }
 .main-task{
-  cursor: pointer;
   padding: 20px 40px;
   margin-bottom: 30px;
   border-radius: 20px;
   background-color: $white;
   &:last-child{
     margin:0;
+  }
+  &__body{
+    cursor: pointer;
   }
   &__header{
     display: flex;
@@ -1293,7 +1296,7 @@ textarea{
     margin-bottom: 15px;
   }
   &__btn{
-    margin-top: 25px;
+    margin-top: 10px;
   }
 }
 .tasks-content{
