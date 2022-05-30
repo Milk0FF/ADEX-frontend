@@ -40,26 +40,41 @@
         <h3 class="tasks-sidebar__title">Создать задачу</h3>
         <form class="tasks-sidebar__form">
           <div class="tasks-sidebar__field field">
-            <div class="field__title">Название</div>
-            <input class="field__input" type="text" placeholder="Название">
+            <div class="field__content">
+              <div class="field__title">Название</div>
+              <input class="field__input" type="text" placeholder="Название">
+            </div>
+            <div class="field__error">Поле должно быть заполнено</div>
           </div>
           <div class="tasks-sidebar__field field">
-            <div class="field__title">Цена (можно не указывать)</div>
-            <input class="field__input" type="text" placeholder="Цена">
+            <div class="field__content">
+              <div class="field__title">Цена (можно не указывать)</div>
+              <input class="field__input" type="text" placeholder="Цена">
+            </div>
+            <div class="field__error">Поле должно быть заполнено</div>
           </div>
           <div class="tasks-sidebar__field field">
-            <div class="field__title">Описание</div>
-            <input class="field__input" type="text" placeholder="Описание">
+            <div class="field__content">
+              <div class="field__title">Описание</div>
+              <input class="field__input" type="text" placeholder="Описание">
+            </div>
+            <div class="field__error">Поле должно быть заполнено</div>
           </div>
           <div class="tasks-sidebar__field field">
-            <div class="field__title">Дата окончания</div>
-            <input class="field__input" type="text" placeholder="Название">
+            <div class="field__content">
+              <div class="field__title">Дата окончания</div>
+              <input class="field__input" type="text" placeholder="Название">
+            </div>
+            <div class="field__error">Поле должно быть заполнено</div>
           </div>
           <div class="tasks-sidebar__field field">
-            <div class="field__title">Категории</div>
-            <input class="field__input" type="text" placeholder="Выбрать категории">
+            <div class="field__content">
+              <div class="field__title">Категории</div>
+              <input class="field__input" type="text" placeholder="Выбрать категории">
+            </div>
+            <div class="field__error">Поле должно быть заполнено</div>
           </div>
-          <div class="tasks-sidebar__categories">
+          <!-- <div class="tasks-sidebar__categories">
             <div class="tasks-sidebar__category task-category task-category_red">
               YOUTUBE
               <div class="task-category__delete"></div>
@@ -72,7 +87,7 @@
               INSTAGRAM
               <div class="task-category__delete"></div>
             </div>
-          </div>
+          </div> -->
           <button class="tasks-sidebar__btn btn btn_primary">Создать</button>
         </form>
         

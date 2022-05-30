@@ -214,7 +214,7 @@ export default {
       this.getTasks();
     },
     async getPrices(){
-      const res = await axios.get(this.BASE_URL + '/prices',
+      const res = await axios.get(this.BASE_URL + '/tasks/prices',
         {
           headers:{
             'Accept': 'application/json',

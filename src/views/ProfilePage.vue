@@ -41,7 +41,7 @@
           <img v-if="userInfo.avatar == null" src="../assets/images/no-image.jpg"/>
           <img v-else :src="userInfo.avatar"/>
 
-          <div v-if="userInfo.employment_type == 'Свободен'" class="profile-sidebar__status status status_green">Свободен</div>
+          <div v-if="userInfo.employment_type && userInfo.employment_type.name == 'Свободен'" class="profile-sidebar__status status status_green">Свободен</div>
           <div v-else class="profile-sidebar__status status status_red">Занят</div>
         </div>
         <div class="profile-sidebar__name">
@@ -222,6 +222,7 @@ export default {
             }
         });
         this.userInfo = res.data;
+        console.log(this.userInfo);
         this.getReviews();
       } catch(error){
         console.log(error.response.data);
