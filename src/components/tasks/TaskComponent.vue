@@ -24,7 +24,7 @@
     <div class="main-task__response" v-if="isExpandedTask">
       <textarea class="main-task__response-field" v-model.trim="text" placeholder="Оставьте отклик (напишите информацию о себе, какими навыками обладаете, чтобы заказчик выбрал именно вас)"></textarea>
       <!-- <button class="main-task__btn btn btn-primary" @click="createChat">Отправить</button> -->
-      <button class="main-task__btn btn btn-primary" @click="createChat">Отправить</button>
+      <button class="main-task__btn btn" @click="createChat">Отправить</button>
     </div>
   </div>
 </template>

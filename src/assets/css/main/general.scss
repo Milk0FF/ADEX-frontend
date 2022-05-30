@@ -54,6 +54,10 @@ img{
   font-weight: 700;
   color: $white;
   background-color: $green;
+  transition: 0.3s ease all;
+  &:hover{
+    box-shadow: 0px 2px 15px rgba(4, 223, 121, 0.7);
+  }
   &_primary{
     padding: 12px 40px;
     align-self: center;
@@ -101,6 +105,10 @@ textarea{
     height: 65px;
     border-radius: 50%;  
     overflow: hidden;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 .header-dropmenu{
@@ -560,6 +568,8 @@ textarea{
     margin-bottom: 23px;
     img{
       border-radius: 50%;
+      width: 100%;
+      height: 100%;
     }
   }
   &__status{
@@ -782,8 +792,13 @@ textarea{
   &__avatar{
     width: 30px;
     height: 30px;
-    border-radius: 15px;
+    border-radius: 50%;
+    overflow: hidden;
     margin-right: 15px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
   &__name{
     font-size: 16px;
@@ -1122,9 +1137,13 @@ textarea{
   &__avatar{
     width: 150px;
     height: 150px;
-    border-radius: 50%;
     position: relative;
     margin-bottom: 25px;
+  }
+  &__img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
   }
   &__fields{
     display: flex;
@@ -1144,6 +1163,13 @@ textarea{
     border-radius: 50%;
     background-color: $white;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease all;
+    &:hover{
+      box-shadow: 0px 2px 15px rgba(4, 223, 121, 0.7);
+    }
+    input{
+      display: none;
+    }
   }
   &__name{
     font-size: 28px;
@@ -1187,6 +1213,12 @@ textarea{
     &::placeholder{
       color:$black;
     }
+  }
+  &__select{
+    padding: 0;
+    color:$black;
+    background: unset;
+    cursor: pointer;
   }
   &_sm{
     flex: 0 1 49%;

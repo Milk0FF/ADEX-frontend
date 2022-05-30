@@ -91,6 +91,7 @@
     &:hover{
       background-color: $white;
       color:$green;
+      box-shadow: none;
     }
   }
   &__error{

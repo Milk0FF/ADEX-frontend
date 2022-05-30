@@ -39,51 +39,58 @@
       <div class="personal-profile__body">
         <div class="personal-profile__header">
           <div class="personal-profile__avatar">
-            <img src="../assets/images/user-logo.png"/>
-            <div class="personal-profile__edit">
+            <img class="personal-profile__img" v-if="userInfo.avatar == null" src="../assets/images/no-image.jpg"/>
+            <img class="personal-profile__img" v-else :src="userInfo.avatar"/>
+            <a class="personal-profile__edit" @click="openChooseImageModal">
               <img src="../assets/images/edit-pencil.svg"/>
-            </div>
+              <input id="image" type="file" accept="image/jpeg,image/png,image/gif" @change="uploadImg($event)"/>
+            </a>
           </div>
-          <div class="personal-profile__name">Иванов Иван</div>
+          <div v-if="userInfo.firstname && userInfo.lastname" class="personal-profile__name">{{userInfo.firstname + " " + userInfo.lastname}}</div>
+          <div v-else class="personal-profile__name">Имя не указано</div>
         </div>
         <div class="personal-profile__content">
           <h3 class="personal-profile__title">Личная информация</h3>
           <div class="personal-profile__fields">
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Имя</div>
-              <input class="field__input" type="text" placeholder="Имя">
+              <input class="field__input" type="text" placeholder="Имя" v-model="name">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Фамилия</div>
-              <input class="field__input" type="text" placeholder="Фамилия">
+              <input class="field__input" type="text" placeholder="Фамилия" v-model="surname">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Телефон</div>
-              <input class="field__input" type="text" placeholder="Имя">
+              <input class="field__input" type="text" placeholder="Телефон" v-model="phone">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Email</div>
-              <input class="field__input" type="text" placeholder="Фамилия">
+              <input class="field__input" type="text" placeholder="Email" v-model="email">
             </div>
             <div class="personal-profile__field field">
               <div class="field__title">О себе</div>
-              <input class="field__input" type="text" placeholder="О себе">
+              <input class="field__input" type="text" placeholder="О себе" v-model="about">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Город</div>
-              <input class="field__input" type="text" placeholder="Город">
+              <input class="field__input" type="text" placeholder="Город" v-model="city">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Страна</div>
-              <input class="field__input" type="text" placeholder="Страна">
+              <input class="field__input" type="text" placeholder="Страна" v-model="country">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Дата рождения</div>
-              <input class="field__input" type="text" placeholder="Дата рождения">
+              <input class="field__input" type="date" placeholder="Дата рождения" v-model="dateBirth">
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__title">Статус</div>
-              <input class="field__input" type="text" placeholder="Статус">
+              <select class="field__select" placeholder="Статус">
+                <option>fdsklfj,dsjfdlk</option>
+                <option>2</option>
+                <option>3</option>
+              </select>
             </div>
             <div class="personal-profile__field field">
               <div class="field__title">Категории</div>
@@ -133,11 +140,30 @@
 
 <script>
 
+import axios from 'axios';
 export default {
   name: "PersonalUserProfilePage",
+  mounted(){
+    this.getUserInfo();
+    this.getCategoryWorks();
+  },
   data(){
     return{
       isOpenDropMenu: false,
+      BASE_URL: "http://127.0.0.1:8000/api",
+      token: "1|yZwLvytMTyry2fCisN7xAFNkFOzSqcxviQUdUnte",
+      userInfo: {},
+      name: null,
+      surname: null,
+      email: null,
+      phone: null,
+      about: null,
+      city: null,
+      country: null,
+      dateBirth: null,
+      avatar: null,
+      userCategoryWorks: [],
+      categoryWorks: [],
     }
   },
   methods:{
@@ -146,7 +172,86 @@ export default {
         this.isOpenDropMenu = false;
       else
         this.isOpenDropMenu = true;
-    }
+    },
+    openChooseImageModal(){
+      const imageModal = document.getElementById("image");
+      imageModal.click();
+    },
+    uploadImg(e){
+      const image = e.target.files[0];
+      const imgBody = new FormData();
+      imgBody.append('image', image);
+      this.changeAvatar(imgBody);
+      // let reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // const that = this;
+      // reader.onload = (e) => {
+      //   url
+      // }
+
+    },
+    async getUserInfo(){
+      try{
+        const res = await axios.get(this.BASE_URL + "/user",
+          {
+            headers:{
+              'Accept': 'application/json',
+              "Authorization": `Bearer ${this.token}`
+            }
+        });
+        this.userInfo = res.data;
+        this.name = this.userInfo.firstname;
+        this.surname = this.userInfo.lastname;
+        this.about = this.userInfo.about;
+        this.phone = this.userInfo.phone;
+        this.city = this.userInfo.city;
+        this.email = this.userInfo.email;
+        this.country = this.userInfo.country;
+        this.dateBirth = this.userInfo.birth_date;
+        this.userCategoryWorks = this.userInfo.categories;
+      } catch(error){
+        console.log(error.response.data);
+      }
+    },
+    async changeAvatar(formData){
+      try{
+          const res = await axios.post(this.BASE_URL + "/user/avatar", formData,
+            {
+              headers:{
+                'Accept': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+              }
+          });
+          console.log(res);
+      } catch(error){
+          console.log(error.response.data);
+          // const status = error.response.status;
+          // if(status === 400){
+          //   this.error = 'Пользователя с таким email не существует';
+          //   return;
+          // }
+          // if(status === 422){
+          //   this.error = 'Пароль введён неверно'
+          //   return;
+          // }
+          // if(status === 500){
+          //   this.error = 'Ошибка сервера';
+          //   return;
+          // }
+      }
+    } ,
+    async getCategoryWorks(){
+      const res = await axios.get(this.BASE_URL + '/category-works',
+        {
+          headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${this.token}`,
+            'Content-Type': 'multipart/form-data',
+          }
+      });
+      this.categoryWorks = res.data;
+    },
+    
   },
 };
 </script>
