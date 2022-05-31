@@ -227,8 +227,8 @@ textarea{
   &__price-slider{
     margin-right: 20px;
   }
-  &__tasks{
-
+  &__error{
+    font-size: 20px;
   }
 }
 .main-task{
@@ -485,6 +485,7 @@ textarea{
     &__description{
       flex:unset;
       margin: 0 0 25px 0;
+      align-self: center;
     }
     &__time{
       align-self: center;
@@ -951,7 +952,6 @@ textarea{
   }
   &__task-name{
     font-size: 16px;
-    font-weight: 700;
   }
   // &_task{
   //   .chats-sidebar{
@@ -1468,6 +1468,12 @@ textarea{
         font-size: 24px;
       }
     }
+  }
+}
+.not-found{
+  height: 100%;
+  background: $gray;
+  &__container{
   }
 }
 

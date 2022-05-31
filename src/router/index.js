@@ -7,6 +7,7 @@ import ChatsPage from "../views/ChatsPage.vue";
 import CustomerChatsPage from "../views/CustomerChatsPage.vue";
 import PersonalProfilePage from "../views/PersonalProfilePage.vue";
 import CustomerTasksPage from "../views/CustomerTasksPage.vue";
+import NotFoundPage from "../views/404Page.vue";
 
 import guest from './middleware/guest';
 import auth from './middleware/auth';
@@ -79,6 +80,11 @@ const routes = [
     meta:{
       middleware: customer,
     }
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: NotFoundPage,
   },
 ];
 

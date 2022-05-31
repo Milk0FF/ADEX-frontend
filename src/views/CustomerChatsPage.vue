@@ -18,11 +18,11 @@
               @click="setCurrentChat(chat.id, chat)">
           <div class="chats-sidebar__user-info chat-user-info">
             <div class="chat-user-info__avatar">
-              <img v-if="chat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
-              <img v-else :src="chat.customer.avatar"/>
+              <img v-if="chat.executor.avatar == null" src="../assets/images/no-image.jpg"/>
+              <img v-else :src="chat.executor.avatar"/>
             </div>
             <div class="chat-user-info__info">
-              <div class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
+              <div class="chat-user-info__name">{{ chat.executor.firstname + ' ' + chat.executor.lastname }}</div>
               <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
             </div>
           </div>
@@ -38,11 +38,11 @@
         <div class="chat__header">
           <div class="chat__user-info chat-user-info">
             <a href="#" class="chat-user-info__avatar">
-              <img v-if="currentChat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
-              <img v-else :src="currentChat.customer.avatar"/>
+              <img v-if="currentChat.executor.avatar == null" src="../assets/images/no-image.jpg"/>
+              <img v-else :src="currentChat.executor.avatar"/>
             </a>
             <div class="chat-user-info__info">
-              <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
+              <a href="#" class="chat-user-info__name">{{ currentChat.executor.firstname + ' ' + currentChat.executor.lastname }}</a>
               <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
             </div>
           </div>
@@ -70,7 +70,7 @@
                 v-for="chatMessage in chatMessages"
                 :key="chatMessage.id">
               <div class="chat__text">{{ chatMessage.text }}</div>
-              <div class="chat__date">{{ chatMessage.created_at }}</div>
+              <div class="chat__date">{{ chatMessage.created_at }} г.</div>
           </div>
         </div>
         <div class="chat__footer">
@@ -102,6 +102,8 @@ export default {
   },
   mounted(){
     this.token = localStorage.getItem('token');
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.currentUserId = userInfo.id;
     this.getCustomerTasks();
   },
   data(){
@@ -114,7 +116,7 @@ export default {
       chatMessages: [],
 
       messageText: null,
-      currentUserId: 1,
+      currentUserId: null,
       currentChatId: null,
       currentCustomerTaskId: null,
       currentChat: null,
@@ -182,8 +184,6 @@ export default {
           },
         );
       this.chatMessages = res.data;
-        
-      console.log(this.chatMessages);
     },
 
     async createChatMessage(){
@@ -198,7 +198,7 @@ export default {
                 'Authorization': `Bearer ${this.token}`,
               }
           });
-          console.log(res);
+          this.chatMessages.push(res.data);
       } catch(error){
           console.log(error.response.data);
       }

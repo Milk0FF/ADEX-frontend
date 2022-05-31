@@ -90,13 +90,6 @@ export default {
           return;
         }
       }
-
-      // axios.post(process.env.BASE_URL + "/user/logout", { }, {
-      //   headers:{
-      //     'Accept': 'application/json',
-      //     "Authorization": `Bearer ${token}`
-      //   }
-      // });
     }
   },
   validations () {

@@ -185,16 +185,14 @@ export default {
       this.v$.senderDescription.$touch();
       this.v$.senderDateEnd.$touch();
       if (this.v$.senderName.$error || this.v$.senderPrice.$error || this.v$.senderDescription.$error || this.v$.senderDateEnd.$error){
-        console.log('Проверку не прошли!');
         return;
       }
-      console.log('Проверку прошли!');
       this.updateTask();
     },
 
     async updateTask(){
       try{
-          const res = await axios.put(this.BASE_URL + "/task/" + this.id, {
+          await axios.put(this.BASE_URL + "/task/" + this.id, {
               name: this.senderName,
               price: this.senderPrice,
               status: this.selectTaskStatusValue,
@@ -207,7 +205,6 @@ export default {
                 "Authorization": `Bearer ${this.token}`
               }
           });
-          console.log(res);
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;

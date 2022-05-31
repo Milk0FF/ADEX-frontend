@@ -31,7 +31,7 @@
 
         </div>
       </div>
-      <div class="main__tasks">
+      <div v-if="tasks.length > 0" class="main__tasks">
         <task-component v-for="task in tasks" 
                         :key="task.id" 
                         :id="task.id" 
@@ -41,6 +41,10 @@
                         :customerId="task.customer_id" 
                         :categories="task.categories"
                         @responseSended="openModal"/>
+      </div>
+      
+      <div v-else class="main__tasks">
+        <div class="main__error">Задачи не найдены!</div>
       </div>
 
     </div>
@@ -125,7 +129,6 @@ export default {
 
       if(this.filterCategoryWorksId !== 0)
         params.categories = [this.filterCategoryWorksId];
-      console.log(params);
 
       const res = await axios.get(this.BASE_URL + '/tasks', {
             params: params,
@@ -135,7 +138,6 @@ export default {
             }
           },
         );
-      console.log(res.data);
       this.tasks = res.data;
     },
 

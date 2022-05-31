@@ -91,7 +91,8 @@
                 <div class="review__info">
                   <div class="review__user-info">
                     <div class="review__avatar">
-                      <img src="../assets/images/user-logo.png">
+                      <img v-if="review.author.avatar == null" src="../assets/images/no-image.jpg"/>
+                      <img v-else :src="review.author.avatar"/>
                     </div>
                     <a href="#" class="review__name">{{review.author.firstname +  ' ' + review.author.lastname}}</a>
                   </div>
@@ -99,7 +100,7 @@
                     {{review.comment}}
                   </div>
                 </div>
-                <div class="review__date">10.02.2020 г</div>
+                <div class="review__date">{{review.created_at}} г</div>
               </div>
             </div>
           </div>
@@ -150,7 +151,7 @@ export default {
         this.reviews = res.data;
 
       } catch(error){
-          console.log(error.response.data);
+        console.log(error.response.data);
       }
     },
     
@@ -164,7 +165,6 @@ export default {
             }
         });
         this.userInfo = res.data;
-        console.log(this.userInfo);
         this.getReviews();
       } catch(error){
         console.log(error.response.data);

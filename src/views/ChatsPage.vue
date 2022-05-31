@@ -78,6 +78,8 @@ export default {
   },
   mounted(){
     this.token = localStorage.getItem('token');
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    this.currentUserId = userInfo.id;
     this.getExecutorChats();
   },
   data(){
@@ -89,7 +91,7 @@ export default {
       chatMessages: [],
       
       messageText: null,
-      currentUserId: 1,
+      currentUserId: null,
       currentChatId: null,
       currentChat: null,
     }
@@ -131,8 +133,6 @@ export default {
           },
         );
       this.chatMessages = res.data;
-        
-      console.log(this.chatMessages);
     },
 
     async createChatMessage(){

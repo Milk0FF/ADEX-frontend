@@ -33,12 +33,15 @@
 import axios from 'axios';
 export default {
   name: "TaskComponent",
+  mounted(){
+    this.token = localStorage.getItem('token');
+  },
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
       text: null,
       isExpandedTask: false,
-      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      token: null,
     }
   },
   methods:{

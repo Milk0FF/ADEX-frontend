@@ -78,7 +78,6 @@
                 <div class="field__title">Статус</div>
                 <multiselect v-model="selectEmploymentTypesValue"
                               :options="selectEmploymentTypesOptions"
-                              @select="getSelectedItems"
                               :label="'name'"
                               :canClear="false"
                               :valueProp="'id'"
@@ -88,32 +87,14 @@
             <div class="personal-profile__field field">
               <div class="field__content">
                 <div class="field__title">Категории</div>
-                <!-- <input class="field__input" type="text" placeholder="Категории"> -->
                 <multiselect v-model="selectCategoriesValue"
                               :mode="'tags'"
-                              @select="getSelectedItems"
                               :options="selectCategoriesOptions"
                               :label="'name'"
                               :valueProp="'id'"
                               :placeholder="'Укажите категории рекламы'"/>
               </div>
             </div>
-            <!-- <div class="personal-profile__categories">
-              <div class="personal-profile__category task-category task-category_red">
-                YOUTUBE
-                <div class="task-category__delete"></div>
-              </div>
-              
-              <div class="personal-profile__category task-category task-category_blue">
-                VK
-                <div class="task-category__delete"></div>
-              </div>
-              
-              <div class="personal-profile__category task-category task-category_purple">
-                INSTAGRAM
-                <div class="task-category__delete"></div>
-              </div>
-            </div> -->
           </div> 
         </div>
         <button @click="validateUserInfo" class="personal-profile__btn btn btn_primary">Сохранить</button>
@@ -168,10 +149,6 @@ export default {
     Multiselect,
   },
   methods:{
-    getSelectedItems(){
-      console.log('Categories', this.selectCategoriesValue);
-      console.log('Employment Types', this.selectEmploymentTypesValue);
-    },
     openChooseImageModal(){
       const imageModal = document.getElementById("image");
       imageModal.click();
@@ -221,12 +198,11 @@ export default {
 
       } catch(error){
         console.log(error);
-        // console.log(error.response.data);
       }
     },
     async changeAvatar(formData){
       try{
-          const res = await axios.post(this.BASE_URL + "/user/avatar", formData,
+          await axios.post(this.BASE_URL + "/user/avatar", formData,
             {
               headers:{
                 'Accept': 'application/json',
@@ -234,7 +210,6 @@ export default {
                 'Content-Type': 'multipart/form-data',
               }
           });
-          console.log(res);
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;
@@ -269,15 +244,13 @@ export default {
         params.email = this.email;
 
       try{
-          const res = await axios.put(this.BASE_URL + "/user", params,
+          await axios.put(this.BASE_URL + "/user", params,
             {
               headers:{
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${this.token}`,
               }
           });
-          console.log("Вроде как всё заебись ёбана рот!");
-          console.log(res);
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;

@@ -37,7 +37,6 @@
               <div class="field__title">Категории</div>
                 <multiselect v-model="selectCategoriesValue"
                               :mode="'tags'"
-                              @select="getSelectedItems"
                               :options="selectCategoriesOptions"
                               :label="'name'"
                               :valueProp="'id'"
@@ -115,23 +114,15 @@ export default {
     CustomerTaskComponent,
   },
   methods:{
-
-    getSelectedItems(){
-      console.log('Categories', this.selectCategoriesValue);
-    },
-
     validateCreateTaskFields(){
       this.v$.name.$touch();
       this.v$.price.$touch();
       this.v$.description.$touch();
       this.v$.dateEnd.$touch();
       if (this.v$.name.$error || this.v$.price.$error || this.v$.description.$error || this.v$.dateEnd.$error){
-        console.log('Проверку не прошли!');
         return;
       }
-      console.log('Проверку прошли!');
       this.createTask();
-
     },
 
     async getCategoryWorks(){
@@ -146,7 +137,6 @@ export default {
       res.data.forEach(category => {
         this.selectCategoriesOptions.push(category)
       });
-      console.log(res.data);
     },
 
     async getCustomerTasks(){
@@ -158,12 +148,11 @@ export default {
           },
         );
       this.tasks = res.data;
-      console.log(this.tasks);
     },
 
     async createTask(){
       try{
-          const res = await axios.post(this.BASE_URL + "/task", {
+          await axios.post(this.BASE_URL + "/task", {
               name: this.name,
               price: this.price,
               description: this.description,
@@ -176,7 +165,6 @@ export default {
                 "Authorization": `Bearer ${this.token}`
               }
           });
-          console.log(res);
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;
