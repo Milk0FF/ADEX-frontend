@@ -50,7 +50,7 @@
       </div>
       <div class="tasks__content tasks-content">
         <h3 class="tasks-content__title">Текущие задачи</h3>
-        <div class="tasks-content__tasks">
+        <div class="tasks-content__tasks" v-if="tasks.length > 0">
           <customer-task-component v-for="task in tasks" 
                                     :key="task.id" 
                                     :price="task.price" 
@@ -62,6 +62,11 @@
                                     :taskCategories="task.categories" 
                                     :categoryWorks="categoryWorks" 
                                     :statuses="taskStatuses"/>
+        </div>
+        <div class="tasks-content__tasks" v-else>
+          <div class="tasks-content__error">
+            Текущих задач нет, создайте новую
+          </div>
         </div>
       </div>
     </div>
@@ -82,6 +87,7 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
+    this.token = localStorage.getItem('token');
     this.getCategoryWorks();
     this.getTaskStatuses();
     this.getCustomerTasks();
@@ -89,7 +95,7 @@ export default {
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "3|Zq7tS37BmKd85eBgp0fZWNl2BsCBLQmyaI9E4Ijd",
+      token: null,
 
       name: null,
       price: null,

@@ -134,6 +134,7 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
+    this.token = localStorage.getItem('token');
     this.getCategoryWorks();
     this.getUserEmploymentTypes();
     this.getUserInfo();
@@ -141,8 +142,7 @@ export default {
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
-      // token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
-      token: "3|Zq7tS37BmKd85eBgp0fZWNl2BsCBLQmyaI9E4Ijd",
+      token: null,
       
       userInfo: {},
       name: null,

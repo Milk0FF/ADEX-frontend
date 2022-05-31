@@ -61,13 +61,7 @@ export default {
     },
     async login(){
       this.error = '';
-      // axios.get(process.env.BASE_URL + "/tasks", {
-      //   params:{
-      //     categories: [1,2,3],
-      //     price_start: 1,
-      //     price_end: 2,
-      //   }
-      // });
+      
       try{
         let res = await axios.post(this.BASE_URL + "/user/login", {
             email: this.email,
@@ -78,8 +72,9 @@ export default {
               'Accept': 'application/json',
             }
         });
-        this.setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
         this.$router.push('/');
+        
       } catch(error){
         const status = error.response.status;
         if(status === 400){

@@ -1,86 +1,90 @@
 <template>
   <div class="chats">
-    <div class="chats__container chats__container_lg container">
-        <div class="chats__sidebar chats-sidebar">
-          <div class="chats-sidebar__task" 
-               v-for="customerTask in customerTasks" 
-               :key="customerTask.id" 
-               :class="currentCustomerTaskId == customerTask.id ? 'chats-sidebar__task_active' : ''" 
-               @click="setCurrentTask(customerTask.id)">
-              <div class="chats-sidebar__task-name">{{ customerTask.name }}</div>
+    <div v-if="customerTasks.length > 0" class="chats__container chats__container_lg container">
+      <div class="chats__sidebar chats-sidebar">
+        <div class="chats-sidebar__task" 
+              v-for="customerTask in customerTasks" 
+              :key="customerTask.id" 
+              :class="currentCustomerTaskId == customerTask.id ? 'chats-sidebar__task_active' : ''" 
+              @click="setCurrentTask(customerTask.id)">
+            <div class="chats-sidebar__task-name">{{ customerTask.name }}</div>
+        </div>
+      </div>
+      <div v-if="chats.length > 0" class="chats__sidebar chats-sidebar">
+        <div  class="chats-sidebar__chat" 
+              v-for="chat in chats" 
+              :key="chat.id" 
+              :class="currentChatId == chat.id ? 'chats-sidebar__chat_active' : ''" 
+              @click="setCurrentChat(chat.id, chat)">
+          <div class="chats-sidebar__user-info chat-user-info">
+            <div class="chat-user-info__avatar">
+              <img v-if="chat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
+              <img v-else :src="chat.customer.avatar"/>
+            </div>
+            <div class="chat-user-info__info">
+              <div class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
+              <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
+            </div>
+          </div>
+          <div class="chats-sidebar__date">
+            {{ chat.created_at }} г.
           </div>
         </div>
-        <div v-if="chats.length > 0" class="chats__sidebar chats-sidebar">
-          <div  class="chats-sidebar__chat" 
-               v-for="chat in chats" 
-               :key="chat.id" 
-               :class="currentChatId == chat.id ? 'chats-sidebar__chat_active' : ''" 
-               @click="setCurrentChat(chat.id, chat)">
-            <div class="chats-sidebar__user-info chat-user-info">
-              <div class="chat-user-info__avatar">
-                <img v-if="chat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
-                <img v-else :src="chat.customer.avatar"/>
-              </div>
-              <div class="chat-user-info__info">
-                <div class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
-                <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
-              </div>
+      </div>
+      <div  v-else class="chats__sidebar chats-sidebar">
+        <div class="chats__error">Чатов по задаче пока что нет!</div>
+      </div>
+      <div class="chats__chat chat" v-if="currentChat !== null">
+        <div class="chat__header">
+          <div class="chat__user-info chat-user-info">
+            <a href="#" class="chat-user-info__avatar">
+              <img v-if="currentChat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
+              <img v-else :src="currentChat.customer.avatar"/>
+            </a>
+            <div class="chat-user-info__info">
+              <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
+              <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
             </div>
-            <div class="chats-sidebar__date">
-              {{ chat.created_at }} г.
+          </div>
+          <div class="chat__settings">
+            <div class="chat__settings-content" @click="openChatDropMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
+              <ul class="chat-dropmenu__list">
+                <li>
+                  <a class="chat-dropmenu__link">Назначить исполнителем</a>
+                </li>
+                <li>
+                  <a class="chat-dropmenu__link">Завершить задачу</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div  v-else class="chats__sidebar chats-sidebar">
-          <div class="chats__error">Чатов по задаче пока что нет!</div>
-        </div>
-        <div class="chats__chat chat" v-if="currentChat !== null">
-          <div class="chat__header">
-            <div class="chat__user-info chat-user-info">
-              <a href="#" class="chat-user-info__avatar">
-                <img v-if="currentChat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
-                <img v-else :src="currentChat.customer.avatar"/>
-              </a>
-              <div class="chat-user-info__info">
-                <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
-                <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
-              </div>
-            </div>
-            <div class="chat__settings">
-              <div class="chat__settings-content" @click="openChatDropMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
-                <ul class="chat-dropmenu__list">
-                  <li>
-                    <a class="chat-dropmenu__link">Назначить исполнителем</a>
-                  </li>
-                  <li>
-                    <a class="chat-dropmenu__link">Завершить задачу</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="chat__content">
-            <div class="chat__message "
-                  :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
-                  v-for="chatMessage in chatMessages"
-                  :key="chatMessage.id">
-                <div class="chat__text">{{ chatMessage.text }}</div>
-                <div class="chat__date">{{ chatMessage.created_at }}</div>
-            </div>
-          </div>
-          <div class="chat__footer">
-            <div class="chat__form-group">
-              <textarea class="chat__field" placeholder="Напишите сообщение ..." v-model="messageText"></textarea>
-              <div class="chat__field-error" v-if="v$.messageText.$error">{{ v$.messageText.$errors[0].$message }}</div>
-            </div>
-            <button class="chat__btn btn" @click="validateSendMessageField">Отправить</button>
+        <div class="chat__content">
+          <div class="chat__message "
+                :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
+                v-for="chatMessage in chatMessages"
+                :key="chatMessage.id">
+              <div class="chat__text">{{ chatMessage.text }}</div>
+              <div class="chat__date">{{ chatMessage.created_at }}</div>
           </div>
         </div>
+        <div class="chat__footer">
+          <div class="chat__form-group">
+            <textarea class="chat__field" placeholder="Напишите сообщение ..." v-model="messageText"></textarea>
+            <div class="chat__field-error" v-if="v$.messageText.$error">{{ v$.messageText.$errors[0].$message }}</div>
+          </div>
+          <button class="chat__btn btn" @click="validateSendMessageField">Отправить</button>
+        </div>
+      </div>
+    </div>
+    
+    <div v-else class="chats__container chats__container_lg container" >
+      <div class="chats__error chats__error_lg">Пока что чатов никаких нет, создайте задачу чтобы исполнители могли откликнуться на ваши услуги</div>
     </div>
   </div>
 </template>
@@ -97,13 +101,13 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
+    this.token = localStorage.getItem('token');
     this.getCustomerTasks();
   },
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
-      // token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
-      token: "1|4vepAHf3tvM9hqRGQCOinrrV9urGB5tWusKWdCHi",
+      token: null,
       isOpenChatDropMenu: false, 
       customerTasks: [],
       chats: [],

@@ -1,7 +1,7 @@
 <template>
   <div class="chats">
-    <div class="chats__container container">
-      <div class="chats__sidebar chats-sidebar">
+    <div v-if="chats.length > 0" class="chats__container container">
+      <div class="chats__sidebar chats-sidebar" >
         <div class="chats-sidebar__chat" 
               v-for="chat in chats" 
               :key="chat.id" 
@@ -21,7 +21,7 @@
             {{ chat.created_at }} г.
           </div>
         </div>
-      </div>
+      </div>  
       <div class="chats__chat chat" v-if="currentChat !== null">
         <div class="chat__header">
         <div class="chat__user-info chat-user-info">
@@ -59,6 +59,9 @@
         </div>
       </div>
     </div>
+    <div v-else class="chats__container container">
+      <div class="chats__error chats__error_lg">Пока что чатов никаких нет, откликнитесь на задачу чтобы начать работать с заказчиками</div>
+    </div>
   </div>
 </template>
 
@@ -74,12 +77,14 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
+    this.token = localStorage.getItem('token');
     this.getExecutorChats();
   },
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      token: null,
+
       chats: [],
       chatMessages: [],
       

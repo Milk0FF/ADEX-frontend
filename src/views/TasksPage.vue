@@ -58,6 +58,8 @@ import {mapGetters} from 'vuex'
 export default {
   name: "TasksPage",
   mounted(){
+    this.token = localStorage.getItem('token');
+    
     this.getPrices();
     this.getCategoryWorks();
     this.getTasks();
@@ -73,7 +75,7 @@ export default {
       tasks: [],
       selectedCategoriesWorks:[],
 
-      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      token: null,
       BASE_URL: "http://127.0.0.1:8000/api",
     }
   },
