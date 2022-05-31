@@ -194,7 +194,7 @@ export default {
       tasks: [],
       selectedCategoriesWorks:[],
 
-      token: "1|yZwLvytMTyry2fCisN7xAFNkFOzSqcxviQUdUnte",
+      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
       BASE_URL: "http://127.0.0.1:8000/api",
     }
   },

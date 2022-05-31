@@ -35,9 +35,18 @@
     </div>
   </div>
   <div class="chats">
-    <div class="chats__container container">
+    <div class="chats__container chats__container_lg container">
         <div class="chats__sidebar chats-sidebar">
-          <div class="chats-sidebar__chat" 
+          <div class="chats-sidebar__task" 
+               v-for="customerTask in customerTasks" 
+               :key="customerTask.id" 
+               :class="currentCustomerTaskId == customerTask.id ? 'chats-sidebar__task_active' : ''" 
+               @click="setCurrentTask(customerTask.id)">
+              <div class="chats-sidebar__task-name">{{ customerTask.name }}</div>
+          </div>
+        </div>
+        <div v-if="chats.length > 0" class="chats__sidebar chats-sidebar">
+          <div  class="chats-sidebar__chat" 
                v-for="chat in chats" 
                :key="chat.id" 
                :class="currentChatId == chat.id ? 'chats-sidebar__chat_active' : ''" 
@@ -57,6 +66,9 @@
             </div>
           </div>
         </div>
+        <div  v-else class="chats__sidebar chats-sidebar">
+          <div class="chats__error">Чатов по задаче пока что нет!</div>
+        </div>
         <div class="chats__chat chat" v-if="currentChat !== null">
           <div class="chat__header">
             <div class="chat__user-info chat-user-info">
@@ -68,21 +80,32 @@
                 <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
                 <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
               </div>
-          </div>
+            </div>
+            <div class="chat__settings">
+              <div class="chat__settings-content" @click="openChatDropMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
+                <ul class="chat-dropmenu__list">
+                  <li>
+                    <a class="chat-dropmenu__link">Назначить исполнителем</a>
+                  </li>
+                  <li>
+                    <a class="chat-dropmenu__link">Завершить задачу</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
           <div class="chat__content">
             <div class="chat__message "
-                 :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
-                 v-for="chatMessage in chatMessages"
-                 :key="chatMessage.id">
-              <div class="chat__text">
-                {{ chatMessage.text }}
-                <div class="chat__context-options chat-context-options">
-                  <div class="chat-context-options__delete"></div>
-                  <div class="chat-context-options__edit"></div>
-                </div>
-              </div>
-              <div class="chat__date">{{ chatMessage.created_at }} г.</div>
+                  :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
+                  v-for="chatMessage in chatMessages"
+                  :key="chatMessage.id">
+                <div class="chat__text">{{ chatMessage.text }}</div>
+                <div class="chat__date">{{ chatMessage.created_at }}</div>
             </div>
           </div>
           <div class="chat__footer">
@@ -127,20 +150,23 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
-    this.getExecutorChats();
+    this.getCustomerTasks();
   },
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      // token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      token: "1|4vepAHf3tvM9hqRGQCOinrrV9urGB5tWusKWdCHi",
       isOpenDropMenu: false,
       isOpenChatDropMenu: false,
+      customerTasks: [],
       chats: [],
       chatMessages: [],
-      
+
       messageText: null,
       currentUserId: 1,
       currentChatId: null,
+      currentCustomerTaskId: null,
       currentChat: null,
     }
   },
@@ -150,6 +176,11 @@ export default {
         this.isOpenDropMenu = false;
       else
         this.isOpenDropMenu = true;
+    },
+    setCurrentTask(taskId){
+      this.currentChat = null;
+      this.currentCustomerTaskId = taskId;
+      this.getCustomerChats();
     },
     setCurrentChat(chatId, chat){
       this.currentChatId = chatId;
@@ -169,8 +200,22 @@ export default {
       else
         this.isOpenChatDropMenu = true;
     },
-    async getExecutorChats(){
-      const res = await axios.get(this.BASE_URL + '/chats', {
+    async getCustomerTasks(){
+      const res = await axios.get(this.BASE_URL + '/customer-tasks', {
+            headers:{
+              'Accept': 'application/json',
+              "Authorization": `Bearer ${this.token}`
+            }
+          },
+        );
+      this.customerTasks = res.data;
+      if(res.data.length > 0){
+        this.currentCustomerTaskId = res.data[0].id;
+      }
+      this.getCustomerChats();
+    },
+    async getCustomerChats(){
+      const res = await axios.get(this.BASE_URL + '/task/' + this.currentCustomerTaskId + '/chats', {
             headers:{
               'Accept': 'application/json',
               "Authorization": `Bearer ${this.token}`
@@ -209,8 +254,7 @@ export default {
                 'Authorization': `Bearer ${this.token}`,
               }
           });
-          this.messageText = '';
-          this.chatMessages.push(res.data);
+          console.log(res);
       } catch(error){
           console.log(error.response.data);
       }

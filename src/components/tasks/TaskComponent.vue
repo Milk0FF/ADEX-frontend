@@ -38,7 +38,7 @@ export default {
       BASE_URL: "http://127.0.0.1:8000/api",
       text: null,
       isExpandedTask: false,
-      token: "1|yZwLvytMTyry2fCisN7xAFNkFOzSqcxviQUdUnte",
+      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
     }
   },
   methods:{

@@ -142,7 +142,7 @@ export default {
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "1|4vepAHf3tvM9hqRGQCOinrrV9urGB5tWusKWdCHi",
+      token: "3|Zq7tS37BmKd85eBgp0fZWNl2BsCBLQmyaI9E4Ijd",
       isOpenDropMenu: false,
 
       name: null,

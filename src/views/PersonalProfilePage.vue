@@ -195,7 +195,9 @@ export default {
     return{
       isOpenDropMenu: false,
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      // token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
+      token: "3|Zq7tS37BmKd85eBgp0fZWNl2BsCBLQmyaI9E4Ijd",
+      
       userInfo: {},
       name: null,
       surname: null,

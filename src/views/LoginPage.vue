@@ -123,7 +123,7 @@ export default {
   validations () {
     return {
       email: { required: helpers.withMessage("Поле Email обязательно для заполнения", required), email: helpers.withMessage("Поле Email заполнено неверно", email), },
-      password: { required: helpers.withMessage("Поле Password обязательно для заполнения", required), minLength: helpers.withMessage("Поле Password не должно быть меньше 6 символов", minLength(6)) },
+      password: { required: helpers.withMessage("Поле Пароль обязательно для заполнения", required), minLength: helpers.withMessage("Поле Пароль не должно быть меньше 6 символов", minLength(6)) },
     }
   }
 };

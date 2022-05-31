@@ -4,6 +4,7 @@ import LoginPage from "../views/LoginPage.vue";
 import TasksPage from "../views/TasksPage.vue";
 import ProfilePage from "../views/ProfilePage.vue";
 import ChatsPage from "../views/ChatsPage.vue";
+import CustomerChatsPage from "../views/CustomerChatsPage.vue";
 import PersonalProfilePage from "../views/PersonalProfilePage.vue";
 import CustomerTasksPage from "../views/CustomerTasksPage.vue";
 
@@ -42,6 +43,11 @@ const routes = [
     path: "/tasks",
     name: "customer-tasks",
     component: CustomerTasksPage,
+  },
+  {
+    path: "/customer-chats",
+    name: "customer-chats",
+    component: CustomerChatsPage,
   },
 ];
 

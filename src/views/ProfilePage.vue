@@ -175,7 +175,8 @@ export default {
     return{
       isOpenDropMenu: false,
       BASE_URL: "http://127.0.0.1:8000/api",
-      token: "1|yZwLvytMTyry2fCisN7xAFNkFOzSqcxviQUdUnte",
+      // token: "1|yZwLvytMTyry2fCisN7xAFNkFOzSqcxviQUdUnte",
+      token: "3|Zq7tS37BmKd85eBgp0fZWNl2BsCBLQmyaI9E4Ijd",
       userInfo: {},
       userType: 1,
       reviews: [],
@@ -227,7 +228,8 @@ export default {
       } catch(error){
         console.log(error.response.data);
       }
-    }  
+    },
+     
   },
 };
 </script>
