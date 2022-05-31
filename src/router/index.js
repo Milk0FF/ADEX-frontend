@@ -18,11 +18,17 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterPage,
+    meta:{
+      layout: 'auth-layout',
+    }
   },
   {
     path: "/login",
     name: "login",
     component: LoginPage,
+    meta:{
+      layout: 'auth-layout',
+    }
   },
   {
     path: "/profile",

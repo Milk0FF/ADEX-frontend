@@ -1,115 +1,62 @@
 <template>
-  <div class="header">
-    <div class="header__container container">
-      <div class="header__logo logo">
-        <img src="../assets/images/logo-sm.svg"/>
-        <div class="logo__name">
-          ADEX
-        </div>
-      </div>
-      <div class="header__menu"></div>
-      <div class="header__profile header-profile">
-        <div class="header-profile__content"  @click="openDropMenu">
-          <div class="header-profile__name">
-            Иванов Иван
-          </div>
-          <div class="header-profile__img">
-            <img src="../assets/images/user-logo.png">
-          </div>
-        </div>
-        <div class="header-profile__dropmenu header-dropmenu" v-if="isOpenDropMenu">
-          <div class="header-dropmenu__usertypes">
-            <a class="header-dropmenu__usertype header-dropmenu__usertype_active">Исполнитель</a>
-            <a class="header-dropmenu__usertype">Заказчик</a>
-          </div>
-          <ul class="header-dropmenu__list">
-            <li>
-              <a class="header-dropmenu__link">Профиль</a>
-            </li>
-            <li>
-              <a class="header-dropmenu__link">Выход</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="chats">
     <div class="chats__container container">
-        <div class="chats__sidebar chats-sidebar">
-          <div class="chats-sidebar__chat" 
-               v-for="chat in chats" 
-               :key="chat.id" 
-               :class="currentChatId == chat.id ? 'chats-sidebar__chat_active' : ''" 
-               @click="setCurrentChat(chat.id, chat)">
-            <div class="chats-sidebar__user-info chat-user-info">
-              <div class="chat-user-info__avatar">
-                <img v-if="chat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
-                <img v-else :src="chat.customer.avatar"/>
-              </div>
-              <div class="chat-user-info__info">
-                <div class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
-                <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
-              </div>
+      <div class="chats__sidebar chats-sidebar">
+        <div class="chats-sidebar__chat" 
+              v-for="chat in chats" 
+              :key="chat.id" 
+              :class="currentChatId == chat.id ? 'chats-sidebar__chat_active' : ''" 
+              @click="setCurrentChat(chat.id, chat)">
+          <div class="chats-sidebar__user-info chat-user-info">
+            <div class="chat-user-info__avatar">
+              <img v-if="chat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
+              <img v-else :src="chat.customer.avatar"/>
             </div>
-            <div class="chats-sidebar__date">
-              {{ chat.created_at }} г.
+            <div class="chat-user-info__info">
+              <div class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
+              <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
             </div>
           </div>
-        </div>
-        <div class="chats__chat chat" v-if="currentChat !== null">
-          <div class="chat__header">
-            <div class="chat__user-info chat-user-info">
-              <a href="#" class="chat-user-info__avatar">
-                <img v-if="currentChat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
-                <img v-else :src="currentChat.customer.avatar"/>
-              </a>
-              <div class="chat-user-info__info">
-                <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
-                <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
-              </div>
-          </div>
-          </div>
-          <div class="chat__content">
-            <div class="chat__message "
-                 :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
-                 v-for="chatMessage in chatMessages"
-                 :key="chatMessage.id">
-              <div class="chat__text">
-                {{ chatMessage.text }}
-                <div class="chat__context-options chat-context-options">
-                  <div class="chat-context-options__delete"></div>
-                  <div class="chat-context-options__edit"></div>
-                </div>
-              </div>
-              <div class="chat__date">{{ chatMessage.created_at }} г.</div>
-            </div>
-          </div>
-          <div class="chat__footer">
-            <div class="chat__form-group">
-              <textarea class="chat__field" placeholder="Напишите сообщение ..." v-model="messageText"></textarea>
-              <div class="chat__field-error" v-if="v$.messageText.$error">{{ v$.messageText.$errors[0].$message }}</div>
-            </div>
-            <button class="chat__btn btn" @click="validateSendMessageField">Отправить</button>
-          </div>
-        </div>
-    </div>
-  </div>
-  <div class="footer">
-    <div class="footer__container container">
-      <div class="footer__developers">
-        <div class="footer__name">
-          Разработано:
-        </div>
-        <div class="footer__logo logo">
-          <img src="../assets/images/logo-sm-sm.svg"/>
-          <div class="logo__name">
-            ADEX
+          <div class="chats-sidebar__date">
+            {{ chat.created_at }} г.
           </div>
         </div>
       </div>
-      <div class="footer__site-name">
-        www.adex.ru
+      <div class="chats__chat chat" v-if="currentChat !== null">
+        <div class="chat__header">
+        <div class="chat__user-info chat-user-info">
+          <a href="#" class="chat-user-info__avatar">
+            <img v-if="currentChat.customer.avatar == null" src="../assets/images/no-image.jpg"/>
+            <img v-else :src="currentChat.customer.avatar"/>
+          </a>
+          <div class="chat-user-info__info">
+            <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
+            <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
+          </div>
+        </div>
+        </div>
+        <div class="chat__content">
+          <div class="chat__message "
+                :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
+                v-for="chatMessage in chatMessages"
+                :key="chatMessage.id">
+            <div class="chat__text">
+              {{ chatMessage.text }}
+              <div class="chat__context-options chat-context-options">
+                <div class="chat-context-options__delete"></div>
+                <div class="chat-context-options__edit"></div>
+              </div>
+            </div>
+            <div class="chat__date">{{ chatMessage.created_at }} г.</div>
+          </div>
+        </div>
+        <div class="chat__footer">
+          <div class="chat__form-group">
+            <textarea class="chat__field" placeholder="Напишите сообщение ..." v-model="messageText"></textarea>
+            <div class="chat__field-error" v-if="v$.messageText.$error">{{ v$.messageText.$errors[0].$message }}</div>
+          </div>
+          <button class="chat__btn btn" @click="validateSendMessageField">Отправить</button>
+        </div>
       </div>
     </div>
   </div>
@@ -133,8 +80,6 @@ export default {
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
       token: "2|fsIfNetkvCNSZwFUp02iiPNS9kqd9IiPdhVtylRa",
-      isOpenDropMenu: false,
-      isOpenChatDropMenu: false,
       chats: [],
       chatMessages: [],
       
@@ -145,12 +90,6 @@ export default {
     }
   },
   methods:{
-    openDropMenu(){
-      if(this.isOpenDropMenu)
-        this.isOpenDropMenu = false;
-      else
-        this.isOpenDropMenu = true;
-    },
     setCurrentChat(chatId, chat){
       this.currentChatId = chatId;
       this.currentChat = chat;
@@ -162,12 +101,6 @@ export default {
         return;
       }
       this.createChatMessage();
-    },
-    openChatDropMenu(){
-      if(this.isOpenChatDropMenu)
-        this.isOpenChatDropMenu = false;
-      else
-        this.isOpenChatDropMenu = true;
     },
     async getExecutorChats(){
       const res = await axios.get(this.BASE_URL + '/chats', {

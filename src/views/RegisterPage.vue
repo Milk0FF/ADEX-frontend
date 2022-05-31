@@ -1,49 +1,33 @@
 <template>
-  <div class="auth">
-    <div class="auth-header">
-      <div class="auth-header__container container">
-        <div class="auth-header__logo">
-          <img src="../assets/images/logo.svg"/>
-          <div class="auth-header__name">
-            ADEX
-          </div>
-        </div>
-      </div>
+  <div class="auth-content__body">
+    <div class="auth-content__logo">
+      <img src="../assets/images/logo.svg">
     </div>
-    <div class="auth__content auth-content">
-      <div class="auth-content__container container container_center">
-        <div class="auth-content__body">
-          <div class="auth-content__logo">
-            <img src="../assets/images/logo.svg">
-          </div>
-          <div class="auth-content__title">
-            Регистрация
-          </div>
-          <div class="auth-content__text">
-            Зарегистрируйтесь и начните обмениваться рекламой
-          </div>
-          <form class="auth-content__form auth-form" @submit.prevent="validateForm">
-            <div class="auth-form__inputs">
-              <div class="auth-form__input" :class="v$.email.$error ? 'auth-form__input_error' : ''">
-                <input type="text" placeholder="Email" v-model.trim="email">
-                <div class="auth-form__error" v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </div>
-              </div>
-              <div class="auth-form__input" :class="v$.password.$error ? 'auth-form__input_error' : ''">
-                <input type="text" placeholder="Пароль" v-model.trim="password">
-                <div class="auth-form__error" v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </div>
-              </div>
-              <div class="auth-form__input" :class="v$.repeatPassword.$error ? 'auth-form__input_error' : ''">
-                <input type="text" placeholder="Подтверждение пароля" v-model.trim="repeatPassword">
-                <div class="auth-form__error" v-if="v$.repeatPassword.$error"> {{ v$.repeatPassword.$errors[0].$message }} </div>
-              </div>
-              <div class="auth-form__error" v-if="error !== ''"> {{ error }} </div>
-              <router-link class="auth-form__link" :to="'/login'">Уже есть аккаунт? Авторизуйтесь</router-link>
-              <button class="auth-form__btn btn" type="submit">Зарегистрироваться</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="auth-content__title">
+      Регистрация
     </div>
+    <div class="auth-content__text">
+      Зарегистрируйтесь и начните обмениваться рекламой
+    </div>
+    <form class="auth-content__form auth-form" @submit.prevent="validateForm">
+      <div class="auth-form__inputs">
+        <div class="auth-form__input" :class="v$.email.$error ? 'auth-form__input_error' : ''">
+          <input type="text" placeholder="Email" v-model.trim="email">
+          <div class="auth-form__error" v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </div>
+        </div>
+        <div class="auth-form__input" :class="v$.password.$error ? 'auth-form__input_error' : ''">
+          <input type="text" placeholder="Пароль" v-model.trim="password">
+          <div class="auth-form__error" v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </div>
+        </div>
+        <div class="auth-form__input" :class="v$.repeatPassword.$error ? 'auth-form__input_error' : ''">
+          <input type="text" placeholder="Подтверждение пароля" v-model.trim="repeatPassword">
+          <div class="auth-form__error" v-if="v$.repeatPassword.$error"> {{ v$.repeatPassword.$errors[0].$message }} </div>
+        </div>
+        <div class="auth-form__error" v-if="error !== ''"> {{ error }} </div>
+        <router-link class="auth-form__link" :to="'/login'">Уже есть аккаунт? Авторизуйтесь</router-link>
+        <button class="auth-form__btn btn" type="submit">Зарегистрироваться</button>
+      </div>
+    </form>
   </div>
 </template>
 
