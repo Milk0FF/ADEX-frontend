@@ -22,17 +22,25 @@
       </div>
     </div>
     <div class="main-task__response" v-if="isExpandedTask">
-      <textarea class="main-task__response-field" v-model.trim="text" placeholder="Оставьте отклик (напишите информацию о себе, какими навыками обладаете, чтобы заказчик выбрал именно вас)"></textarea>
-      <!-- <button class="main-task__btn btn btn-primary" @click="createChat">Отправить</button> -->
-      <button class="main-task__btn btn" @click="createChat">Отправить</button>
+      <div class="main-task__response-content">
+        <textarea class="main-task__response-field" v-model.trim="text" placeholder="Оставьте отклик (напишите информацию о себе, какими навыками обладаете, чтобы заказчик выбрал именно вас)"></textarea>
+        <div class="main-task__response-error" v-if="v$.text.$error">{{ v$.text.$errors[0].$message }}</div>
+      </div>
+      <button class="main-task__btn btn" @click="validateResponseTextField">Отправить</button>
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import useVuelidate from '@vuelidate/core'
+import {required, helpers} from '@vuelidate/validators'
+
 export default {
   name: "TaskComponent",
+  setup(){
+    return {v$: useVuelidate()}
+  },
   mounted(){
     this.token = localStorage.getItem('token');
   },
@@ -52,8 +60,12 @@ export default {
       else
         this.isExpandedTask = true;
     },
-    getInfo(){
-      console.log("Customer_id", this.customerId, "Task_id", this.id, "Text", this.text);
+    validateResponseTextField(){
+      this.v$.$touch();
+      if (this.v$.text.$error){
+        return;
+      }
+      this.createChat();
     },
     async createChat(){
       try{
@@ -68,6 +80,7 @@ export default {
                 "Authorization": `Bearer ${this.token}`
               }
           });
+          this.text = null;
           this.$emit('responseSended');
       } catch(error){
           console.log(error.response.data);
@@ -113,6 +126,11 @@ export default {
       default: () => {
         return []
       }
+    }
+  },
+  validations () {
+    return {
+      text: { required: helpers.withMessage("Поле Оставьте отклик обязательно для заполнения", required),},
     }
   }
 };

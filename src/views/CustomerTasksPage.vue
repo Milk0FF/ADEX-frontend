@@ -60,7 +60,8 @@
                                     :taskStatus="task.status"
                                     :taskCategories="task.categories" 
                                     :categoryWorks="categoryWorks" 
-                                    :statuses="taskStatuses"/>
+                                    :statuses="taskStatuses"
+                                    @taskUpdated="modalOpenWhenTaskUpdated"/>
         </div>
         <div class="tasks-content__tasks" v-else>
           <div class="tasks-content__error">
@@ -70,11 +71,15 @@
       </div>
     </div>
   </div>
+  <modal-component :text="modalText" 
+                    :isShow="modalIsShow"
+                    @close="modalIsShow = false"/>
 </template>
 
 <script>
 
 import axios from 'axios';
+import ModalComponent from '@/components/ModalComponent.vue';
 import Multiselect from '@vueform/multiselect';
 import CustomerTaskComponent from '@/components/tasks/CustomerTaskComponent.vue';
 import useVuelidate from '@vuelidate/core';
@@ -103,6 +108,9 @@ export default {
       tasks: [],
       taskStatuses: [],
 
+      modalText: '',
+      modalIsShow:false,
+
       categoryWorks: [],
 
       selectCategoriesValue: null,
@@ -112,8 +120,13 @@ export default {
   components:{
     Multiselect,
     CustomerTaskComponent,
+    ModalComponent,
   },
   methods:{
+    modalOpenWhenTaskUpdated(){
+      this.modalText= 'Задача успешно изменена!';
+      this.modalIsShow= true;
+    },
     validateCreateTaskFields(){
       this.v$.name.$touch();
       this.v$.price.$touch();
@@ -152,7 +165,7 @@ export default {
 
     async createTask(){
       try{
-          await axios.post(this.BASE_URL + "/task", {
+          const res = await axios.post(this.BASE_URL + "/task", {
               name: this.name,
               price: this.price,
               description: this.description,
@@ -165,6 +178,9 @@ export default {
                 "Authorization": `Bearer ${this.token}`
               }
           });
+          this.modalText = 'Задача успешно создана!';
+          this.modalIsShow = true;
+          this.tasks.push(res.data);
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;

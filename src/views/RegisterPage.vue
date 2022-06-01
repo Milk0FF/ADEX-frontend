@@ -16,11 +16,11 @@
           <div class="auth-form__error" v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </div>
         </div>
         <div class="auth-form__input" :class="v$.password.$error ? 'auth-form__input_error' : ''">
-          <input type="text" placeholder="Пароль" v-model.trim="password">
+          <input type="password" placeholder="Пароль" v-model.trim="password">
           <div class="auth-form__error" v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </div>
         </div>
         <div class="auth-form__input" :class="v$.repeatPassword.$error ? 'auth-form__input_error' : ''">
-          <input type="text" placeholder="Подтверждение пароля" v-model.trim="repeatPassword">
+          <input type="password" placeholder="Подтверждение пароля" v-model.trim="repeatPassword">
           <div class="auth-form__error" v-if="v$.repeatPassword.$error"> {{ v$.repeatPassword.$errors[0].$message }} </div>
         </div>
         <div class="auth-form__error" v-if="error !== ''"> {{ error }} </div>

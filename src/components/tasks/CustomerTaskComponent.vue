@@ -90,6 +90,7 @@ export default {
     return {v$: useVuelidate()}
   },
   mounted(){
+    this.token = localStorage.getItem('token');
     this.selectTaskStatusOptions = this.statuses;
     this.selectCategoriesOptions = this.categoryWorks;
     
@@ -105,7 +106,7 @@ export default {
   },
   data(){
     return{
-      token: "1|4vepAHf3tvM9hqRGQCOinrrV9urGB5tWusKWdCHi",
+      token: null,
       BASE_URL: "http://127.0.0.1:8000/api",
 
       isExpandedTask: false,
@@ -205,6 +206,7 @@ export default {
                 "Authorization": `Bearer ${this.token}`
               }
           });
+          this.$emit('taskUpdated');
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;

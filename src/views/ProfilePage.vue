@@ -9,33 +9,40 @@
           <div v-if="userInfo.employment_type && userInfo.employment_type.name == 'Свободен'" class="profile-sidebar__status status status_green">Свободен</div>
           <div v-else class="profile-sidebar__status status status_red">Занят</div>
         </div>
-        <div class="profile-sidebar__name">
+        <div v-if="userInfo.firstname && userInfo.lastname" class="profile-sidebar__name">
           {{userInfo.firstname + ' ' + userInfo.lastname}}
+        </div>
+        <div v-else class="profile-sidebar__name">
+          Незнакомец
         </div>
         <div class="profile-sidebar__line profile-line">
           <div class="profile-line__title">Город</div>
-          <div class="profile-line__name">{{ userInfo.city }}</div>
+          <div v-if="userInfo.city" class="profile-line__name">{{ userInfo.city }}</div>
+          <div v-else class="profile-line__name">Не указан</div>
         </div>
         <div class="profile-sidebar__line profile-line">
           <div class="profile-line__title">Страна</div>
-          <div class="profile-line__name">{{ userInfo.country }}</div>
+          <div v-if="userInfo.country" class="profile-line__name">{{ userInfo.country }}</div>
+          <div v-else class="profile-line__name">Не указана</div>
         </div>
         <div class="profile-sidebar__line profile-line">
           <div class="profile-line__title">О себе</div>
-          <div class="profile-line__name">{{ userInfo.about }}</div>
+          <div v-if="userInfo.about" class="profile-line__name">{{ userInfo.about }}</div>
+          <div v-else class="profile-line__name">Не указано</div>
         </div>
         <div class="profile-sidebar__categories" v-if="userInfo.categories">
-          <div class="profile-sidebar__category task-category task-category_red"
+          <div class="profile-sidebar__category task-category "
                v-for="category in userInfo.categories" 
                :key="category.id"
-               :class="'task-category' + category.color">{{ category.name }}</div>
+               :class="'task-category_' + category.color">{{ category.name }}</div>
         </div>
       </div>
       <div class="profile__content">
         <div class="profile__cards">
           <div class="profile__card profile-card profile-card_green">
             <div class="profile-card__info">
-              <div class="profile-card__number">{{ userInfo.rating }}</div>
+              <div v-if="userInfo.rating" class="profile-card__number">{{ userInfo.rating }}</div>
+              <div v-else class="profile-card__number">0</div>
               <div class="profile-card__name">Рейтинг</div>
             </div>
             <div class="profile-card__statics">
@@ -46,7 +53,8 @@
           </div>
           <div class="profile__card profile-card profile-card_purple">
             <div class="profile-card__info">
-              <div class="profile-card__number">{{ userInfo.success_reviews }}</div>
+              <div v-if="userInfo.success_reviews" class="profile-card__number">{{ userInfo.success_reviews }}</div>
+              <div v-else class="profile-card__number">0</div>
               <div class="profile-card__name">Одобрен</div>
             </div>
             <div class="profile-card__statics">
@@ -58,7 +66,8 @@
           
           <div class="profile__card profile-card profile-card_red">
             <div class="profile-card__info">
-              <div class="profile-card__number">{{ userInfo.failed_reviews }}</div>
+              <div v-if="userInfo.failed_reviews" class="profile-card__number">{{ userInfo.failed_reviews }}</div>
+              <div v-else class="profile-card__number">0</div>
               <div class="profile-card__name">Отклонён</div>
             </div>
             <div class="profile-card__statics">
@@ -94,7 +103,8 @@
                       <img v-if="review.author.avatar == null" src="../assets/images/no-image.jpg"/>
                       <img v-else :src="review.author.avatar"/>
                     </div>
-                    <a href="#" class="review__name">{{review.author.firstname +  ' ' + review.author.lastname}}</a>
+                    <!-- <router-link :to="'/profile/' + review.author.username" class="review__name">{{ review.author.firstname + ' ' + review.author.lastname }}</router-link> -->
+                    <a href="#" @click.prevent="changeProfile(review.author.username)" class="review__name">{{review.author.firstname +  ' ' + review.author.lastname}}</a>
                   </div>
                   <div class="review__text">
                     {{review.comment}}
@@ -118,14 +128,15 @@ export default {
   name: "ProfilePage",
   mounted(){
     this.token = localStorage.getItem('token');
-
-    this.getUserInfo();
+    this.username = this.$route.params.username;
+    this.getUserInfoByUsername();
   },
   data(){
     return{
       BASE_URL: "http://127.0.0.1:8000/api",
       token: null,
       userInfo: {},
+      username: null,
       userType: 1,
       reviews: [],
     }
@@ -134,6 +145,11 @@ export default {
     setUserType(userTypeValue){
       this.userType = userTypeValue;
       this.getReviews();
+    },
+    changeProfile(username){
+      this.$router.push('/profile/' + username);
+      this.username = username;
+      this.getUserInfoByUsername();
     },
     async getReviews(){
       try{
@@ -155,9 +171,9 @@ export default {
       }
     },
     
-    async getUserInfo(){
+    async getUserInfoByUsername(){
       try{
-        const res = await axios.get(this.BASE_URL + "/user",
+        const res = await axios.get(this.BASE_URL + "/user/" + this.username,
           {
             headers:{
               'Accept': 'application/json',

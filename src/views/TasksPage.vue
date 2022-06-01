@@ -40,7 +40,7 @@
                         :price="task.price" 
                         :customerId="task.customer_id" 
                         :categories="task.categories"
-                        @responseSended="openModal"/>
+                        @responseSended="modalIsShow = true"/>
       </div>
       
       <div v-else class="main__tasks">
@@ -49,11 +49,15 @@
 
     </div>
   </div>
+  <modal-component :text="modalText" 
+                    :isShow="modalIsShow"
+                    @close="modalIsShow = false"/>
 </template>
 
 <script>
 
 import axios from 'axios';
+import ModalComponent from '@/components/ModalComponent.vue';
 import Slider from '@vueform/slider'
 import TaskComponent from '@/components/tasks/TaskComponent.vue'
 import {mapGetters} from 'vuex'
@@ -78,17 +82,15 @@ export default {
       categoryWorks: [],
       tasks: [],
       selectedCategoriesWorks:[],
-
       token: null,
       BASE_URL: "http://127.0.0.1:8000/api",
+      modalText: 'Отклик успешно отправлен!',
+      modalIsShow: false,
     }
   },
   methods:{
     ...mapGetters({getToken: 'getToken'}),
     
-    openModal(){
-      console.log('Отклик отправлен!');
-    },
     setFilterCategoryWorks(id){
       this.filterCategoryWorksId = id;
       this.getTasks();
@@ -145,6 +147,7 @@ export default {
   components:{
     Slider,
     TaskComponent,
+    ModalComponent,
   }
 };
 </script>

@@ -14,6 +14,10 @@ export default {
 </script>
 <style lang="scss">
   @import './assets/css/main/general.scss';
+  #app{
+    display: flex;
+    flex-direction: column;
+  }
   #app, .container{
     height: 100%;
   }

@@ -30,7 +30,7 @@
             <img v-else :src="currentChat.customer.avatar"/>
           </a>
           <div class="chat-user-info__info">
-            <a href="#" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</a>
+            <router-link :to="'/profile/' + currentChat.customer.username" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</router-link>
             <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
           </div>
         </div>
@@ -63,11 +63,15 @@
       <div class="chats__error chats__error_lg">Пока что чатов никаких нет, откликнитесь на задачу чтобы начать работать с заказчиками</div>
     </div>
   </div>
+  <modal-component :text="modalText" 
+                    :isShow="modalIsShow"
+                    @close="modalIsShow = false"/>
 </template>
 
 <script>
 
 import axios from 'axios';
+import ModalComponent from '@/components/ModalComponent.vue';
 import useVuelidate from '@vuelidate/core'
 import {required, helpers} from '@vuelidate/validators'
 
@@ -90,14 +94,22 @@ export default {
       chats: [],
       chatMessages: [],
       
+      modalText: '',
+      modalIsShow:false,
+
       messageText: null,
       currentUserId: null,
       currentChatId: null,
       currentChat: null,
     }
   },
+  components:{
+    ModalComponent,
+  },
   methods:{
     setCurrentChat(chatId, chat){
+      if(this.currentChatId === chatId)
+        return;
       this.currentChatId = chatId;
       this.currentChat = chat;
       this.getChatMessages();

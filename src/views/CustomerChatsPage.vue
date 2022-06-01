@@ -3,10 +3,10 @@
     <div v-if="customerTasks.length > 0" class="chats__container chats__container_lg container">
       <div class="chats__sidebar chats-sidebar">
         <div class="chats-sidebar__task" 
-              v-for="customerTask in customerTasks" 
-              :key="customerTask.id" 
+              v-for="(customerTask, index) in customerTasks" 
+              :key="index" 
               :class="currentCustomerTaskId == customerTask.id ? 'chats-sidebar__task_active' : ''" 
-              @click="setCurrentTask(customerTask.id)">
+              @click="setCurrentTask(customerTask.id, index)">
             <div class="chats-sidebar__task-name">{{ customerTask.name }}</div>
         </div>
       </div>
@@ -42,7 +42,7 @@
               <img v-else :src="currentChat.executor.avatar"/>
             </a>
             <div class="chat-user-info__info">
-              <a href="#" class="chat-user-info__name">{{ currentChat.executor.firstname + ' ' + currentChat.executor.lastname }}</a>
+              <router-link :to="'/profile/' + currentChat.executor.username" class="chat-user-info__name">{{ currentChat.executor.firstname + ' ' + currentChat.executor.lastname }}</router-link>
               <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
             </div>
           </div>
@@ -54,11 +54,17 @@
             </div>
             <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
               <ul class="chat-dropmenu__list">
-                <li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Создано'">
                   <a class="chat-dropmenu__link">Назначить исполнителем</a>
                 </li>
-                <li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'">
+                  <a class="chat-dropmenu__link">Начать выполнение задачи</a>
+                </li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'">
                   <a class="chat-dropmenu__link">Завершить задачу</a>
+                </li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Выполнено'">
+                  <a class="chat-dropmenu__link">Оставить отзыв</a>
                 </li>
               </ul>
             </div>
@@ -87,11 +93,15 @@
       <div class="chats__error chats__error_lg">Пока что чатов никаких нет, создайте задачу чтобы исполнители могли откликнуться на ваши услуги</div>
     </div>
   </div>
+  <modal-component :text="modalText" 
+                    :isShow="modalIsShow"
+                    @close="modalIsShow = false"/>
 </template>
 
 <script>
 
 import axios from 'axios';
+import ModalComponent from '@/components/ModalComponent.vue';
 import useVuelidate from '@vuelidate/core'
 import {required, helpers} from '@vuelidate/validators'
 
@@ -114,21 +124,33 @@ export default {
       customerTasks: [],
       chats: [],
       chatMessages: [],
+      
+      modalText: '',
+      modalIsShow:false,
 
       messageText: null,
       currentUserId: null,
       currentChatId: null,
       currentCustomerTaskId: null,
+      currentCustomerTaskIndex: null,
       currentChat: null,
     }
   },
+  components:{
+    ModalComponent,
+  },
   methods:{
-    setCurrentTask(taskId){
+    setCurrentTask(taskId, taskIndex){
+      if(this.currentCustomerTaskId === taskId)
+        return;
       this.currentChat = null;
       this.currentCustomerTaskId = taskId;
+      this.currentCustomerTaskIndex = taskIndex;
       this.getCustomerChats();
     },
     setCurrentChat(chatId, chat){
+      if(this.currentChatId === chatId)
+        return;
       this.currentChatId = chatId;
       this.currentChat = chat;
       this.getChatMessages();
@@ -157,6 +179,7 @@ export default {
       this.customerTasks = res.data;
       if(res.data.length > 0){
         this.currentCustomerTaskId = res.data[0].id;
+        this.currentCustomerTaskIndex = 0;
       }
       this.getCustomerChats();
     },

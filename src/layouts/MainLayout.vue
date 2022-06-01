@@ -30,11 +30,11 @@ r<template>
                @click="changeUserType(2)">Заказчик</a>
           </div>
           <div class="header-dropmenu__list">
-            <router-link class="header-dropmenu__link" v-if="userInfo.user_type == 2" :to="'/tasks'" :class="this.$router.currentRoute.value.path == '/tasks' ? 'header-dropmenu__link_active' : ''">Задачи</router-link>
-            <router-link class="header-dropmenu__link" v-else :to="'/'" :class="this.$router.currentRoute.value.path == '/' ? 'header-dropmenu__link_active' : ''">Задачи</router-link>
-            <router-link class="header-dropmenu__link" v-if="userInfo.user_type == 1" :to="'/chats'" :class="this.$router.currentRoute.value.path == '/chats' ? 'header-dropmenu__link_active' : ''">Чаты</router-link>
-            <router-link class="header-dropmenu__link" v-else :to="'/customer-chats'" :class="this.$router.currentRoute.value.path == '/chats' ? 'header-dropmenu__link_active' : ''">Чаты</router-link>
-            <router-link class="header-dropmenu__link" :to="'/personal-profile'" :class="this.$router.currentRoute.value.path == '/personal-profile' ? 'header-dropmenu__link_active' : ''">Профиль</router-link>
+            <a class="header-dropmenu__link" @click="moveToNewPage('/tasks')" v-if="userInfo.user_type == 2"  :class="$router.currentRoute.value.path == '/tasks' ? 'header-dropmenu__link_active' : ''">Задачи</a>
+            <a class="header-dropmenu__link" @click="moveToNewPage('/')" v-else :class="$router.currentRoute.value.path == '/' ? 'header-dropmenu__link_active' : ''">Задачи</a>
+            <a class="header-dropmenu__link" @click="moveToNewPage('/chats')" v-if="userInfo.user_type == 1" :class="$router.currentRoute.value.path == '/chats' ? 'header-dropmenu__link_active' : ''">Чаты</a>
+            <a class="header-dropmenu__link" @click="moveToNewPage('/customer-chats')" v-else :class="$router.currentRoute.value.path == '/customer-chats' ? 'header-dropmenu__link_active' : ''">Чаты</a>
+            <a class="header-dropmenu__link" @click="moveToNewPage('/personal-profile')" :class="$router.currentRoute.value.path == '/personal-profile' ? 'header-dropmenu__link_active' : ''">Профиль</a>
             <a class="header-dropmenu__link" @click="logout">Выход</a>
           </div>
         </div>
@@ -87,6 +87,10 @@ export default {
         this.isOpenDropMenu = false;
       else
         this.isOpenDropMenu = true;
+    },
+    moveToNewPage(route){
+      this.isOpenDropMenu = false;
+      this.$router.push(route);
     },
     logout(){
       localStorage.removeItem('token');

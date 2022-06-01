@@ -101,10 +101,14 @@
       </div>
     </div>
   </div>
+  <modal-component :text="modalText" 
+                    :isShow="modalIsShow"
+                    @close="modalIsShow = false"/>
 </template>
 
 <script>
 import axios from 'axios';
+import ModalComponent from '@/components/ModalComponent.vue';
 import Multiselect from '@vueform/multiselect';
 import useVuelidate from '@vuelidate/core'
 import {required, email, helpers, integer, } from '@vuelidate/validators'
@@ -136,6 +140,9 @@ export default {
       dateBirth: null,
       avatar: null,
 
+      modalText: null,
+      modalIsShow: false,
+
       userCategoryWorks: [],
       userEmploymentType: {},
 
@@ -147,6 +154,7 @@ export default {
   },
   components:{
     Multiselect,
+    ModalComponent
   },
   methods:{
     openChooseImageModal(){
@@ -202,7 +210,7 @@ export default {
     },
     async changeAvatar(formData){
       try{
-          await axios.post(this.BASE_URL + "/user/avatar", formData,
+          const res = await axios.post(this.BASE_URL + "/user/avatar", formData,
             {
               headers:{
                 'Accept': 'application/json',
@@ -210,6 +218,9 @@ export default {
                 'Content-Type': 'multipart/form-data',
               }
           });
+          this.userInfo.avatar = res.data.avatar;
+          this.modalText = 'Аватар успешно изменён!';
+          this.modalIsShow = true;
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;
@@ -236,7 +247,7 @@ export default {
         phone: this.phone,
         city: this.city,
         country: this.country,
-        birth_date: this.birth_date,
+        birth_date: this.dateBirth,
         categories: this.selectCategoriesValue,
         employment_type: this.selectEmploymentTypesValue, 
       }
@@ -251,6 +262,10 @@ export default {
                 'Authorization': `Bearer ${this.token}`,
               }
           });
+          this.userInfo.firstname = this.name;
+          this.userInfo.lastname = this.surname;
+          this.modalText = 'Профиль успешно изменён!';
+          this.modalIsShow = true;
       } catch(error){
           console.log(error.response.data);
           // const status = error.response.status;

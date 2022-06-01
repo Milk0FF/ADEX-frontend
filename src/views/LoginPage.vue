@@ -16,7 +16,7 @@
           <div class="auth-form__error" v-if="v$.email.$error"> {{ v$.email.$errors[0].$message }} </div>
         </div>
         <div class="auth-form__input" :class="v$.password.$error ? 'auth-form__input_error' : ''">
-          <input type="text" placeholder="Пароль" v-model.trim="password">
+          <input type="password" placeholder="Пароль" v-model.trim="password">
           <div class="auth-form__error" v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </div>
         </div>
         <div class="auth-form__error" v-if="error !== ''"> {{ error }} </div>
@@ -73,6 +73,11 @@ export default {
             }
         });
         localStorage.setItem("token", res.data.token);
+        let userInfo = {
+          user_type: res.data.user_type,
+        }
+        userInfo = JSON.stringify(res.data);
+        localStorage.setItem('userInfo', userInfo);
         this.$router.push('/');
         
       } catch(error){

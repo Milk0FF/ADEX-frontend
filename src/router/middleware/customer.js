@@ -4,9 +4,8 @@ export default function guest({ next, router }) {
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
     
-    if(userInfo !== null)
-      if (userInfo.user_type !== 2)
-        return router.push('/'); //надо добавить 404 not found
+    if (userInfo.user_type !== 2)
+      return router.push('/'); //надо добавить 404 not found
 
     return next();
   }
