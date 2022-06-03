@@ -251,6 +251,7 @@ textarea{
   }
   &__name{
     font-size: 20px;
+    line-height: 22px;
     margin-right: 40px;
     max-width: 250px;
   }
@@ -326,6 +327,7 @@ textarea{
       &__name{
         margin-right: 25px;
         font-size: 16px;
+        line-height: 19px;
       }
       &__category{
         margin-right: 20px;
@@ -620,6 +622,16 @@ textarea{
     margin-right: 25px;
     margin-bottom: 15px;
   }
+}
+.task-status{
+  border-radius: 6px;
+  padding: 5px 7px;
+  font-weight: 700;
+  font-size: 12px;
+  color:$white;
+  background-color: $green;
+  transition:0.3s ease all;
+  font-weight: 400;
 }
 .status{
   font-size: 10px;
@@ -941,35 +953,48 @@ textarea{
   &__chat{
     padding: 15px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     border-bottom: 1px solid $gray5;
     transition: 0.3s ease all;
     cursor: pointer;
     &:hover, &_active{
       background-color: rgba(4, 224, 121, 0.5);
+      .chats-sidebar__status{
+        background-color: $white;
+        color:$green;
+      }
     }
+    &_customer-chat{
+      align-items: center;
+      .chat-user-info__name{
+        margin:0;
+      }
+    }
+  }
+  &__user-info{
+    margin-right: 10px;
   }
   &__task{
     padding: 20px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid $gray5;
     transition: 0.3s ease all;
     cursor: pointer;
     &:hover, &_active{
       background-color: rgba(4, 224, 121, 0.5);
+      .chats-sidebar__task-status{
+        background-color: $white;
+        color:$green;
+      }
     }
   }
   &__task-name{
     font-size: 16px;
+    line-height: 19px;
+    margin-right: 10px;
   }
-  // &_task{
-  //   .chats-sidebar{
-  //     &__chat{
-
-  //     }
-  //   }
-  // }
   &__user-info, &__task-info{
     flex: 1 1 auto;
   }
@@ -982,19 +1007,19 @@ textarea{
   display: flex;
   align-items: center;
   &__avatar{
-    overflow: hidden;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
     margin-right: 20px;
-  }
-  &__info{
-
+    flex: 0 0 40px;
+    img{
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+    }
   }
   &__name{
     font-size: 16px;
+    line-height: 19px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     display: inline-block;
     color:$black;
   }
@@ -1054,12 +1079,20 @@ textarea{
     z-index: 2;
   }
   &__content{
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
     height: 100%;
     flex: 1 1 auto;
     overflow-y:scroll;
+    display: flex;
+    flex-direction: column;
+  }
+  &__messages{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+  &__send-review{
+
   }
   &__message{
     margin-bottom: 15px;
@@ -1118,6 +1151,30 @@ textarea{
     display: inline-block;
   }
 }
+.send-review{
+  background-color: $gray;
+  padding: 20px 50px ;
+  &__title{
+    margin-bottom: 15px;
+  }
+  &__content{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  &__form-group{
+    flex: 1 1 auto;   
+    margin-bottom: 15px;
+  }
+  &__btn{
+    align-self: stretch;
+  }
+  &__field-error{
+    color:$red;
+    margin-top:5px;
+    font-size: 12px;
+  }
+}
 @media screen and (max-width: 1320px) {
   .chats{
     &__sidebar{
@@ -1132,6 +1189,7 @@ textarea{
         }
         .chats__chat{
           align-self: stretch;
+          height: 700px;
         }
       }
     }
@@ -1166,6 +1224,12 @@ textarea{
     &__form-group{
       margin: 0 0 25px 0;
     }
+    &__messages{
+      padding: 30px;
+    }
+    &__send-review{
+      padding: 20px 30px;
+    }
     &__message{
       margin-bottom: 25px;
       max-width: 80%;
@@ -1173,9 +1237,6 @@ textarea{
     
     &__header{
       padding: 25px 30px 15px 30px;
-    }
-    &__content{
-      padding: 30px;
     }
   }
 }
@@ -1192,6 +1253,10 @@ textarea{
     &__text, &__date{
       font-size: 12px;
     }
+  }
+  .send-review__field{
+    font-size: 12px;
+    line-height: 14px;
   }
   .chat-dropmenu{
     &__link{

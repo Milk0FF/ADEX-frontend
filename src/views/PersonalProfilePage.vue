@@ -294,7 +294,7 @@ export default {
       this.selectCategoriesOptions = res.data;
     },
     async getUserEmploymentTypes(){
-      const res = await axios.get(this.BASE_URL + '/user/employment-types',
+      const res = await axios.get(this.BASE_URL + '/employment-types',
         {
           headers:{
             'Accept': 'application/json',

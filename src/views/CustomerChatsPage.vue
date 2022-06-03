@@ -8,10 +8,11 @@
               :class="currentCustomerTaskId == customerTask.id ? 'chats-sidebar__task_active' : ''" 
               @click="setCurrentTask(customerTask.id, index)">
             <div class="chats-sidebar__task-name">{{ customerTask.name }}</div>
+            <div class="chats-sidebar__task-status task-status">{{ customerTask.status.name }}</div>
         </div>
       </div>
       <div v-if="chats.length > 0" class="chats__sidebar chats-sidebar">
-        <div  class="chats-sidebar__chat" 
+        <div  class="chats-sidebar__chat chats-sidebar__chat_customer-chat" 
               v-for="chat in chats" 
               :key="chat.id" 
               :class="currentChatId == chat.id ? 'chats-sidebar__chat_active' : ''" 
@@ -23,12 +24,10 @@
             </div>
             <div class="chat-user-info__info">
               <div class="chat-user-info__name">{{ chat.executor.firstname + ' ' + chat.executor.lastname }}</div>
-              <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
             </div>
           </div>
-          <div class="chats-sidebar__date">
-            {{ chat.created_at }} г.
-          </div>
+          <div v-if="chat.task.executor_id == chat.executor.id" 
+               class="chats-sidebar__status task-status">Исполнитель</div>
         </div>
       </div>
       <div  v-else class="chats__sidebar chats-sidebar">
@@ -55,28 +54,59 @@
             <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
               <ul class="chat-dropmenu__list">
                 <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Создано'">
-                  <a class="chat-dropmenu__link">Назначить исполнителем</a>
+                  <a class="chat-dropmenu__link" @click="setExecutor(currentChat.executor.id)">Назначить исполнителем</a>
                 </li>
                 <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'">
-                  <a class="chat-dropmenu__link">Начать выполнение задачи</a>
+                  <a class="chat-dropmenu__link" @click="changeTaskStatus(4, currentChat.executor.id)">Начать выполнение</a>
+                </li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'">
+                  <a class="chat-dropmenu__link" @click="unsetExecutor">Сменить исполнителя</a>
                 </li>
                 <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'">
-                  <a class="chat-dropmenu__link">Завершить задачу</a>
+                  <a class="chat-dropmenu__link" @click="changeTaskStatus(5)">Задача выполнена</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Выполнено'">
-                  <a class="chat-dropmenu__link">Оставить отзыв</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'">
+                  <a class="chat-dropmenu__link" @click="changeTaskStatus(6)">Задача не выполнена</a>
+                </li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Выполнено' || customerTasks[currentCustomerTaskIndex].status.name === 'Не выполнено'">
+                  <a class="chat-dropmenu__link" @click="changeTaskStatus(7)">Завершить задачу</a>
+                </li>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name == 'Создано' || customerTasks[currentCustomerTaskIndex].status.name == 'Исполнитель выбран'">
+                  <a class="chat-dropmenu__link" @click="changeTaskStatus(2)">Отменить задачу</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="chat__content">
-          <div class="chat__message "
-                :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
-                v-for="chatMessage in chatMessages"
-                :key="chatMessage.id">
-              <div class="chat__text">{{ chatMessage.text }}</div>
-              <div class="chat__date">{{ chatMessage.created_at }} г.</div>
+          <div class="chat__messages">
+            <div class="chat__message"
+                  :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
+                  v-for="chatMessage in chatMessages"
+                  :key="chatMessage.id">
+                <div class="chat__text">{{ chatMessage.text }}</div>
+                <div class="chat__date">{{ chatMessage.created_at }} г.</div>
+            </div>
+          </div>
+          <div class="chat__send-review send-review" 
+               v-if="(customerTasks[currentCustomerTaskIndex].status.name == 'Выполнено' || customerTasks[currentCustomerTaskIndex].status.name == 'Не выполнено') 
+                     && currentChat.isCustomerReviewAdded == false">
+            <div class="send-review__title">Оставьте отзыв об исполнителе</div>
+            <div class="send-review__content">
+              <div class="send-review__form-group">
+                <multiselect v-model="selectScoreTypesValue"
+                              :options="selectScoreTypesOptions"
+                              :label="'name'"
+                              :canClear="false"
+                              :valueProp="'id'"
+                              :placeholder="'Укажите оценку'"/>
+              </div>
+              <div class="send-review__form-group">
+                <textarea class="send-review__field" placeholder="Напишите отзыв ..." v-model="reviewText"></textarea>
+                <div class="send-review__field-error" v-if="v$.reviewText.$error">{{ v$.reviewText.$errors[0].$message }}</div>
+              </div>
+              <button class="send-review__btn btn btn_primary" @click="validateSendReviewField">Отправить</button>
+            </div>
           </div>
         </div>
         <div class="chat__footer">
@@ -102,6 +132,7 @@
 
 import axios from 'axios';
 import ModalComponent from '@/components/ModalComponent.vue';
+import Multiselect from '@vueform/multiselect';
 import useVuelidate from '@vuelidate/core'
 import {required, helpers} from '@vuelidate/validators'
 
@@ -114,6 +145,8 @@ export default {
     this.token = localStorage.getItem('token');
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     this.currentUserId = userInfo.id;
+
+    this.getScoreTypes();
     this.getCustomerTasks();
   },
   data(){
@@ -129,15 +162,21 @@ export default {
       modalIsShow:false,
 
       messageText: null,
+      reviewText: null,
+
       currentUserId: null,
       currentChatId: null,
       currentCustomerTaskId: null,
       currentCustomerTaskIndex: null,
       currentChat: null,
+      
+      selectScoreTypesValue: 1,
+      selectScoreTypesOptions: [],
     }
   },
   components:{
     ModalComponent,
+    Multiselect
   },
   methods:{
     setCurrentTask(taskId, taskIndex){
@@ -162,12 +201,89 @@ export default {
       }
       this.createChatMessage();
     },
+    validateSendReviewField(){
+      this.v$.reviewText.$touch();
+      if (this.v$.reviewText.$error){
+        return;
+      }
+      this.createReview();
+    },
+    
+    async createReview(){
+      try{
+        await axios.post(this.BASE_URL + '/review', 
+              {
+                comment: this.reviewText,
+                score_type_id: this.selectScoreTypesValue,
+                task_id: this.currentCustomerTaskId,
+                customer_id: this.customerTasks[this.currentCustomerTaskIndex].customer_id,
+                executor_id: this.customerTasks[this.currentCustomerTaskIndex].executor_id,
+              },
+              {
+              headers:{
+                'Accept': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+              }
+        });
+        this.modalText = 'Отзыв успешно сохранён!';
+        this.modalIsShow = true;
+        this.currentChat.isCustomerReviewAdded = true;
+      } catch(error){
+        console.log(error.response.data);
+      }
+    },
+
     openChatDropMenu(){
       if(this.isOpenChatDropMenu)
         this.isOpenChatDropMenu = false;
       else
         this.isOpenChatDropMenu = true;
     },
+    async setExecutor(executorId){
+      await axios.post(this.BASE_URL + '/task/' + this.currentCustomerTaskId + '/executor', 
+            {
+              executor_id: executorId,
+            },
+            {
+              headers:{
+                'Accept': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+              }
+      });
+      this.changeTaskStatus(3);
+    },
+    
+    async unsetExecutor(){
+      await axios.post(this.BASE_URL + '/task/' + this.currentCustomerTaskId + '/delete-executor', {},
+            {
+              headers:{
+                'Accept': 'application/json',
+                "Authorization": `Bearer ${this.token}`
+              }
+      });
+      this.changeTaskStatus(1);
+    },
+
+    async changeTaskStatus(taskStatusId, executorId = null){
+      const params = {
+        task_status : taskStatusId,
+      }
+      if(executorId)
+        params.executor_id = executorId
+      try{
+        await axios.post(this.BASE_URL + '/task/' + this.currentCustomerTaskId + '/status', params,
+          {
+            headers:{
+              'Accept': 'application/json',
+              "Authorization": `Bearer ${this.token}`
+            }
+        });
+        location.reload();
+      } catch(error){
+        console.log(error.response.data);
+      }
+    },
+    
     async getCustomerTasks(){
       const res = await axios.get(this.BASE_URL + '/customer-tasks', {
             headers:{
@@ -226,10 +342,23 @@ export default {
           console.log(error.response.data);
       }
     } ,
+    
+    async getScoreTypes(){
+      const res = await axios.get(this.BASE_URL + '/score-types',
+        {
+          headers:{
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${this.token}`,
+          }
+      });
+      this.selectScoreTypesOptions = res.data;
+    },
+      
   },
   validations () {
     return {
       messageText: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
+      reviewText: { required: helpers.withMessage("Поле Напишите отзыв обязательно для заполнения", required),},
     }
   }
 };
