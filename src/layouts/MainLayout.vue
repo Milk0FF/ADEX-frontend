@@ -71,6 +71,14 @@ export default {
   name: "MainLayout",
   mounted(){
     this.token = localStorage.getItem('token');
+    // // const headerDropdownMenu = document.querySelector('.header-profile__dropmenu');
+    // // console.log(headerDropdownMenu);
+    // document.addEventListener('click', () => {
+    //   // const target = e.target;
+    //   // const isHeaderDropdownMenu = target == headerDropdownMenu || headerDropdownMenu.contains(target);
+    //   // if(!isHeaderDropdownMenu)
+    //     this.isOpenDropMenu = false;
+    // });
     this.getUserInfo();
   },
   data(){
@@ -114,7 +122,6 @@ export default {
         this.userInfo = res.data;
         const userInfo = JSON.stringify(res.data);
         localStorage.setItem('userInfo', userInfo);
-        console.log(this.userInfo);
 
       } catch(error){
         console.log(error.response.data);

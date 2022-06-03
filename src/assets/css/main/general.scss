@@ -267,7 +267,6 @@ textarea{
   }
   &__price{
     color:$green;
-    text-transform: uppercase;
     font-weight: 700;
     font-size: 24px;
     white-space: nowrap;
@@ -328,6 +327,9 @@ textarea{
         margin-right: 25px;
         font-size: 16px;
         line-height: 19px;
+      }
+      &__price{
+        font-size: 20px;
       }
       &__category{
         margin-right: 20px;

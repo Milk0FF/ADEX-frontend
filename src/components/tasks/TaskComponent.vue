@@ -10,11 +10,9 @@
               :key="category.id">
             {{category.name}}
           </div>
-          <!-- <div class="main-task__category task-category task-category_red">Youtube</div>
-          <div class="main-task__category task-category task-category_blue">VK</div>
-          <div class="main-task__category  task-category task-category_green">VK</div> -->
         </div>
-        <div class="main-task__price">{{price}} ₽</div>
+        <div v-if="price" class="main-task__price">{{price}} ₽</div>
+        <div v-else class="main-task__price">Цена не указана</div>
       </div>
       <div class="main-task__content">
         <div class="main-task__description">{{description}}</div>

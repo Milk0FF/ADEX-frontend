@@ -13,7 +13,6 @@
               :key="categoryWork.id" 
               :class="filterCategoryWorksId === categoryWork.id ? 'main-categories__category_active' : ''" 
               @click="setFilterCategoryWorks(categoryWork.id)"> 
-            <!-- main-categories__category_active -->
             {{categoryWork.name}}
           </a>
         </div>
@@ -32,15 +31,15 @@
         </div>
       </div>
       <div v-if="tasks.length > 0" class="main__tasks">
-        <task-component v-for="task in tasks" 
-                        :key="task.id" 
+        <task-component v-for="(task, index) in tasks" 
+                        :key="index" 
                         :id="task.id" 
                         :name="task.name" 
                         :description="task.description" 
                         :price="task.price" 
                         :customerId="task.customer_id" 
                         :categories="task.categories"
-                        @responseSended="modalIsShow = true"/>
+                        @responseSended="deleteTask(index)"/>
       </div>
       
       <div v-else class="main__tasks">
@@ -94,6 +93,10 @@ export default {
     setFilterCategoryWorks(id){
       this.filterCategoryWorksId = id;
       this.getTasks();
+    },
+    deleteTask(taskIndex){
+      this.modalIsShow = true;
+      this.tasks.splice(taskIndex, 1);
     },
     async getPrices(){
       const res = await axios.get(this.BASE_URL + '/tasks/prices',

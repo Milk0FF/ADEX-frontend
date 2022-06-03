@@ -103,7 +103,6 @@
                       <img v-if="review.author.avatar == null" src="../assets/images/no-image.jpg"/>
                       <img v-else :src="review.author.avatar"/>
                     </div>
-                    <!-- <router-link :to="'/profile/' + review.author.username" class="review__name">{{ review.author.firstname + ' ' + review.author.lastname }}</router-link> -->
                     <a href="#" @click.prevent="changeProfile(review.author.username)" class="review__name">{{review.author.firstname +  ' ' + review.author.lastname}}</a>
                   </div>
                   <div class="review__text">

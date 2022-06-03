@@ -11,7 +11,8 @@
             {{category.name}}
           </div>
         </div>
-        <div class="main-task__price">{{ price }} ₽</div>
+        <div v-if="price" class="main-task__price">{{price}} ₽</div>
+        <div v-else class="main-task__price">Цена не указана</div>
       </div>
       <div class="main-task__content">
         <div class="main-task__description">{{ description }}</div>
