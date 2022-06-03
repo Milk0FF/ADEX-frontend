@@ -20,7 +20,7 @@
           <div class="auth-form__error" v-if="v$.password.$error"> {{ v$.password.$errors[0].$message }} </div>
         </div>
         <div class="auth-form__error" v-if="error !== ''"> {{ error }} </div>
-        <router-link class="auth-form__link" :to="'/register'">Уже есть аккаунт? Зарегистрируйтесь</router-link>
+        <router-link class="auth-form__link" :to="'/register'">Ещё нет аккаунта? Зарегистрируйтесь</router-link>
         <button class="auth-form__btn btn" type="submit">Авторизоваться</button>
       </div>
     </form>
@@ -76,7 +76,7 @@ export default {
         let userInfo = {
           user_type: res.data.user_type,
         }
-        userInfo = JSON.stringify(res.data);
+        userInfo = JSON.stringify(userInfo);
         localStorage.setItem('userInfo', userInfo);
         this.$router.push('/');
         

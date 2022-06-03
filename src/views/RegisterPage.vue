@@ -34,7 +34,6 @@
 <script>
 import axios from 'axios';
 import useVuelidate from '@vuelidate/core'
-// import {required, email, sameAs, minLength } from '@vuelidate/validators'
 import {required, email, minLength, sameAs, helpers } from '@vuelidate/validators'
 export default {
   name: "RegisterPage",
@@ -64,7 +63,7 @@ export default {
     async register(){
       this.error = '';
       try{
-        await axios.post(this.BASE_URL + "/user/register", {
+        let res = await axios.post(this.BASE_URL + "/user/register", {
             email: this.email,
             password: this.password,
             repeat_password: this.repeatPassword,
@@ -75,7 +74,13 @@ export default {
               'Accept': 'application/json',
             }
         })
-        this.$router.push('/login');
+        localStorage.setItem("token", res.data.token);
+        let userInfo = {
+          user_type: res.data.user_type,
+        }
+        userInfo = JSON.stringify(userInfo);
+        localStorage.setItem('userInfo', userInfo);
+        this.$router.push('/');
       } catch (error){
         const status = error.response.status;
         if(status === 400){
