@@ -139,7 +139,7 @@ export default {
     },
 
     async getCategoryWorks(){
-      const res = await axios.get(this.BASE_URL + '/category-works',
+      const res = await axios.get('/category-works',
         {
           headers:{
             'Accept': 'application/json',
@@ -153,7 +153,7 @@ export default {
     },
 
     async getCustomerTasks(){
-      const res = await axios.get(this.BASE_URL + '/customer-tasks', {
+      const res = await axios.get('/customer-tasks', {
             headers:{
               'Accept': 'application/json',
               "Authorization": `Bearer ${this.token}`
@@ -165,7 +165,7 @@ export default {
 
     async createTask(){
       try{
-          const res = await axios.post(this.BASE_URL + "/task", {
+          const res = await axios.post("/task", {
               name: this.name,
               price: this.price,
               description: this.description,
@@ -199,7 +199,7 @@ export default {
       }
     },
     async getTaskStatuses(){
-      const res = await axios.get(this.BASE_URL + '/tasks/statuses',
+      const res = await axios.get('/tasks/statuses',
         {
           headers:{
             'Accept': 'application/json',

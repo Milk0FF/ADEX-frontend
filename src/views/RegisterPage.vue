@@ -63,7 +63,7 @@ export default {
     async register(){
       this.error = '';
       try{
-        let res = await axios.post(this.BASE_URL + "/user/register", {
+        let res = await axios.post("/user/register", {
             email: this.email,
             password: this.password,
             repeat_password: this.repeatPassword,

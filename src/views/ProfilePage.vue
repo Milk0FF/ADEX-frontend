@@ -152,7 +152,7 @@ export default {
     },
     async getReviews(){
       try{
-        const res = await axios.get(this.BASE_URL + "/user-reviews", 
+        const res = await axios.get("/user-reviews", 
           {
             params:{
               user_id: this.userInfo.id,
@@ -172,7 +172,7 @@ export default {
     
     async getUserInfoByUsername(){
       try{
-        const res = await axios.get(this.BASE_URL + "/user/" + this.username,
+        const res = await axios.get("/user/" + this.username,
           {
             headers:{
               'Accept': 'application/json',

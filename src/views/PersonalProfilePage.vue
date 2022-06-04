@@ -126,7 +126,6 @@ export default {
   },
   data(){
     return{
-      BASE_URL: "http://127.0.0.1:8000/api",
       token: null,
       
       userInfo: {},
@@ -177,7 +176,7 @@ export default {
     },
     async getUserInfo(){
       try{
-        const res = await axios.get(this.BASE_URL + "/user",
+        const res = await axios.get("/user",
           {
             headers:{
               'Accept': 'application/json',
@@ -210,7 +209,7 @@ export default {
     },
     async changeAvatar(formData){
       try{
-          const res = await axios.post(this.BASE_URL + "/user/avatar", formData,
+          const res = await axios.post("/user/avatar", formData,
             {
               headers:{
                 'Accept': 'application/json',
@@ -255,7 +254,7 @@ export default {
         params.email = this.email;
 
       try{
-          await axios.put(this.BASE_URL + "/user", params,
+          await axios.put("/user", params,
             {
               headers:{
                 'Accept': 'application/json',
@@ -284,7 +283,7 @@ export default {
       }
     } ,
     async getCategoryWorks(){
-      const res = await axios.get(this.BASE_URL + '/category-works',
+      const res = await axios.get('/category-works',
         {
           headers:{
             'Accept': 'application/json',
@@ -294,7 +293,7 @@ export default {
       this.selectCategoriesOptions = res.data;
     },
     async getUserEmploymentTypes(){
-      const res = await axios.get(this.BASE_URL + '/employment-types',
+      const res = await axios.get('/employment-types',
         {
           headers:{
             'Accept': 'application/json',

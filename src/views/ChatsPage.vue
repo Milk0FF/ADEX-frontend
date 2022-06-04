@@ -160,7 +160,7 @@ export default {
 
     async createReview(){
       try{
-        await axios.post(this.BASE_URL + '/review', 
+        await axios.post('/review', 
               {
                 comment: this.reviewText,
                 score_type_id: this.selectScoreTypesValue,
@@ -182,7 +182,7 @@ export default {
       }
     },
     async getExecutorChats(){
-      const res = await axios.get(this.BASE_URL + '/chats', {
+      const res = await axios.get('/chats', {
             headers:{
               'Accept': 'application/json',
               "Authorization": `Bearer ${this.token}`
@@ -197,7 +197,7 @@ export default {
       }
     },
     async getChatMessages(){
-      const res = await axios.get(this.BASE_URL + '/chat/' + this.currentChatId, {
+      const res = await axios.get('/chat/' + this.currentChatId, {
             headers:{
               'Accept': 'application/json',
               "Authorization": `Bearer ${this.token}`
@@ -209,7 +209,7 @@ export default {
 
     async createChatMessage(){
       try{
-          const res = await axios.post(this.BASE_URL + "/chat/" + this.currentChatId + '/message', 
+          const res = await axios.post("/chat/" + this.currentChatId + '/message', 
             {
               text: this.messageText,
             },
@@ -227,7 +227,7 @@ export default {
     } ,
     
     async getScoreTypes(){
-      const res = await axios.get(this.BASE_URL + '/score-types',
+      const res = await axios.get('/score-types',
         {
           headers:{
             'Accept': 'application/json',

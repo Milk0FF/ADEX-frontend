@@ -99,7 +99,7 @@ export default {
       this.tasks.splice(taskIndex, 1);
     },
     async getPrices(){
-      const res = await axios.get(this.BASE_URL + '/tasks/prices',
+      const res = await axios.get('/tasks/prices',
         {
           headers:{
             'Accept': 'application/json',
@@ -115,7 +115,7 @@ export default {
     },
 
     async getCategoryWorks(){
-      const res = await axios.get(this.BASE_URL + '/category-works',
+      const res = await axios.get('/category-works',
         {
           headers:{
             'Accept': 'application/json',
@@ -135,7 +135,7 @@ export default {
       if(this.filterCategoryWorksId !== 0)
         params.categories = [this.filterCategoryWorksId];
 
-      const res = await axios.get(this.BASE_URL + '/tasks', {
+      const res = await axios.get('/tasks', {
             params: params,
             headers:{
               'Accept': 'application/json',

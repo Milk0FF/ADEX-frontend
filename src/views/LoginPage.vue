@@ -63,7 +63,7 @@ export default {
       this.error = '';
       
       try{
-        let res = await axios.post(this.BASE_URL + "/user/login", {
+        let res = await axios.post("/user/login", {
             email: this.email,
             password: this.password,
           },
