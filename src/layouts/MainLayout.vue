@@ -83,7 +83,6 @@ export default {
   },
   data(){
     return{
-      BASE_URL: "http://127.0.0.1:8000/api",
       isOpenDropMenu: false,
       token: null,
       userInfo: null,
@@ -112,7 +111,7 @@ export default {
     },
     async getUserInfo(){
       try{
-        const res = await axios.get(this.BASE_URL + "/user",
+        const res = await axios.get("/user",
           {
             headers:{
               'Accept': 'application/json',
@@ -129,7 +128,7 @@ export default {
     },
     async doChangeUserType(userType){
       try{
-        await axios.post(this.BASE_URL + "/user/type",
+        await axios.post("/user/type",
           {
             user_type: userType
           },
