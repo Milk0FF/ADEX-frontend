@@ -21,8 +21,7 @@
     </div>
     <div class="main-task__response" v-if="isExpandedTask">
       <div class="main-task__response-content">
-        <textarea class="main-task__response-field" v-model.trim="text" placeholder="Оставьте отклик (напишите информацию о себе, какими навыками обладаете, чтобы заказчик выбрал именно вас)"></textarea>
-        <div class="main-task__response-error" v-if="v$.text.$error">{{ v$.text.$errors[0].$message }}</div>
+        <textarea class="main-task__response-field" v-model.trim="text" @keyup.enter="validateResponseTextField" placeholder="Оставьте отклик (напишите информацию о себе, какими навыками обладаете, чтобы заказчик выбрал именно вас)"></textarea>
       </div>
       <button class="main-task__btn btn" @click="validateResponseTextField">Отправить</button>
     </div>
@@ -31,14 +30,9 @@
 
 <script>
 import axios from 'axios';
-import useVuelidate from '@vuelidate/core'
-import {required, helpers} from '@vuelidate/validators'
 
 export default {
   name: "TaskComponent",
-  setup(){
-    return {v$: useVuelidate()}
-  },
   mounted(){
     this.token = localStorage.getItem('token');
   },
@@ -59,10 +53,8 @@ export default {
         this.isExpandedTask = true;
     },
     validateResponseTextField(){
-      this.v$.$touch();
-      if (this.v$.text.$error){
+      if(this.text === null)
         return;
-      }
       this.createChat();
     },
     async createChat(){
@@ -126,10 +118,5 @@ export default {
       }
     }
   },
-  validations () {
-    return {
-      text: { required: helpers.withMessage("Поле Оставьте отклик обязательно для заполнения", required),},
-    }
-  }
 };
 </script>

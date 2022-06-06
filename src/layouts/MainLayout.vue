@@ -9,7 +9,7 @@ r<template>
       </router-link>
       <ul class="header__menu header-menu">
       </ul>
-      <div class="header__profile header-profile">
+      <div class="header__profile header-profile" v-click-away="hideDropMenu">
         <div class="header-profile__content"  @click="openDropMenu">
           <div class="header-profile__name" v-if="userInfo !== null">
             <div v-if="userInfo.lastname == null || userInfo.lastname == null ">Незнакомец</div>
@@ -71,14 +71,6 @@ export default {
   name: "MainLayout",
   mounted(){
     this.token = localStorage.getItem('token');
-    // // const headerDropdownMenu = document.querySelector('.header-profile__dropmenu');
-    // // console.log(headerDropdownMenu);
-    // document.addEventListener('click', () => {
-    //   // const target = e.target;
-    //   // const isHeaderDropdownMenu = target == headerDropdownMenu || headerDropdownMenu.contains(target);
-    //   // if(!isHeaderDropdownMenu)
-    //     this.isOpenDropMenu = false;
-    // });
     this.getUserInfo();
   },
   data(){
@@ -94,6 +86,9 @@ export default {
         this.isOpenDropMenu = false;
       else
         this.isOpenDropMenu = true;
+    },
+    hideDropMenu(){
+      this.isOpenDropMenu = false;
     },
     moveToNewPage(route){
       this.isOpenDropMenu = false;
