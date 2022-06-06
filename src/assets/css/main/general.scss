@@ -559,6 +559,7 @@ textarea{
 
 .profile{
   padding: 50px 0;
+  flex: 1 1 auto;
   background-color: $gray;
   &__container{
     align-items: flex-start;
@@ -639,6 +640,7 @@ textarea{
   background-color: $green;
   transition:0.3s ease all;
   font-weight: 400;
+  text-align: center;
 }
 .status{
   font-size: 10px;
@@ -1108,12 +1110,12 @@ textarea{
     display: flex;
     align-items: flex-start;
   }
-  &__field{
-    margin-right: 65px;
-  }
   &__form-group{
     margin-right: 65px;
     flex: 1 1 auto;
+    &_lg{
+      margin-right: 30px;
+    }
   }
 }
 .chat-dropmenu{

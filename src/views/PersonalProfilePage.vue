@@ -34,14 +34,14 @@
             <div class="personal-profile__field field field_sm">
               <div class="field__content">
                 <div class="field__title">Телефон</div>
-                <input class="field__input" type="text" placeholder="Телефон" v-model="phone">
+                <input class="field__input" type="tel" placeholder="Телефон" v-model.trim="phone">
               </div>
               <div class="field__error" v-if="v$.phone.$error">{{ v$.phone.$errors[0].$message }}</div>
             </div>
             <div class="personal-profile__field field field_sm">
               <div class="field__content">
                 <div class="field__title">Email</div>
-                <input class="field__input" type="text" placeholder="Email" v-model="email">
+                <input class="field__input" type="email" placeholder="Email" v-model="email">
               </div>
               <div class="field__error" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }}</div>
             </div>
@@ -111,7 +111,7 @@ import axios from 'axios';
 import ModalComponent from '@/components/ModalComponent.vue';
 import Multiselect from '@vueform/multiselect';
 import useVuelidate from '@vuelidate/core'
-import {required, email, helpers, integer, } from '@vuelidate/validators'
+import {required, email, helpers, integer } from '@vuelidate/validators'
 
 export default {
   name: "PersonalUserProfilePage",
@@ -153,7 +153,7 @@ export default {
   },
   components:{
     Multiselect,
-    ModalComponent
+    ModalComponent,
   },
   methods:{
     openChooseImageModal(){
@@ -309,7 +309,7 @@ export default {
       name: { required: helpers.withMessage("Поле Имя обязательно для заполнения", required),},
       surname: { required: helpers.withMessage("Поле Фамилия обязательно для заполнения", required)},
       email: { required: helpers.withMessage("Поле Email обязательно для заполнения", required), email: helpers.withMessage("Поле Email заполнено неверно", email), },
-      phone: { required: helpers.withMessage("Поле Телефон обязательно для заполнения", required), integer: helpers.withMessage("Поле Телефон заполнено неверно", integer)  },
+      phone: { required: helpers.withMessage("Поле Телефон обязательно для заполнения", required), integer: helpers.withMessage("Поле Телефон заполнено неверно", integer),},
       about: { required: helpers.withMessage("Поле О себе обязательно для заполнения", required)},
       city: { required: helpers.withMessage("Поле Город обязательно для заполнения", required) },
       country: { required: helpers.withMessage("Поле Страна обязательно для заполнения", required)},

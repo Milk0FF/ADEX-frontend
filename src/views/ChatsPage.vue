@@ -60,8 +60,7 @@
                               :placeholder="'Укажите оценку'"/>
               </div>
               <div class="send-review__form-group">
-                <textarea class="send-review__field" placeholder="Напишите отзыв ..." v-model="reviewText"></textarea>
-                <div class="send-review__field-error" v-if="v$.reviewText.$error">{{ v$.reviewText.$errors[0].$message }}</div>
+                <textarea class="send-review__field" placeholder="Напишите отзыв ..." @keyup.enter="validateSendReviewField" v-model.trim="reviewText"></textarea>
               </div>
               <button class="send-review__btn btn btn_primary" @click="validateSendReviewField">Отправить</button>
             </div>
@@ -70,8 +69,7 @@
         </div>
         <div class="chat__footer">
           <div class="chat__form-group">
-            <textarea class="chat__field" placeholder="Напишите сообщение ..." v-model="messageText"></textarea>
-            <div class="chat__field-error" v-if="v$.messageText.$error">{{ v$.messageText.$errors[0].$message }}</div>
+            <textarea class="chat__field" placeholder="Напишите сообщение ..." @keyup.enter="validateSendMessageField" v-model.trim="messageText"></textarea>
           </div>
           <button class="chat__btn btn" @click="validateSendMessageField">Отправить</button>
         </div>
@@ -91,14 +89,9 @@
 import axios from 'axios';
 import ModalComponent from '@/components/ModalComponent.vue';
 import Multiselect from '@vueform/multiselect';
-import useVuelidate from '@vuelidate/core'
-import {required, helpers} from '@vuelidate/validators'
 
 export default {
   name: "ChatsPage",
-  setup(){
-    return {v$: useVuelidate()}
-  },
   mounted(){
     this.token = localStorage.getItem('token');
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -140,17 +133,13 @@ export default {
       this.getChatMessages();
     },
     validateSendMessageField(){
-      this.v$.messageText.$touch();
-      if (this.v$.messageText.$error ){
+      if(this.messageText === null)
         return;
-      }
       this.createChatMessage();
     },
     validateSendReviewField(){
-      this.v$.reviewText.$touch();
-      if (this.v$.reviewText.$error){
+      if(this.reviewText === null)
         return;
-      }
       this.createReview();
     },
 
@@ -249,11 +238,5 @@ export default {
       }
     }
   },
-  validations () {
-    return {
-      messageText: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
-      reviewText: { required: helpers.withMessage("Поле Напишите отзыв обязательно для заполнения", required),},
-    }
-  }
 };
 </script>

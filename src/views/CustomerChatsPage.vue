@@ -45,7 +45,7 @@
               <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
             </div>
           </div>
-          <div class="chat__settings">
+          <div class="chat__settings" v-click-away="hideChatDropMenu">
             <div class="chat__settings-content" @click="openChatDropMenu">
               <span></span>
               <span></span>
@@ -53,26 +53,33 @@
             </div>
             <div class="chat__dropmenu chat-dropmenu" v-if="isOpenChatDropMenu">
               <ul class="chat-dropmenu__list">
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Создано'">
-                  <a class="chat-dropmenu__link" @click="setExecutor(currentChat.executor.id)">Назначить исполнителем</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Создано'"
+                    @click="setExecutor(currentChat.executor.id)">
+                  <a class="chat-dropmenu__link">Назначить исполнителем</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'">
-                  <a class="chat-dropmenu__link" @click="changeTaskStatus(4, currentChat.executor.id)">Начать выполнение</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'"
+                    @click="changeTaskStatus(4, currentChat.executor.id)">
+                  <a class="chat-dropmenu__link">Начать выполнение</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'">
-                  <a class="chat-dropmenu__link" @click="unsetExecutor">Сменить исполнителя</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Исполнитель выбран'"
+                    @click="unsetExecutor">
+                  <a class="chat-dropmenu__link">Сменить исполнителя</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'">
-                  <a class="chat-dropmenu__link" @click="changeTaskStatus(5)">Задача выполнена</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'"
+                    @click="changeTaskStatus(5)">
+                  <a class="chat-dropmenu__link">Задача выполнена</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'">
-                  <a class="chat-dropmenu__link" @click="changeTaskStatus(6)">Задача не выполнена</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'В процессе выполнения'"
+                    @click="changeTaskStatus(6)">
+                  <a class="chat-dropmenu__link" >Задача не выполнена</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Выполнено' || customerTasks[currentCustomerTaskIndex].status.name === 'Не выполнено'">
-                  <a class="chat-dropmenu__link" @click="changeTaskStatus(7)">Завершить задачу</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name === 'Выполнено' || customerTasks[currentCustomerTaskIndex].status.name === 'Не выполнено'"
+                    @click="changeTaskStatus(7)">
+                  <a class="chat-dropmenu__link" >Завершить задачу</a>
                 </li>
-                <li v-if="customerTasks[currentCustomerTaskIndex].status.name == 'Создано' || customerTasks[currentCustomerTaskIndex].status.name == 'Исполнитель выбран'">
-                  <a class="chat-dropmenu__link" @click="changeTaskStatus(2)">Отменить задачу</a>
+                <li v-if="customerTasks[currentCustomerTaskIndex].status.name == 'Создано' || customerTasks[currentCustomerTaskIndex].status.name == 'Исполнитель выбран'"
+                    @click="changeTaskStatus(2)">
+                  <a class="chat-dropmenu__link" >Отменить задачу</a>
                 </li>
               </ul>
             </div>
@@ -105,17 +112,15 @@
                               :placeholder="'Укажите оценку'"/>
               </div>
               <div class="send-review__form-group">
-                <textarea class="send-review__field" placeholder="Напишите отзыв ..." v-model="reviewText"></textarea>
-                <div class="send-review__field-error" v-if="v$.reviewText.$error">{{ v$.reviewText.$errors[0].$message }}</div>
+                <textarea class="send-review__field" placeholder="Напишите отзыв ..." @keyup.enter="validateSendReviewField" v-model.trim="reviewText"></textarea>
               </div>
               <button class="send-review__btn btn btn_primary" @click="validateSendReviewField">Отправить</button>
             </div>
           </div>
         </div>
         <div class="chat__footer">
-          <div class="chat__form-group">
-            <textarea class="chat__field" placeholder="Напишите сообщение ..." v-model="messageText"></textarea>
-            <div class="chat__field-error" v-if="v$.messageText.$error">{{ v$.messageText.$errors[0].$message }}</div>
+          <div class="chat__form-group chat__form-group_lg">
+            <textarea class="chat__field" placeholder="Напишите сообщение ..." @keyup.enter="validateSendMessageField" v-model.trim="messageText"></textarea>
           </div>
           <button class="chat__btn btn" @click="validateSendMessageField">Отправить</button>
         </div>
@@ -136,19 +141,13 @@
 import axios from 'axios';
 import ModalComponent from '@/components/ModalComponent.vue';
 import Multiselect from '@vueform/multiselect';
-import useVuelidate from '@vuelidate/core'
-import {required, helpers} from '@vuelidate/validators'
 
 export default {
   name: "ChatsPage",
-  setup(){
-    return {v$: useVuelidate()}
-  },
   mounted(){
     this.token = localStorage.getItem('token');
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     this.currentUserId = userInfo.id;
-
     this.getScoreTypes();
     this.getCustomerTasks();
   },
@@ -174,8 +173,6 @@ export default {
       
       selectScoreTypesValue: 1,
       selectScoreTypesOptions: [],
-
-      editTextMessage: '',
     }
   },
   components:{
@@ -199,17 +196,13 @@ export default {
       this.getChatMessages();
     },
     validateSendMessageField(){
-      this.v$.messageText.$touch();
-      if (this.v$.messageText.$error ){
+      if(this.messageText == null)
         return;
-      }
       this.createChatMessage();
     },
     validateSendReviewField(){
-      this.v$.reviewText.$touch();
-      if (this.v$.reviewText.$error){
+      if(this.reviewText == null)
         return;
-      }
       this.createReview();
     },
     
@@ -231,6 +224,7 @@ export default {
         });
         this.modalText = 'Отзыв успешно сохранён!';
         this.modalIsShow = true;
+        this.reviewText = null;
         this.currentChat.isCustomerReviewAdded = true;
       } catch(error){
         console.log(error.response.data);
@@ -242,6 +236,9 @@ export default {
         this.isOpenChatDropMenu = false;
       else
         this.isOpenChatDropMenu = true;
+    },
+    hideChatDropMenu(){
+      this.isOpenChatDropMenu = false;
     },
     async setExecutor(executorId){
       await axios.post('/task/' + this.currentCustomerTaskId + '/executor', 
@@ -341,6 +338,7 @@ export default {
                 'Authorization': `Bearer ${this.token}`,
               }
           });
+          this.messageText = null;
           this.chatMessages.push(res.data);
       } catch(error){
           console.log(error.response.data);
@@ -376,9 +374,9 @@ export default {
   },
   validations () {
     return {
-      editTextMessage: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
-      messageText: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
-      reviewText: { required: helpers.withMessage("Поле Напишите отзыв обязательно для заполнения", required),},
+      // editTextMessage: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
+      // messageText: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
+      // reviewText: { required: helpers.withMessage("Поле Напишите отзыв обязательно для заполнения", required),},
     }
   }
 };
