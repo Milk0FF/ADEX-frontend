@@ -4,14 +4,6 @@ const path = require('path')
 
 const app = express()
 
-app.use(function (req, res, next){
-	if (req.headers['x-forwarded-proto'] === 'https') {
-	  res.redirect('http://' + req.hostname + req.url);
-	} else {
-	  next();
-	}
-  });
-  
 //here we are configuring dist to serve app files
 app.use('/', serveStatic(path.join(__dirname, '/dist')))
 

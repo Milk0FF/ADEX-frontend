@@ -15,6 +15,6 @@ app.component('auth-layout', AuthLayout);
 app.component('main-layout', MainLayout);
 app.component('not-found-layout', NotFoundLayout);
 
-axios.defaults.baseURL = "http://adex-backend.herokuapp.com/api";
+axios.defaults.baseURL = "https://adex-backend.herokuapp.com/api";
 
 app.use(store).use(router).mount('#app')

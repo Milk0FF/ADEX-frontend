@@ -82,7 +82,6 @@ export default {
       tasks: [],
       selectedCategoriesWorks:[],
       token: null,
-      BASE_URL: "http://127.0.0.1:8000/api",
       modalText: 'Отклик успешно отправлен!',
       modalIsShow: false,
     }

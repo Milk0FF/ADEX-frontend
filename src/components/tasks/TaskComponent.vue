@@ -44,7 +44,6 @@ export default {
   },
   data(){
     return{
-      BASE_URL: "http://127.0.0.1:8000/api",
       text: null,
       isExpandedTask: false,
       token: null,
@@ -67,7 +66,7 @@ export default {
     },
     async createChat(){
       try{
-          await axios.post(this.BASE_URL + "/chat", {
+          await axios.post("/chat", {
               customer_id: this.customerId,
               task_id: this.id,
               text: this.text,
