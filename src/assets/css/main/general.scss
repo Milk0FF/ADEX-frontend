@@ -354,6 +354,11 @@ textarea{
     }
   }
 }
+.error{
+  color:$red;
+  margin-top:5px;
+  font-size: 12px;
+}
 .task-category{
   position: relative;
   text-transform: uppercase;
@@ -1093,34 +1098,9 @@ textarea{
     flex-direction: column;
     flex: 1 1 auto;
   }
-  &__send-review{
-
-  }
   &__message{
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     max-width: 70%;
-    &_another{
-      align-self:flex-start;
-      .chat__text{
-        background-color: $gray7;
-      }
-    }
-    &_owner{
-      align-self:flex-end;
-      .chat__text{
-        background-color: rgba(4, 224, 121, 0.5);
-      }
-      .chat__date{
-        text-align: right;
-      }
-    }
-  }
-  &__text{
-    padding: 15px 20px;
-    font-size: 14px;
-    line-height: 1.2;
-    border-radius: 20px;
-    margin-bottom: 10px;
   }
   &__footer{
     border-top: 1px solid $gray5;
@@ -1153,6 +1133,69 @@ textarea{
     display: inline-block;
   }
 }
+.message{
+  &__body{
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  &__text{
+    padding: 15px 20px;
+    font-size: 14px;
+    line-height: 1.2;
+    border-radius: 20px;
+  }
+  &__edit, &__delete{
+    visibility: hidden;
+    opacity: 0;
+    width: 30px;
+    height: 30px;
+    z-index: 10;
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid $green;
+    cursor: pointer;
+    transition: 0.2s ease-out all;
+    &:hover{
+      box-shadow: 0px 0px 10px rgba(4, 224, 121, 1);
+    }
+  }
+  &__edit{
+    top:-15px;
+    right: 25px;
+    background: url('@/assets/images/edit-pencil-sm.svg') $white 50% 50% no-repeat;
+  }
+  &__delete{
+    top:-15px;
+    right: -10px;
+    background: url('@/assets/images/delete-cross-sm.svg') $white 50% 50% no-repeat;
+  }
+  &_another{
+    align-self:flex-start;
+    .message__text{
+      background-color: $gray7;
+    }
+  }
+  &_owner{
+    align-self:flex-end;
+    &:hover{
+      .message__edit, 
+      .message__delete{
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+    .message__text{
+      background-color: rgba(4, 224, 121, 0.25);
+    }
+    .message__date{
+      text-align: right;
+    }
+  }
+  &:last-child{
+    margin: 0;
+  }
+}
 .send-review{
   background-color: $gray;
   padding: 20px 50px ;
@@ -1170,11 +1213,6 @@ textarea{
   }
   &__btn{
     align-self: stretch;
-  }
-  &__field-error{
-    color:$red;
-    margin-top:5px;
-    font-size: 12px;
   }
 }
 @media screen and (max-width: 1320px) {

@@ -80,12 +80,15 @@
         </div>
         <div class="chat__content">
           <div class="chat__messages">
-            <div class="chat__message"
-                  :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
-                  v-for="chatMessage in chatMessages"
-                  :key="chatMessage.id">
-                <div class="chat__text">{{ chatMessage.text }}</div>
-                <div class="chat__date">{{ chatMessage.created_at }} г.</div>
+            <div class="chat__message message"
+                  :class="chatMessage.author.id === currentUserId ? 'message_owner' : 'message_another'"
+                  v-for="(chatMessage, index) in chatMessages"
+                  :key="index">
+                <div class="message__body">
+                  <div class="message__text">{{ chatMessage.text }}</div>
+                  <div @click="deleteMessage(chatMessage.id, index)" class="message__delete"></div>
+                </div>
+                <div class="message__date">{{ chatMessage.created_at }} г.</div>
             </div>
           </div>
           <div class="chat__send-review send-review" 
@@ -172,6 +175,8 @@ export default {
       
       selectScoreTypesValue: 1,
       selectScoreTypesOptions: [],
+
+      editTextMessage: '',
     }
   },
   components:{
@@ -353,10 +358,26 @@ export default {
       });
       this.selectScoreTypesOptions = res.data;
     },
-      
+    async deleteMessage(messageId, messageIndex){
+      try{
+          await axios.delete("/chat/" + this.currentChatId + '/message/' + messageId, 
+            {
+              headers:{
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${this.token}`,
+              }
+          });
+          this.modalText = 'Сообщение успешно удалено!';
+          this.modalIsShow = true;
+          this.chatMessages.splice(messageIndex, 1);
+      } catch(error){
+          console.log(error.response.data);
+      }
+    }
   },
   validations () {
     return {
+      editTextMessage: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
       messageText: { required: helpers.withMessage("Поле Напишите сообщение обязательно для заполнения", required),},
       reviewText: { required: helpers.withMessage("Поле Напишите отзыв обязательно для заполнения", required),},
     }

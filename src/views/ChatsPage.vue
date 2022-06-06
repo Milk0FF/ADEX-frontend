@@ -17,7 +17,7 @@
               <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
             </div>
           </div>
-          <div class="chats-sidebar__status task-status">{{ currentChat.task.status.name}}</div>
+          <div class="chats-sidebar__status task-status">{{ chat.task.status.name}}</div>
         </div>
       </div>  
       <div class="chats__chat chat" v-if="currentChat !== null">
@@ -35,18 +35,15 @@
         </div>
         <div class="chat__content">
           <div class="chat__messages">
-            <div class="chat__message "
-                  :class="chatMessage.author.id === currentUserId ? 'chat__message_owner' : 'chat__message_another'"
-                  v-for="chatMessage in chatMessages"
-                  :key="chatMessage.id">
-              <div class="chat__text">
-                {{ chatMessage.text }}
-                <div class="chat__context-options chat-context-options">
-                  <div class="chat-context-options__delete"></div>
-                  <div class="chat-context-options__edit"></div>
-                </div>
+            <div class="chat__message message"
+                  :class="chatMessage.author.id === currentUserId ? 'message_owner' : 'message_another'"
+                  v-for="(chatMessage, index) in chatMessages"
+                  :key="index">
+              <div class="message__body">
+                <div class="message__text">{{ chatMessage.text }}</div>
+                <div class="message__delete" @click="deleteMessage(chatMessage.id, index)"></div>
               </div>
-              <div class="chat__date">{{ chatMessage.created_at }} г.</div>
+              <div class="message__date">{{ chatMessage.created_at }} г.</div>
             </div>
           </div>
           <div class="chat__send-review send-review" 
@@ -236,6 +233,22 @@ export default {
       });
       this.selectScoreTypesOptions = res.data;
     },
+    async deleteMessage(messageId, messageIndex){
+      try{
+          await axios.delete("/chat/" + this.currentChatId + '/message/' + messageId, 
+            {
+              headers:{
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${this.token}`,
+              }
+          });
+          this.modalText = 'Сообщение успешно удалено!';
+          this.modalIsShow = true;
+          this.chatMessages.splice(messageIndex, 1);
+      } catch(error){
+          console.log(error.response.data);
+      }
+    }
   },
   validations () {
     return {
