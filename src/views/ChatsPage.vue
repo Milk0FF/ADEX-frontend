@@ -13,7 +13,8 @@
               <img v-else :src="chat.customer.avatar"/>
             </div>
             <div class="chat-user-info__info">
-              <div class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
+              <div v-if="chat.customer.firstname !== null && chat.customer.lastname !== null" class="chat-user-info__name">{{ chat.customer.firstname + ' ' + chat.customer.lastname }}</div>
+              <div v-else class="chat-user-info__name">Незнакомец</div>
               <div class="chat-user-info__task-name">{{ chat.task.name }}</div>
             </div>
           </div>
@@ -28,7 +29,12 @@
             <img v-else :src="currentChat.customer.avatar"/>
           </a>
           <div class="chat-user-info__info">
-            <router-link :to="'/profile/' + currentChat.customer.username" class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</router-link>
+            <router-link :to="'/profile/' + currentChat.customer.username" 
+                          v-if="currentChat.customer.firstname !== null && currentChat.customer.lastname !== null"
+                          class="chat-user-info__name">{{ currentChat.customer.firstname + ' ' + currentChat.customer.lastname }}</router-link>
+            <router-link :to="'/profile/' + currentChat.customer.username" 
+                          v-else
+                          class="chat-user-info__name">Незнакомец</router-link>
             <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
           </div>
         </div>
@@ -102,7 +108,6 @@ export default {
   },
   data(){
     return{
-      BASE_URL: "http://127.0.0.1:8000/api",
       token: null,
 
       chats: [],

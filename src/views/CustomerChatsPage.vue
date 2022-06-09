@@ -23,7 +23,8 @@
               <img v-else :src="chat.executor.avatar"/>
             </div>
             <div class="chat-user-info__info">
-              <div class="chat-user-info__name">{{ chat.executor.firstname + ' ' + chat.executor.lastname }}</div>
+              <div v-if="chat.executor.firstname !== null && chat.executor.lastname !== null" class="chat-user-info__name">{{ chat.executor.firstname + ' ' + chat.executor.lastname }}</div>
+              <div v-else class="chat-user-info__name">Незнакомец</div>
             </div>
           </div>
           <div v-if="chat.task.executor_id == chat.executor.id" 
@@ -41,7 +42,12 @@
               <img v-else :src="currentChat.executor.avatar"/>
             </a>
             <div class="chat-user-info__info">
-              <router-link :to="'/profile/' + currentChat.executor.username" class="chat-user-info__name">{{ currentChat.executor.firstname + ' ' + currentChat.executor.lastname }}</router-link>
+              <router-link :to="'/profile/' + currentChat.executor.username" 
+                           v-if="currentChat.executor.firstname !== null && currentChat.executor.lastname !== null"
+                           class="chat-user-info__name">{{ currentChat.executor.firstname + ' ' + currentChat.executor.lastname }}</router-link>
+              <router-link :to="'/profile/' + currentChat.executor.username" 
+                           v-else
+                           class="chat-user-info__name">Незнакомец</router-link>
               <div class="chat-user-info__task-name">{{ currentChat.task.name }}</div>
             </div>
           </div>
@@ -153,7 +159,6 @@ export default {
   },
   data(){
     return{
-      BASE_URL: "http://127.0.0.1:8000/api",
       token: null,
       isOpenChatDropMenu: false, 
       customerTasks: [],

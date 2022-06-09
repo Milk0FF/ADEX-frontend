@@ -37,6 +37,7 @@
                         :name="task.name" 
                         :description="task.description" 
                         :price="task.price" 
+                        :countDateEnd="task.count_date_end"
                         :customerId="task.customer_id" 
                         :categories="task.categories"
                         @responseSended="deleteTask(index)"/>
@@ -82,7 +83,6 @@ export default {
       tasks: [],
       selectedCategoriesWorks:[],
       token: null,
-      BASE_URL: "http://127.0.0.1:8000/api",
       modalText: 'Отклик успешно отправлен!',
       modalIsShow: false,
     }

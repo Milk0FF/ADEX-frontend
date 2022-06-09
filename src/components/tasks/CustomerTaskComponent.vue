@@ -108,7 +108,6 @@ export default {
   data(){
     return{
       token: null,
-      BASE_URL: "http://127.0.0.1:8000/api",
 
       isExpandedTask: false,
       senderName: null,
@@ -194,7 +193,7 @@ export default {
 
     async updateTask(){
       try{
-          await axios.put(this.BASE_URL + "/task/" + this.id, {
+          await axios.put("/task/" + this.id, {
               name: this.senderName,
               price: this.senderPrice,
               status: this.selectTaskStatusValue,
