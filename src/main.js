@@ -16,6 +16,6 @@ app.component('main-layout', MainLayout);
 app.component('not-found-layout', NotFoundLayout);
 
 app.use(VueClickAway);
-axios.defaults.baseURL = "https://adex-backend.herokuapp.com";
+axios.defaults.baseURL = "https://adex-backend.herokuapp.com/api";
 
 app.use(store).use(router).mount('#app')
