@@ -37,6 +37,7 @@
                         :name="task.name" 
                         :description="task.description" 
                         :price="task.price" 
+                        :countDateEnd="task.count_date_end"
                         :customerId="task.customer_id" 
                         :categories="task.categories"
                         @responseSended="deleteTask(index)"/>

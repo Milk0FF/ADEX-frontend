@@ -2,7 +2,7 @@
   <div class="main__task main-task">
     <div class="main-task__body" @click="expandTask">
       <div class="main-task__header">
-        <div class="main-task__name">{{name}} </div>
+        <div class="main-task__name">{{name}}</div>
         <div class="main-task__categories">
           <div class="main-task__category task-category " 
               :class="'task-category_' + category.color" 
@@ -16,7 +16,7 @@
       </div>
       <div class="main-task__content">
         <div class="main-task__description">{{description}}</div>
-        <div class="main-task__time">11 дней</div>
+        <div class="main-task__time">{{ countDateEnd }} дней</div>
       </div>
     </div>
     <div class="main-task__response" v-if="isExpandedTask">
@@ -95,6 +95,10 @@ export default {
       default: 0,
     },
     customerId:{
+      type: Number,
+      default: 0,
+    },
+    countDateEnd:{
       type: Number,
       default: 0,
     },
