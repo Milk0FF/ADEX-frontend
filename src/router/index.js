@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import PresentationPage from "../views/PresentationPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import LoginPage from "../views/LoginPage.vue";
 import TasksPage from "../views/TasksPage.vue";
@@ -21,6 +22,14 @@ const routes = [
     component: TasksPage,
     meta:{
       middleware: executor,
+    }
+  },
+  {
+    path: "/presentation",
+    name: "presentation",
+    component: PresentationPage,
+    meta:{
+      layout: 'presentation-layout',
     }
   },
   {

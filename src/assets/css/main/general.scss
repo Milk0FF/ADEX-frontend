@@ -63,6 +63,10 @@ img{
     padding: 12px 40px;
     align-self: center;
   }
+  &_sm{
+    padding: 15px 30px;
+    align-self: center;
+  }
 }
 textarea{
   width: 100%;
@@ -1659,4 +1663,178 @@ textarea{
     }
   }
 }
+.page{
+  display: flex;
+  flex-direction: column;
+  background: url('@/assets/images/presentation-bg.png') center 0  $gray no-repeat;
+  background-size: 100% 900px;
+}
+.page-header{
+  height: 120px;
+  // background-color: $darkBlue2;
+  &__container{
+    justify-content: space-between;
+  }
+  &__logo{
+    display: flex;
+    align-items: center;
+    img{
+      width: 80px;
+      height: 80px;
+    }
+  }
+  &__name{
+    margin-left: 30px;
+    font-size: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color:$white;
+  }
+  &__login-btn{
+    color:$white;
+    font-size: 20px;
+    transition: 0.3s ease all;
+    margin-right: 30px;
+    &:hover{
+      color:$green;
+    }
+  }
+}
+.presentation{
+  color:$white;
+  text-align: center;
+  padding: 190px 0 65px 0;
+  &__title{
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  &__subtitle{
+    font-size: 24px;
+    margin-bottom: 70px;
+  }
+  &__btn{
+    margin-bottom: 130px;
+  }
+}
+.best{
+  padding: 65px 0;
+  &__title{
+    text-align: center;
+    font-size: 40px;
+    color:$darkBlue2;
+    padding-bottom: 30px;
+    margin-bottom: 80px;
+    position: relative;
+    &::after{
+      content:'';
+      position: absolute;
+      bottom: 0;
+      left:50%;
+      transform: translateX(-50%);
+      width: 76px;
+      height: 5px;
+      background-color: $green;
+      border-radius: 3px;
+    }
+  }
+  &__persons{
+    display: flex;
+  }
+  &__person{
+    flex: 0 1 33.3%;
+    margin: 0 30px;
+  }
+}
 
+.person{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 20px;
+  background-color: $white;
+  text-align: center;
+  padding: 20px 20px 35px 20px;
+  margin-top: 40px;
+  color:$darkBlue2;
+  &__rating{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    img{
+      border-radius: 12px;
+      background-color: $green;
+      padding: 7px;
+    }
+  }
+  &__score{
+    font-size: 24px;
+    margin-left: 7px;
+  }
+  &__avatar{
+    position: absolute;
+    top:-40px;
+    left:50%;
+    transform:translateX(-50%);
+    img{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid $green;
+    }
+  }
+  &__name{
+    margin-bottom: 20px;
+  }
+  &__text{
+    margin-bottom: 15px;
+  }
+  &__name, &__text{
+    font-size: 18px;
+  }
+  &__status{
+    align-self: center;
+  }
+}
+@media screen and (max-width: 920px) {
+  .page-header{
+    height: unset;
+    padding: 10px 0;
+    &__container{
+      flex-direction: column;
+      justify-content: center;
+    }
+    &__buttons{
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+    }
+    &__logo{
+      margin: 0 0 20px 0;
+    }
+    &__login-btn{
+      margin: 0 0 30px 0;
+    }
+  }
+  .presentation{
+    &__title{
+      font-size:28px;
+    }
+    &__subtitle{
+      font-size:18px;
+    }
+  }
+  .best{
+    &__persons{
+      flex-direction: column;
+    }
+    &__person{
+      flex: 1 1 100%;
+      margin: 40px 0 80px 0;
+      &:last-child{
+        margin:0;
+      }
+    }
+
+  }
+}

@@ -7,10 +7,12 @@ import axios from 'axios';
 import AuthLayout from './layouts/AuthLayout.vue';
 import MainLayout from './layouts/MainLayout.vue';
 import NotFoundLayout from './layouts/NotFoundLayout.vue';
+import PresentationLayout from './layouts/PresentationLayout.vue';
 
 import VueClickAway from "vue3-click-away"
 const app = createApp(App);
 
+app.component('presentation-layout', PresentationLayout);
 app.component('auth-layout', AuthLayout);
 app.component('main-layout', MainLayout);
 app.component('not-found-layout', NotFoundLayout);
